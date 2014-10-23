@@ -3,21 +3,21 @@
 
 void SpecHelper::assert(bool assertion, const char *msg) {
   if (assertion)
-    printf("(*) passed: %s\n", msg);
+    printf("\e[32m(*) passed: %s\e[0m\n", msg);
   else
-    printf("(F) failed: %s\n", msg);
+    printf("e[31m(F) failed: %s\e[0m\n", msg);
 }
 
 void SpecHelper::assertEqual(unsigned char a, unsigned char b, const char *msg) {
   if(a == b)
-    printf("(*) passed: %s\n", msg, a, b);
+    printf("\e[32m(*) passed: %s\e[0m\n", msg, a, b);
   else
-    printf("(F) failed: %s (expected %d to be equal %d)\n", msg, a, b);
+    printf("\e[31m(F) failed: %s (expected %d to be equal %d)\e[0m\n", msg, a, b);
 }
 
 void SpecHelper::assertNotEqual(unsigned char a, unsigned char b, const char *msg) {
   if(a != b)
-    printf("(*) passed: %s\n", msg, a, b);
+    printf("\e[32m(*) passed: %s\e[0m\n", msg, a, b);
   else
-    printf("(F) failed: %s (expected %d to not be equal %d)\n", msg, a, b);
+    printf("e[31m(F) failed: %s (expected %d to not be equal %d)\e[0m\n", msg, a, b);
 }

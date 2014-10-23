@@ -58,11 +58,16 @@ void DrawerTest::turnOffVoxelTest() {
   drawer->turnOffVoxel(&p);
   SpecHelper::assertEqual(Cube::buffer[z][y], ~(0x01 << x), "turnOffVoxel: should turn the voxel off.");
   Cube::cube[z][y] = 0xff;
-  drawer->turnOnVoxel(&p, Drawer::WRITE_TO_CUBE);
+  drawer->turnOffVoxel(&p, Drawer::WRITE_TO_CUBE);
   SpecHelper::assertEqual(Cube::cube[z][y], ~(0x01 << x), "turnOffVoxel: should turn the voxel off when writting to the cube.");
 }
 
 void DrawerTest::invertVoxelTest() {
+  unsigned char x = 5, y = 3, z = 1;
+  Point p = {x, y, z};
+  Cube::buffer[z][y] = 0xff;
+  drawer->invertVoxel(&p);
+  SpecHelper::assertEqual(Cube::buffer[z][y], ~(0x01 << x), "invertVoxel: should invert the voxel.");
 }
 
 void DrawerTest::turnOnPlaneZTest() {

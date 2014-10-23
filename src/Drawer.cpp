@@ -1,10 +1,10 @@
 #include <Drawer.h>
 
 bool Drawer::isInRange(Point *p) {
-  if (p->x >=0 && p->x < Cube::SIZE) {
-    return true;
+  if (p->x < 0 || p->y < 0 || p->z < 0 || p->y >= Cube::SIZE || p->x >= Cube::SIZE || p->z >= Cube::SIZE) {
+    return false;
   }
-  return false;
+  return true;
 }
 
 void Drawer::writeVoxel(Point *p, Voxel v) {
@@ -43,6 +43,13 @@ void Drawer::invertVoxel(Point *p) {
 }
 
 void Drawer::invertVoxel(Point *p, unsigned char to) {
+  unsigned char mask, *c = &(to == WRITE_TO_BUFFER ? Cube::buffer : Cube::cube)[p->z][p->y];
+  mask = 0x01 << p->x;
+  if (*c & mask) {
+    *c &= ~mask;
+  } else {
+    *c |= mask;
+  }
 }
 
 void Drawer::turnOnPlaneZ(unsigned char z) {
