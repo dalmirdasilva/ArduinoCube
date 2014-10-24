@@ -1,4 +1,5 @@
 #include <Drawer.h>
+#include <string.h>
 
 bool Drawer::isInRange(Point *p) const {
   if (p->x < 0 || p->y < 0 || p->z < 0 || p->y >= Cube::SIZE || p->x >= Cube::SIZE || p->z >= Cube::SIZE) {
@@ -7,47 +8,53 @@ bool Drawer::isInRange(Point *p) const {
   return true;
 }
 
-void Drawer::writeVoxel(Point *p, Voxel v, unsigned char to) {
+void Drawer::fill(unsigned char pattern, unsigned char target) {
+  unsigned char z, y, *t;
+  t = resolveTarget(target, 0, 0);
+  for (z = 0; z < Cube::SIZE; z++) {
+    for (y = 0; y < Cube::SIZE; y++) {
+      *(t + (Cube::SIZE * z + y)) = pattern;
+    }
+  }
+}
+
+void Drawer::writeVoxel(Point *p, Voxel v, unsigned char target) {
   unsigned char mask, *c;
   if (isInRange(p)) {
     mask = 1 << p->x;
-    c = &(to == WRITE_TO_BUFFER ? Cube::buffer : Cube::cube)[p->z][p->y];
+    c = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[p->z][p->y];
     v.state == Voxel::ON ? set(c, mask) : clr(c, mask);
   }
 }
   
-void Drawer::turnOnVoxel(Point *p, unsigned char to) {
+void Drawer::turnOnVoxel(Point *p, unsigned char target) {
   Voxel v = {Voxel::ON};
-  writeVoxel(p, v, to);
+  writeVoxel(p, v, target);
 }
 
-void Drawer::turnOffVoxel(Point *p, unsigned char to) {
+void Drawer::turnOffVoxel(Point *p, unsigned char target) {
   Voxel v = {Voxel::OFF};
-  writeVoxel(p, v, to);
+  writeVoxel(p, v, target);
 }
 
-void Drawer::invertVoxel(Point *p, unsigned char to) {
-  unsigned char mask, *c = &(to == WRITE_TO_BUFFER ? Cube::buffer : Cube::cube)[p->z][p->y];
+void Drawer::invertVoxel(Point *p, unsigned char target) {
+  unsigned char mask, *c = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[p->z][p->y];
   mask = 0x01 << p->x;
-  if (*c & mask) {
-    *c &= ~mask;
-  } else {
-    *c |= mask;
-  }
+  (*c & mask) ? clr(c, mask) : set(c, mask);
 }
 
-void Drawer::turnOffPlaneZ(unsigned char z, unsigned char to) {
+void Drawer::turnOffPlaneZ(unsigned char z, unsigned char target) {
   Voxel v = {Voxel::OFF};
-  writePlaneZ(z, v, to);
+  writePlaneZ(z, v, target);
 }
 
-void Drawer::turnOnPlaneZ(unsigned char z, unsigned char to) {
+void Drawer::turnOnPlaneZ(unsigned char z, unsigned char target) {
   Voxel v = {Voxel::ON};
-  writePlaneZ(z, v, to);
+  writePlaneZ(z, v, target);
 }
 
-void Drawer::writePlaneZ(unsigned char z, Voxel v, unsigned char to) {
-  unsigned char i, *p = &(to == WRITE_TO_BUFFER ? Cube::buffer : Cube::cube)[0][0];
+void Drawer::writePlaneZ(unsigned char z, Voxel v, unsigned char target) {
+  unsigned char i, *p = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[0][0];
   if (z >= 0 && z < Cube::SIZE) {
     for (i = 0; i < Cube::SIZE; i++) {
       *(p + (Cube::SIZE * z + i)) = (v.state == Voxel::ON) ? 0xff : 0x00;
@@ -55,18 +62,18 @@ void Drawer::writePlaneZ(unsigned char z, Voxel v, unsigned char to) {
   }
 }
 
-void Drawer::turnOffPlaneY(unsigned char y, unsigned char to) {
+void Drawer::turnOffPlaneY(unsigned char y, unsigned char target) {
   Voxel v = {Voxel::OFF};
-  writePlaneY(y, v, to);
+  writePlaneY(y, v, target);
 }
 
-void Drawer::turnOnPlaneY(unsigned char y, unsigned char to) {
+void Drawer::turnOnPlaneY(unsigned char y, unsigned char target) {
   Voxel v = {Voxel::ON};
-  writePlaneY(y, v, to);
+  writePlaneY(y, v, target);
 }
 
-void Drawer::writePlaneY(unsigned char y, Voxel v, unsigned char to) {
-  unsigned char i, *p = &(to == WRITE_TO_BUFFER ? Cube::buffer : Cube::cube)[0][0];
+void Drawer::writePlaneY(unsigned char y, Voxel v, unsigned char target) {
+  unsigned char i, *p = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[0][0];
   if (y >= 0 && y < Cube::SIZE) {
     for (i = 0; i < Cube::SIZE; i++) {
       *(p + (Cube::SIZE * i + y)) = (v.state == Voxel::ON) ? 0xff : 0x00;
@@ -74,42 +81,62 @@ void Drawer::writePlaneY(unsigned char y, Voxel v, unsigned char to) {
   }
 }
 
-void Drawer::turnOffPlaneX(unsigned char x, unsigned char to) {
+void Drawer::turnOffPlaneX(unsigned char x, unsigned char target) {
   Voxel v = {Voxel::OFF};
-  writePlaneX(x, v, to);
+  writePlaneX(x, v, target);
 }
 
-void Drawer::turnOnPlaneX(unsigned char x, unsigned char to) {
+void Drawer::turnOnPlaneX(unsigned char x, unsigned char target) {
   Voxel v = {Voxel::ON};
-  writePlaneX(x, v, to);
+  writePlaneX(x, v, target);
 }
 
-void Drawer::writePlaneX(unsigned char x, Voxel v, unsigned char to) {
-  unsigned char z, y, mask, *p;
+void Drawer::writePlaneX(unsigned char x, Voxel v, unsigned char target) {
+  unsigned char z, y, mask, *t;
   mask = 1 << x;
   if (x >= 0 && x < Cube::SIZE) {
     for (z = 0; z < Cube::SIZE; z++) {
       for (y = 0; y < Cube::SIZE; y++) {
-        p = &(to == WRITE_TO_BUFFER ? Cube::buffer : Cube::cube)[z][y];
-        v.state == Voxel::ON ? set(p, mask) : clr(p, mask);
+        t = resolveTarget(target, z, y);
+        v.state == Voxel::ON ? set(t, mask) : clr(t, mask);
       }
     }
   }
 }
 
-void Drawer::mirrorX(unsigned char to) {
-  unsigned char y, z, *p = &(to == WRITE_TO_BUFFER ? Cube::buffer : Cube::cube)[0][0];
+void Drawer::mirrorX(unsigned char target) {
+  unsigned char y, z, *t, buf[Cube::SIZE][Cube::SIZE];
+  t = resolveTarget(target, 0, 0);
+  memcpy(buf, t, Cube::BYTE_SIZE);
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
-      flipByte(p + (Cube::SIZE * z + y));
+      flipByte(&buf[z][y]);
+    }
+  }
+  memcpy(t, buf, Cube::BYTE_SIZE);
+}
+
+void Drawer::mirrorY(unsigned char target) {
+  unsigned char x, y, z, *t, buf[Cube::SIZE][Cube::SIZE];
+  Point p;
+  t = resolveTarget(target, 0, 0);
+  memcpy(buf, t, Cube::BYTE_SIZE);
+  clear(target);
+  for (z = 0; z < Cube::SIZE; z++) {
+    for (y = 0; y < Cube::SIZE; y++) {
+      for (x = 0; x < Cube::SIZE; x++) {
+        if (buf[z][y] & (0x01 << x)) {
+          p.x = x;
+          p.y = Cube::SIZE - 1 - y;
+          p.z = z;
+          turnOnVoxel(&p, target);
+        }
+      }
     }
   }
 }
 
-void Drawer::mirrorY(unsigned char to) {
-}
-
-void Drawer::mirrorZ(unsigned char to) {
+void Drawer::mirrorZ(unsigned char target) {
 }
 
 void Drawer::flipByte(unsigned char *p) {

@@ -28,6 +28,14 @@ public:
   void writePlaneYTest();
   
   void writePlaneXTest();
+  
+  void flipByteTest();
+  
+  void mirrorXTest();
+  
+  void mirrorYTest();
+  
+  void mirrorZTest();
 };
 
 #endif /* __ARDUINO_CUBE_DROWER_TEST_H__ */

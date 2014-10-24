@@ -5,12 +5,14 @@
 #define __ARDUINO_CUBE_CUBE_H__ 1
 
 #define CUBE_SIZE 8
+#define CUBE_BYTE_SIZE CUBE_SIZE * CUBE_SIZE
 
 class Cube {
 
 public:
 
   static unsigned char SIZE;
+  static unsigned char BYTE_SIZE;
   static unsigned char buffer[CUBE_SIZE][CUBE_SIZE];
   static unsigned char cube[CUBE_SIZE][CUBE_SIZE];
 };

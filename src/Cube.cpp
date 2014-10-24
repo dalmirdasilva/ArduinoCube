@@ -7,6 +7,7 @@
 #include <Cube.h>
 
 unsigned char Cube::SIZE = CUBE_SIZE;
+unsigned char Cube::BYTE_SIZE = CUBE_BYTE_SIZE;
 unsigned char Cube::buffer[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::cube[CUBE_SIZE][CUBE_SIZE] = {};
 
