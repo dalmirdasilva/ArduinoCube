@@ -7,11 +7,10 @@ DrawerTest::DrawerTest(Drawer *drawer) : drawer(drawer) {
 void DrawerTest::run() {
   isInRangeTest();
   writeVoxelTest();
-  turnOnVoxelTest();
-  turnOffVoxelTest();
   invertVoxelTest();
-  turnOnPlaneZTest();
   writePlaneZTest();
+  writePlaneYTest();
+  writePlaneXTest();
 }
 
 void DrawerTest::isInRangeTest() {
@@ -40,41 +39,59 @@ void DrawerTest::writeVoxelTest() {
   SpecHelper::assertEqual(Cube::cube[z][y], 0x00, "writeVoxel: Should write the correct voxel when writting to the cube.");
 }
 
-void DrawerTest::turnOnVoxelTest() {
-  unsigned char x = 5, y = 1, z = 1;
-  Point p = {x, y, z};
-  Cube::buffer[z][y] = 0x00;
-  drawer->turnOnVoxel(&p);
-  SpecHelper::assertEqual(Cube::buffer[z][y], (0x01 << x), "turnOnVoxel: should turn the voxel on.");
-  Cube::cube[z][y] = 0x00;
-  drawer->turnOnVoxel(&p, Drawer::WRITE_TO_CUBE);
-  SpecHelper::assertEqual(Cube::cube[z][y], (0x01 << x), "turnOnVoxel: should turn the voxel on when writting to the cube.");
-}
-
-void DrawerTest::turnOffVoxelTest() {
-  unsigned char x = 5, y = 1, z = 1;
-  Point p = {x, y, z};
-  Cube::buffer[z][y] = 0xff;
-  drawer->turnOffVoxel(&p);
-  SpecHelper::assertEqual(Cube::buffer[z][y], ~(0x01 << x), "turnOffVoxel: should turn the voxel off.");
-  Cube::cube[z][y] = 0xff;
-  drawer->turnOffVoxel(&p, Drawer::WRITE_TO_CUBE);
-  SpecHelper::assertEqual(Cube::cube[z][y], ~(0x01 << x), "turnOffVoxel: should turn the voxel off when writting to the cube.");
-}
-
 void DrawerTest::invertVoxelTest() {
   unsigned char x = 5, y = 3, z = 1;
   Point p = {x, y, z};
   Cube::buffer[z][y] = 0xff;
   drawer->invertVoxel(&p);
   SpecHelper::assertEqual(Cube::buffer[z][y], ~(0x01 << x), "invertVoxel: should invert the voxel.");
-}
-
-void DrawerTest::turnOnPlaneZTest() {
+  Cube::cube[z][y] = 0x00;
+  drawer->invertVoxel(&p, Drawer::WRITE_TO_CUBE);
+  SpecHelper::assertEqual(Cube::cube[z][y], 0x01 << x, "invertVoxel: should invert the voxel when writting to the cube.");
 }
 
 void DrawerTest::writePlaneZTest() {
+  unsigned char i, aux, z = 2;
+  Voxel v = {Voxel::ON};
+  for (i = 0; i < Cube::SIZE; i++) {
+    Cube::buffer[z][i] = 0x00;
+  }
+  drawer->writePlaneZ(z, v);
+  aux = 0xff;
+  for (i = 0; i < Cube::SIZE; i++) {
+    aux &= Cube::buffer[z][i];
+  }
+  SpecHelper::assertEqual(aux, 0xff, "writePlaneZTest: should write all z axis leds.");
+}
+
+void DrawerTest::writePlaneYTest() {
+  unsigned char i, aux, y = 3;
+  Voxel v = {Voxel::ON};
+  for (i = 0; i < Cube::SIZE; i++) {
+    Cube::buffer[i][y] = 0x00;
+  }
+  drawer->writePlaneY(y, v);
+  aux = 0xff;
+  for (i = 0; i < Cube::SIZE; i++) {
+    aux &= Cube::buffer[i][y];
+  }
+  SpecHelper::assertEqual(aux, 0xff, "writePlaneXTest: should write all y axis leds.");
 }
 
 void DrawerTest::writePlaneXTest() {
+  unsigned char i, j, aux, x = 3;
+  Voxel v = {Voxel::ON};
+  for (i = 0; i < Cube::SIZE; i++) {
+    for (j = 0; j < Cube::SIZE; j++) {
+      Cube::buffer[i][j] = 0x00;
+    }
+  }
+  drawer->writePlaneX(x, v);
+  aux = 0x01 << x;
+  for (i = 0; i < Cube::SIZE; i++) {
+    for (j = 0; j < Cube::SIZE; j++) {
+      aux |= Cube::buffer[i][j] & (0x01 << x);
+    }
+  }
+  SpecHelper::assertEqual(aux, (0x01 << x), "writePlaneXTest: should write all x axis leds.");
 }

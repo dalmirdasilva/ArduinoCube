@@ -14,14 +14,19 @@ public:
   Drawer *drawer;
   
   DrawerTest(Drawer *drawer);
+  
   void run();
+  
   void isInRangeTest();
+  
   void writeVoxelTest();
-  void turnOnVoxelTest();
-  void turnOffVoxelTest();
+  
   void invertVoxelTest();
-  void turnOnPlaneZTest();
+  
   void writePlaneZTest();
+  
+  void writePlaneYTest();
+  
   void writePlaneXTest();
 };
 

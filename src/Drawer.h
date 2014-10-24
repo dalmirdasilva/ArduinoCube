@@ -20,7 +20,7 @@ public:
   /**
    * Validates if we the p Point is inside the cube.
    */
-  bool isInRange(Point *p);
+  bool isInRange(Point *p) const;
   
   /**
    *
@@ -30,7 +30,9 @@ public:
   /**
    * See overloaded method.
    */
-  void writeVoxel(Point *p, Voxel v);
+  void writeVoxel(Point *p, Voxel v) {
+    writeVoxel(p, v, DEFAULT_WRITE_TO);
+  }
   
   /**
    * Writes the v Voxel to the cube at p Point. If b == true
@@ -45,13 +47,17 @@ public:
   /**
    * See overloaded method.
    */
-  void turnOnVoxel(Point *p);
+  void turnOnVoxel(Point *p) {
+    turnOnVoxel(p, DEFAULT_WRITE_TO);
+  }
   
   /**
    * See overloaded method.
    */
-  void turnOffVoxel(Point *p);
-  
+  void turnOffVoxel(Point *p) {
+    turnOffVoxel(p, DEFAULT_WRITE_TO);
+  }
+    
   /**
    * Set voxel to ON
    * 
@@ -71,7 +77,9 @@ public:
   /**
    * See overloaded method
    */
-  void invertVoxel(Point *p);
+  void invertVoxel(Point *p) {
+    invertVoxel(p, DEFAULT_WRITE_TO);
+  }
   
   /**
    * Switch volex state
@@ -81,7 +89,21 @@ public:
   /**
    * See overloaded method
    */
-  void turnOnPlaneZ(unsigned char z);
+  void turnOffPlaneZ(unsigned char z) {
+    turnOffPlaneZ(z, DEFAULT_WRITE_TO);
+  }
+  
+  /**
+   * Turn off plane z.
+   */
+  void turnOffPlaneZ(unsigned char z, unsigned char to);
+  
+  /**
+   * See overloaded method
+   */
+  void turnOnPlaneZ(unsigned char z) {
+    turnOnPlaneZ(z, DEFAULT_WRITE_TO);
+  }
   
   /**
    * Turn on plane z.
@@ -89,15 +111,122 @@ public:
   void turnOnPlaneZ(unsigned char z, unsigned char to);
   
   /**
+   * See overloaded method.
+   */
+  void writePlaneZ(unsigned char z, Voxel v) {
+    writePlaneZ(z, v, DEFAULT_WRITE_TO);
+  }
+    
+  /**
    * Write plane z.
    */
   void writePlaneZ(unsigned char z, Voxel v, unsigned char to);
+  
+  /**
+   * See overloaded method
+   */
+  void turnOffPlaneY(unsigned char y) {
+    turnOffPlaneY(y, DEFAULT_WRITE_TO);
+  }
+  
+  /**
+   * Turn off plane y.
+   */
+  void turnOffPlaneY(unsigned char y, unsigned char to);
+  
+  /**
+   * See overloaded method
+   */
+  void turnOnPlaneY(unsigned char y) {
+    turnOnPlaneY(y, DEFAULT_WRITE_TO);
+  }
+  
+  /**
+   * Turn on plane y.
+   */
+  void turnOnPlaneY(unsigned char y, unsigned char to);
+  
+  /**
+   * See overloaded method.
+   */
+  void writePlaneY(unsigned char y, Voxel v) {
+    writePlaneY(y, v, DEFAULT_WRITE_TO);
+  }
+  
+  /**
+   * Write plane y.
+   */
+  void writePlaneY(unsigned char y, Voxel v, unsigned char to);
+  
+  /**
+   * See overloaded method
+   */
+  void turnOffPlaneX(unsigned char x) {
+    turnOffPlaneX(x, DEFAULT_WRITE_TO);
+  }
+  
+  /**
+   * Turn off plane x.
+   */
+  void turnOffPlaneX(unsigned char x, unsigned char to);
+  
+  /**
+   * See overloaded method
+   */
+  void turnOnPlaneX(unsigned char x) {
+    turnOnPlaneX(x, DEFAULT_WRITE_TO);
+  }
+  
+  /**
+   * Turn on plane x.
+   */
+  void turnOnPlaneX(unsigned char x, unsigned char to);
+  
+  /**
+   * See overloaded method.
+   */
+  void writePlaneX(unsigned char x, Voxel v) {
+    writePlaneX(x, v, DEFAULT_WRITE_TO);
+  }
   
   /**
    * Write plane z.
    */
   void writePlaneX(unsigned char x, Voxel v, unsigned char to);
   
+  /**
+   * See overloaded method.
+   */
+  void mirrorX();
+  
+  /**
+   * Flip the cube 180 degrees along the x axis.
+   */
+  void mirrorX(unsigned char to);
+  
+  /**
+   * See overloaded method.
+   */
+  void mirrorY();
+  
+  /**
+   * Flip the cube 180 degrees along the y axis.
+   */
+  void mirrorY(unsigned char to);
+  
+  /**
+   * See overloaded method.
+   */
+  void mirrorZ();
+  
+  /**
+   * Flip the cube 180 degrees along the z axis.
+   */
+  void mirrorZ(unsigned char to);
+  
+  /**
+   */
+  void flipByte(unsigned char *p);
   /*
 void setplane_x(int x);
 void clrplane_x(int x);
@@ -114,16 +243,17 @@ char flipbyte(char byte);
 void line(int x1, int y1, int z1, int x2, int y2, int z2);
 void tmp2cube();
 void shift(char axis, int direction);
-void mirror_y();
-void mirror_x();
-void mirror_z();
 * */
 
 private:
 
-  void set(unsigned char *p, unsigned char mask);
+  void set(unsigned char *p, unsigned char mask) {
+    *p |= mask;
+  }
   
-  void clr(unsigned char *p, unsigned char mask);
+  void clr(unsigned char *p, unsigned char mask) {
+    *p &= ~mask;
+  }
 
   void argOrder(unsigned char a, unsigned char b, unsigned char *ap, unsigned char *bp);
 };
