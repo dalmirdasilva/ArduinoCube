@@ -17,6 +17,13 @@ public:
   const static unsigned char CUBE_TARGET = 0;
   const static unsigned char DEFAULT_TARGET = CUBE_TARGET;
   
+  enum Plane {
+    AXIS_X = 0x00,
+    AXIS_Y = 0x01,
+    AXIS_Z = 0x02
+  };
+  
+  
   /**
    * Validates if we the p Point is inside the cube.
    */
@@ -231,6 +238,11 @@ public:
   void writePlaneX(unsigned char x, Voxel v, unsigned char target);
   
   /**
+   * Turn the p plane.
+   */
+  void writePlane(Plane p, Voxel v, unsigned char target);
+  
+  /**
    * See overloaded method.
    */
   void mirrorX();
@@ -261,22 +273,22 @@ public:
   void mirrorZ(unsigned char target);
   
   /**
+   * Flip a byte
    */
   void flipByte(unsigned char *p);
   
+  /**
+   * Draw a 3d line
+   */
+  void line(Point *from, Point *to);
+  
   /*
-void setplane_x(int x);
-void clrplane_x(int x);
-void setplane_y(int y);
-void clrplane_y(int y);
-void setplane(char axis, unsigned char i);
-void clrplane(char axis, unsigned char i);
 void fill (unsigned char pattern);
 void tmpfill (unsigned char pattern);
 void box_filled(int x1, int y1, int z1, int x2, int y2, int z2);
 void box_walls(int x1, int y1, int z1, int x2, int y2, int z2);
 void box_wireframe(int x1, int y1, int z1, int x2, int y2, int z2);
-char flipbyte(char byte);
+
 void line(int x1, int y1, int z1, int x2, int y2, int z2);
 void tmp2cube();
 void shift(char axis, int direction);
@@ -296,7 +308,7 @@ private:
     *p &= ~mask;
   }
 
-  void argOrder(unsigned char a, unsigned char b, unsigned char *ap, unsigned char *bp);
+  void argOrder(unsigned char *ap, unsigned char *bp);
 };
 
 #endif /* __ARDUINO_CUBE_DROWER_H__ */
