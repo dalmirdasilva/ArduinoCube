@@ -1,5 +1,7 @@
 #include <DrawerTest.h>
 
+#define TEST_MODE 1
+
 int main(int argc, char *argv[]) {
   
   Drawer drawer = Drawer();

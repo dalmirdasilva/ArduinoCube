@@ -280,11 +280,21 @@ public:
   /**
    * Draw a 3d line
    */
-  void line(Point *from, Point *to);
+  void line(Point *from, Point *to); 
+  
+  /**
+   * See overloaded method.
+   */
+  void filledBox(Point *tl, Point *br) {
+    filledBox(tl, br, DEFAULT_TARGET);
+  }
+  
+  /**
+   * Draws a filled cube.
+   */
+  void filledBox(Point *tl, Point *br, unsigned char target);
   
   /*
-void fill (unsigned char pattern);
-void tmpfill (unsigned char pattern);
 void box_filled(int x1, int y1, int z1, int x2, int y2, int z2);
 void box_walls(int x1, int y1, int z1, int x2, int y2, int z2);
 void box_wireframe(int x1, int y1, int z1, int x2, int y2, int z2);
@@ -295,6 +305,14 @@ void shift(char axis, int direction);
 * */
 
 private:
+
+  /**
+   *  Returns a byte with a row of 1's drawn in it.
+   * byteLine(2, 5) gives 0b00111100
+   */
+  unsigned char byteLine(unsigned char start, unsigned char end) {
+    return ((0xff << start) & ~(0xff << (end + 1)));
+  }
 
   unsigned char *resolveTarget(unsigned char target, unsigned char x, unsigned char y) {
     return &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[x][y];

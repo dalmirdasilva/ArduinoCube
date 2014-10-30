@@ -16,6 +16,7 @@ void DrawerTest::run() {
   mirrorXTest();
   mirrorYTest();
   mirrorZTest();
+  filledBoxTest();
 }
 
 void DrawerTest::isInRangeTest() {
@@ -122,19 +123,30 @@ void DrawerTest::mirrorXTest() {
 }
 
 void DrawerTest::mirrorYTest() {
-  unsigned char aux, i, j, y = 4, buf[Cube::SIZE][Cube::SIZE];
-  for (i = 0; i < Cube::SIZE; i++)
-    Cube::buffer[i][y] = i;
-    
-  memcpy(buf, Cube::buffer, Cube::BYTE_SIZE);
+  unsigned char aux = 0xaa;
+  drawer->clear(Drawer::BUFFER_TARGET);
+  Cube::buffer[0][0] = aux;
   drawer->mirrorY(Drawer::BUFFER_TARGET);
-  aux = 0;
-  for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--)
-    aux += (Cube::buffer[i][y] == buf[j][y] ? 1 : 0);
-    
-  SpecHelper::assertEqual(aux, 8, "mirrorY: should mirror Y.");
+  SpecHelper::assertEqual(Cube::buffer[0][Cube::SIZE - 1], aux, "mirrorY: should mirror Y.");
 }
 
 void DrawerTest::mirrorZTest() {
-  SpecHelper::assertEqual(1, 0, "mirrorY: should mirror Y.");
+  unsigned char aux = 0xaa;
+  drawer->clear(Drawer::BUFFER_TARGET);
+  Cube::buffer[0][0] = aux;
+  drawer->mirrorZ(Drawer::BUFFER_TARGET);
+  SpecHelper::assertEqual(Cube::buffer[Cube::SIZE - 1][0], aux, "mirrorZ: should mirror Z.");
+}
+
+void DrawerTest::filledBoxTest() {
+  unsigned char z, y, aux = 0xff;
+  Point p0 = {0, 0, 0};
+  Point p1 = {7, 5, 5};
+  drawer->clear(Drawer::BUFFER_TARGET);
+  drawer->filledBox(&p0, &p1, Drawer::BUFFER_TARGET);
+  for (z = 0; z < 6; z++)
+    for (y = 0; y < 5; y++)
+      aux &= Cube::buffer[z][y];
+      
+  SpecHelper::assertEqual(aux, 0xff, "filledBox: should draw a filled box.");
 }

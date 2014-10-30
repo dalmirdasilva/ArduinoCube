@@ -6,4 +6,6 @@
 
 #include <Point.h>
 
+
+
 #endif /* __ARDUINO_CUBE_POINT_CPP__ */

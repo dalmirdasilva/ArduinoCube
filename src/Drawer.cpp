@@ -1,4 +1,5 @@
 #include <Drawer.h>
+#include <Util.h>
 #include <string.h>
 
 bool Drawer::isInRange(Point *p) const {
@@ -96,6 +97,7 @@ void Drawer::writePlaneX(unsigned char x, Voxel v, unsigned char target) {
 }
 
 void Drawer::writePlane(Plane p, unsigned char pos, Voxel v, unsigned char target) {
+  /*
   switch(p) {
     case AXIS_X:
       writePlaneX(pos, v, target);
@@ -106,11 +108,12 @@ void Drawer::writePlane(Plane p, unsigned char pos, Voxel v, unsigned char targe
     case AXIS_Z:
       writePlaneZ(pos, v, target);
       break;
-  } 
+  } */
 }
 
 void Drawer::line(Point *from, Point *to) {
-/*
+
+  /*
     // how many voxels do we move on the y axis for each step on the x axis
     float xy;
     float xz;
@@ -169,23 +172,36 @@ void Drawer::mirrorX(unsigned char target) {
 }
 
 void Drawer::mirrorY(unsigned char target) {
-  unsigned char x, y, z, *t, buf[Cube::SIZE][Cube::SIZE];
-  Point p;
+  unsigned char i, j, z, *t, buf[Cube::SIZE][Cube::SIZE];
   t = resolveTarget(target, 0, 0);
   memcpy(buf, t, Cube::BYTE_SIZE);
   clear(target);
   for (z = 0; z < Cube::SIZE; z++)
-    for (y = 0; y < Cube::SIZE; y++)
-      for (x = 0; x < Cube::SIZE; x++)
-        if (buf[z][y] & (0x01 << x)) {
-          p.x = x;
-          p.y = Cube::SIZE - 1 - y;
-          p.z = z;
-          turnOnVoxel(&p, target);
-        }
+    for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--)
+      *(t + (z * Cube::SIZE) + i) = buf[z][j];
 }
 
 void Drawer::mirrorZ(unsigned char target) {
+  unsigned char i, j, y, *t, buf[Cube::SIZE][Cube::SIZE];
+  t = resolveTarget(target, 0, 0);
+  memcpy(buf, t, Cube::BYTE_SIZE);
+  clear(target);
+  for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--)
+    for (y = 0; y < Cube::SIZE; y++)
+      *(t + (i * Cube::SIZE) + y) = buf[j][y];
+}
+
+void Drawer::filledBox(Point *tl, Point *br, unsigned char target) {
+  unsigned char z, y, *t;
+  t = resolveTarget(target, 0, 0);
+  Util::dumpPoint(tl);
+  Util::dumpPoint(br);
+  argOrder(&tl->x, &br->x);
+  argOrder(&tl->y, &br->y);
+  argOrder(&tl->z, &br->z);
+  for (z = tl->z; z <= br->z; z++)
+    for (y = tl->y; y <= br->y; y++)
+      *(t + (z % Cube::SIZE) * Cube::SIZE + (y % Cube::SIZE)) |= byteLine(tl->x, br->x);
 }
 
 void Drawer::flipByte(unsigned char *p) {
