@@ -240,7 +240,7 @@ public:
   /**
    * Turn the p plane.
    */
-  void writePlane(Plane p, Voxel v, unsigned char target);
+  void writePlane(Plane p, unsigned char pos, Voxel v, unsigned char target);
   
   /**
    * See overloaded method.

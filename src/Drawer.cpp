@@ -20,17 +20,17 @@ void Drawer::writeVoxel(Point *p, Voxel v, unsigned char target) {
   if (isInRange(p)) {
     mask = 1 << p->x;
     c = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[p->z][p->y];
-    v.state == Voxel::ON ? set(c, mask) : clr(c, mask);
+    v.state == VoxelState::ON ? set(c, mask) : clr(c, mask);
   }
 }
   
 void Drawer::turnOnVoxel(Point *p, unsigned char target) {
-  Voxel v = {Voxel::ON};
+  Voxel v = {VoxelState::ON};
   writeVoxel(p, v, target);
 }
 
 void Drawer::turnOffVoxel(Point *p, unsigned char target) {
-  Voxel v = {Voxel::OFF};
+  Voxel v = {VoxelState::OFF};
   writeVoxel(p, v, target);
 }
 
@@ -41,12 +41,12 @@ void Drawer::invertVoxel(Point *p, unsigned char target) {
 }
 
 void Drawer::turnOffPlaneZ(unsigned char z, unsigned char target) {
-  Voxel v = {Voxel::OFF};
+  Voxel v = {VoxelState::OFF};
   writePlaneZ(z, v, target);
 }
 
 void Drawer::turnOnPlaneZ(unsigned char z, unsigned char target) {
-  Voxel v = {Voxel::ON};
+  Voxel v = {VoxelState::ON};
   writePlaneZ(z, v, target);
 }
 
@@ -54,16 +54,16 @@ void Drawer::writePlaneZ(unsigned char z, Voxel v, unsigned char target) {
   unsigned char i, *p = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[0][0];
   if (z >= 0 && z < Cube::SIZE)
     for (i = 0; i < Cube::SIZE; i++)
-      *(p + (Cube::SIZE * z + i)) = (v.state == Voxel::ON) ? 0xff : 0x00;
+      *(p + (Cube::SIZE * z + i)) = (v.state == VoxelState::ON) ? 0xff : 0x00;
 }
 
 void Drawer::turnOffPlaneY(unsigned char y, unsigned char target) {
-  Voxel v = {Voxel::OFF};
+  Voxel v = {VoxelState::OFF};
   writePlaneY(y, v, target);
 }
 
 void Drawer::turnOnPlaneY(unsigned char y, unsigned char target) {
-  Voxel v = {Voxel::ON};
+  Voxel v = {VoxelState::ON};
   writePlaneY(y, v, target);
 }
 
@@ -71,16 +71,16 @@ void Drawer::writePlaneY(unsigned char y, Voxel v, unsigned char target) {
   unsigned char i, *p = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[0][0];
   if (y >= 0 && y < Cube::SIZE)
     for (i = 0; i < Cube::SIZE; i++)
-      *(p + (Cube::SIZE * i + y)) = (v.state == Voxel::ON) ? 0xff : 0x00;
+      *(p + (Cube::SIZE * i + y)) = (v.state == VoxelState::ON) ? 0xff : 0x00;
 }
 
 void Drawer::turnOffPlaneX(unsigned char x, unsigned char target) {
-  Voxel v = {Voxel::OFF};
+  Voxel v = {VoxelState::OFF};
   writePlaneX(x, v, target);
 }
 
 void Drawer::turnOnPlaneX(unsigned char x, unsigned char target) {
-  Voxel v = {Voxel::ON};
+  Voxel v = {VoxelState::ON};
   writePlaneX(x, v, target);
 }
 
@@ -91,26 +91,26 @@ void Drawer::writePlaneX(unsigned char x, Voxel v, unsigned char target) {
     for (z = 0; z < Cube::SIZE; z++)
       for (y = 0; y < Cube::SIZE; y++) {
         t = resolveTarget(target, z, y);
-        v.state == Voxel::ON ? set(t, mask) : clr(t, mask);
+        v.state == VoxelState::ON ? set(t, mask) : clr(t, mask);
       }
 }
 
-void Drawer::writePlane(Plane p, Voxel v, unsigned char target) {
+void Drawer::writePlane(Plane p, unsigned char pos, Voxel v, unsigned char target) {
   switch(p) {
     case AXIS_X:
-      writePlaneX(v, target);
+      writePlaneX(pos, v, target);
       break;
     case AXIS_Y:
-      writePlaneY(v, target);
+      writePlaneY(pos, v, target);
       break;
     case AXIS_Z:
-      writePlaneZ(v, target);
+      writePlaneZ(pos, v, target);
       break;
   } 
 }
 
 void Drawer::line(Point *from, Point *to) {
-  
+/*
     // how many voxels do we move on the y axis for each step on the x axis
     float xy;
     float xz;
@@ -154,7 +154,7 @@ void Drawer::line(Point *from, Point *to) {
         y = (xy * (x - x1)) + y1;
         z = (xz * (x - x1)) + z1;
         setvoxel(x, y, z);
-    }
+    }*/
 }
 
 void Drawer::mirrorX(unsigned char target) {
@@ -164,7 +164,7 @@ void Drawer::mirrorX(unsigned char target) {
   for (z = 0; z < Cube::SIZE; z++)
     for (y = 0; y < Cube::SIZE; y++)
       flipByte(&buf[z][y]);
-      
+
   memcpy(t, buf, Cube::BYTE_SIZE);
 }
 
@@ -201,10 +201,10 @@ void Drawer::flipByte(unsigned char *p) {
   *p = flop;
 }
 
-void Drawer::argOrder(unsigned char *ap, unsigned char *bp) {
-  if (a < b) {
-    unsigned char tmp = b;
-    *pb = a;
-    *pa = tmp;
+void Drawer::argOrder(unsigned char *a, unsigned char *b) {
+  if (*a > *b) {
+    unsigned char tmp = *b;
+    *b = *a;
+    *a = tmp;
   }
 }
