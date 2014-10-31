@@ -97,7 +97,6 @@ void Drawer::writePlaneX(unsigned char x, Voxel v, unsigned char target) {
 }
 
 void Drawer::writePlane(Plane p, unsigned char pos, Voxel v, unsigned char target) {
-  /*
   switch(p) {
     case AXIS_X:
       writePlaneX(pos, v, target);
@@ -108,7 +107,7 @@ void Drawer::writePlane(Plane p, unsigned char pos, Voxel v, unsigned char targe
     case AXIS_Z:
       writePlaneZ(pos, v, target);
       break;
-  } */
+  }
 }
 
 void Drawer::line(Point *from, Point *to) {
@@ -194,8 +193,6 @@ void Drawer::mirrorZ(unsigned char target) {
 void Drawer::filledBox(Point *tl, Point *br, unsigned char target) {
   unsigned char z, y, *t;
   t = resolveTarget(target, 0, 0);
-  Util::dumpPoint(tl);
-  Util::dumpPoint(br);
   argOrder(&tl->x, &br->x);
   argOrder(&tl->y, &br->y);
   argOrder(&tl->z, &br->z);

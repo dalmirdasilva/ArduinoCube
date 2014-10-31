@@ -38,6 +38,8 @@ public:
   void mirrorZTest();
   
   void filledBoxTest();
+  
+  void lineTest();
 };
 
 #endif /* __ARDUINO_CUBE_DROWER_TEST_H__ */
