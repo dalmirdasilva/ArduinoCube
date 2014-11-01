@@ -280,7 +280,7 @@ public:
   /**
    * Draw a 3d line
    */
-  void line(Point *from, Point *to); 
+  void line(Point *from, Point *to, unsigned char target); 
   
   /**
    * See overloaded method.
@@ -326,7 +326,9 @@ private:
     *p &= ~mask;
   }
 
-  void argOrder(unsigned char *ap, unsigned char *bp);
+  void orderArgs(unsigned char *a, unsigned char *b);
+
+  void flipArgs(unsigned char *a, unsigned char *b);
 };
 
 #endif /* __ARDUINO_CUBE_DROWER_H__ */

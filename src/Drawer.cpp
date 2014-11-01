@@ -110,53 +110,41 @@ void Drawer::writePlane(Plane p, unsigned char pos, Voxel v, unsigned char targe
   }
 }
 
-void Drawer::line(Point *from, Point *to) {
+void Drawer::line(Point *from, Point *to, unsigned char target) {
+  float ySteps;
+  float zSteps;
+  unsigned char lastY, lastZ;
+  Point p;
 
-  /*
-    // how many voxels do we move on the y axis for each step on the x axis
-    float xy;
-    float xz;
+  // We always want to draw the line from x=0 to x=7.
+  // If from->x is bigget than to->x, we need to flip all the values.
+  if (from->x > to->x) {
+	  Point *aux = from;
+	  from = to;
+	  to = aux;
+  }
 
-    unsigned char x, y, z;
-    unsigned char lasty, lastz;
+  if (from->y > to->y) {
+    ySteps = (float) (from->y - to->y) / (float) (to->x - from->x);
+    lastY = to->y;
+  } else {
+    ySteps = (float) (to->z - from->y) / (float) (to->x - from->x);
+    lastY = from->y;
+  }
 
-    // We always want to draw the line from x=0 to x=7.
-    // If x1 is bigget than x2, we need to flip all the values.
-    if (x1 > x2) {
-        int tmp;
-        tmp = x2;
-        x2 = x1;
-        x1 = tmp;
-        tmp = y2;
-        y2 = y1;
-        y1 = tmp;
-        tmp = z2;
-        z2 = z1;
-        z1 = tmp;
-    }
+  if (from->z > to->z) {
+    zSteps = (float) (from->z - to->z) / (float) (to->x - from->x);
+    lastZ = to->z;
+  } else {
+    zSteps = (float) (to->z - from->z) / (float) (to->x - from->x);
+    lastZ = from->z;
+  }
 
-    if (y1 > y2) {
-        xy = (float) (y1 - y2) / (float) (x2 - x1);
-        lasty = y2;
-    } else {
-        xy = (float) (y2 - y1) / (float) (x2 - x1);
-        lasty = y1;
-    }
-
-    if (z1 > z2) {
-        xz = (float) (z1 - z2) / (float) (x2 - x1);
-        lastz = z2;
-    } else {
-        xz = (float) (z2 - z1) / (float) (x2 - x1);
-        lastz = z1;
-    }
-
-    // For each step of x, y increments by:
-    for (x = x1; x <= x2; x++) {
-        y = (xy * (x - x1)) + y1;
-        z = (xz * (x - x1)) + z1;
-        setvoxel(x, y, z);
-    }*/
+  for (p.x = from->x; p.x <= to->x; p.x++) {
+    p.y = (zSteps * (p.x - from->x)) + from->y;
+    p.z = (zSteps * (p.x - from->x)) + from->z;
+    turnOnVoxel(&p, target);
+  }
 }
 
 void Drawer::mirrorX(unsigned char target) {
@@ -193,9 +181,9 @@ void Drawer::mirrorZ(unsigned char target) {
 void Drawer::filledBox(Point *tl, Point *br, unsigned char target) {
   unsigned char z, y, *t;
   t = resolveTarget(target, 0, 0);
-  argOrder(&tl->x, &br->x);
-  argOrder(&tl->y, &br->y);
-  argOrder(&tl->z, &br->z);
+  orderArgs(&tl->x, &br->x);
+  orderArgs(&tl->y, &br->y);
+  orderArgs(&tl->z, &br->z);
   for (z = tl->z; z <= br->z; z++)
     for (y = tl->y; y <= br->y; y++)
       *(t + (z % Cube::SIZE) * Cube::SIZE + (y % Cube::SIZE)) |= byteLine(tl->x, br->x);
@@ -214,10 +202,15 @@ void Drawer::flipByte(unsigned char *p) {
   *p = flop;
 }
 
-void Drawer::argOrder(unsigned char *a, unsigned char *b) {
+void Drawer::orderArgs(unsigned char *a, unsigned char *b) {
   if (*a > *b) {
-    unsigned char tmp = *b;
-    *b = *a;
-    *a = tmp;
+	flipArgs(a, b);
   }
+}
+
+
+void Drawer::flipArgs(unsigned char *a, unsigned char *b) {
+  unsigned char tmp = *b;
+  *b = *a;
+  *a = tmp;
 }
