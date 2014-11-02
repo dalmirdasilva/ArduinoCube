@@ -88,7 +88,6 @@ public:
   void writeVoxel(Point *p, Voxel v, unsigned char target) {
     writeVoxel(p->x, p->y, p->z, v.state, target);
   }
-
   
   /**
    * 

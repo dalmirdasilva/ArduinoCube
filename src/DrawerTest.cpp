@@ -170,6 +170,10 @@ void DrawerTest::lineTest() {
   for (z = 0; z < Cube::SIZE; z++)
     for (y = 0; y < Cube::SIZE; y++)
       sum += Cube::buffer[z][y];
+  
+  for (int j = 0; j < 100000; j++) {
+    writeVoxel(4, 3, 6, 1, Drawer::BUFFER_TARGET);
+  }
   SpecHelper::assertEqual(sum, 0xff, "line: should draw a line.");
 }
 
