@@ -85,7 +85,15 @@ public:
    * @param v             Voxel
    * @param b             Write it to the buffer/cube
    */
-  void writeVoxel(Point *p, Voxel v, unsigned char target);
+  void writeVoxel(Point *p, Voxel v, unsigned char target) {
+    writeVoxel(p->x, p->y, p->z, v.state, target);
+  }
+
+  
+  /**
+   * 
+   */
+  void writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state, unsigned char target);
   
   /**
    * See overloaded method.
@@ -276,30 +284,59 @@ public:
    * Flip a byte
    */
   void flipByte(unsigned char *p);
-  
+ 
+ /**
+  * Draw a 3d line
+  */
+ void line(Point *from, Point *to, unsigned char target); 
+
   /**
    * Draw a 3d line
    */
-  void line(Point *from, Point *to, unsigned char target); 
-  
+  void line(Point *from, Point *to) {
+    line(from, to, DEFAULT_TARGET);
+  } 
+ 
   /**
    * See overloaded method.
    */
-  void filledBox(Point *tl, Point *br) {
-    filledBox(tl, br, DEFAULT_TARGET);
+  void filledBox(Point *from, Point *to) {
+    filledBox(from, to, DEFAULT_TARGET);
   }
   
   /**
    * Draws a filled cube.
    */
-  void filledBox(Point *tl, Point *br, unsigned char target);
+  void filledBox(Point *from, Point *to, unsigned char target);
   
+  /**
+   * See overloaded method.
+   */
+  void wallBox(Point *from, Point *to) {
+    wallBox(from, to, DEFAULT_TARGET);
+  }
+
+  /**
+   *
+   */
+  void wallBox(Point *from, Point *to, unsigned char target);
+ 
+  /**
+   * See overloaded method.
+   */
+  void wireframeBox(Point *from, Point *to) {
+    wireframeBox(from, to, DEFAULT_TARGET);
+  }
+  
+  /**
+   *
+   */
+  void wireframeBox(Point *from, Point *to, unsigned char target);
+
   /*
-void box_filled(int x1, int y1, int z1, int x2, int y2, int z2);
 void box_walls(int x1, int y1, int z1, int x2, int y2, int z2);
 void box_wireframe(int x1, int y1, int z1, int x2, int y2, int z2);
 
-void line(int x1, int y1, int z1, int x2, int y2, int z2);
 void tmp2cube();
 void shift(char axis, int direction);
 * */

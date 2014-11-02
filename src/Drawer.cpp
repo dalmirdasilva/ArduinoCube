@@ -16,13 +16,11 @@ void Drawer::fill(unsigned char pattern, unsigned char target) {
       *(t + (Cube::SIZE * z + y)) = pattern;
 }
 
-void Drawer::writeVoxel(Point *p, Voxel v, unsigned char target) {
-  unsigned char mask, *c;
-  if (isInRange(p)) {
-    mask = 1 << p->x;
-    c = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[p->z][p->y];
-    v.state == VoxelState::ON ? set(c, mask) : clr(c, mask);
-  }
+void Drawer::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state, unsigned char target) {
+  unsigned char mask, *t;
+  mask = 1 << x;
+  t = resolveTarget(target, z, y);
+  state == VoxelState::ON ? set(t, mask) : clr(t, mask);
 }
   
 void Drawer::turnOnVoxel(Point *p, unsigned char target) {
@@ -113,32 +111,21 @@ void Drawer::writePlane(Plane p, unsigned char pos, Voxel v, unsigned char targe
 void Drawer::line(Point *from, Point *to, unsigned char target) {
   float ySteps;
   float zSteps;
-  unsigned char lastY, lastZ;
   Point p;
-
-  // We always want to draw the line from x=0 to x=7.
-  // If from->x is bigget than to->x, we need to flip all the values.
   if (from->x > to->x) {
 	  Point *aux = from;
 	  from = to;
 	  to = aux;
   }
-
-  if (from->y > to->y) {
+  if (from->y > to->y)
     ySteps = (float) (from->y - to->y) / (float) (to->x - from->x);
-    lastY = to->y;
-  } else {
-    ySteps = (float) (to->z - from->y) / (float) (to->x - from->x);
-    lastY = from->y;
-  }
+  else
+    ySteps = (float) (to->y - from->y) / (float) (to->x - from->x);
 
-  if (from->z > to->z) {
+  if (from->z > to->z)
     zSteps = (float) (from->z - to->z) / (float) (to->x - from->x);
-    lastZ = to->z;
-  } else {
+  else
     zSteps = (float) (to->z - from->z) / (float) (to->x - from->x);
-    lastZ = from->z;
-  }
 
   for (p.x = from->x; p.x <= to->x; p.x++) {
     p.y = (zSteps * (p.x - from->x)) + from->y;
@@ -178,15 +165,69 @@ void Drawer::mirrorZ(unsigned char target) {
       *(t + (i * Cube::SIZE) + y) = buf[j][y];
 }
 
-void Drawer::filledBox(Point *tl, Point *br, unsigned char target) {
+void Drawer::filledBox(Point *from, Point *to, unsigned char target) {
   unsigned char z, y, *t;
   t = resolveTarget(target, 0, 0);
-  orderArgs(&tl->x, &br->x);
-  orderArgs(&tl->y, &br->y);
-  orderArgs(&tl->z, &br->z);
-  for (z = tl->z; z <= br->z; z++)
-    for (y = tl->y; y <= br->y; y++)
-      *(t + (z % Cube::SIZE) * Cube::SIZE + (y % Cube::SIZE)) |= byteLine(tl->x, br->x);
+  orderArgs(&from->x, &to->x);
+  orderArgs(&from->y, &to->y);
+  orderArgs(&from->z, &to->z);
+  for (z = from->z; z <= to->z; z++)
+    for (y = from->y; y <= to->y; y++)
+      *(t + (z % Cube::SIZE) * Cube::SIZE + (y % Cube::SIZE)) |= byteLine(from->x, to->x);
+}
+
+
+void Drawer::wallBox(Point *from, Point *to, unsigned char target) {
+  unsigned char z, y, aux, *t;
+  orderArgs(&(from->x), &(to->x));
+  orderArgs(&(from->y), &(to->y));
+  orderArgs(&(from->z), &(to->z));
+  t = resolveTarget(target, 0, 0);
+  for (z = from->z; z <= to->z; z++)
+    for (y = from->y; y <= to->y; y++) {
+      if (y == from->y || y == to->y || z == from->z || z == to->z)
+        aux = byteLine(from->x, to->x);
+      else
+        aux |= ((0x01 << from->x) | (0x01 << to->x));
+      
+      *(t + (z * Cube::SIZE) + y) = aux;
+    }
+}
+
+void Drawer::wireframeBox(Point *from, Point *to, unsigned char target) {
+  unsigned char z, y, aux, *t;
+  Point p;
+  orderArgs(&(from->x), &(to->x));
+  orderArgs(&(from->y), &(to->y));
+  orderArgs(&(from->z), &(to->z));
+  t = resolveTarget(target, 0, 0);
+  *(t + (from->z * Cube::SIZE) + from->y) = byteLine(from->x, to->x);
+  *(t + (from->z * Cube::SIZE) + to->y) = byteLine(from->x, to->x);
+  *(t + (to->z * Cube::SIZE) + from->y) = byteLine(from->x, to->x);
+  *(t + (to->z * Cube::SIZE) + to->y) = byteLine(from->x, to->x);
+  
+  for (y = from->y; y <= to->y; y++) {
+    Point a = {from->x, y, from->z};
+    turnOnVoxel(&a, target);
+    p.z = to->z;
+    turnOnVoxel(&p, target);
+    p.x = to->x;
+    p.z = from->z;
+    turnOnVoxel(&p, target);
+    
+//    setvoxel(x2, iy, z1);
+  //  setvoxel(x2, iy, z2);
+  }
+/*
+      // Lines along Z axis
+      for (iz = z1; iz <= z2; iz++) {
+          setvoxel(x1, y1, iz);
+          setvoxel(x1, y2, iz);
+          setvoxel(x2, y1, iz);
+          setvoxel(x2, y2, iz);
+      
+      }
+  */
 }
 
 void Drawer::flipByte(unsigned char *p) {

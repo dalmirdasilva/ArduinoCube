@@ -163,9 +163,23 @@ void DrawerTest::filledBoxTest() {
 }
 
 void DrawerTest::lineTest() {
-  unsigned char aux = 0xaa;
+  unsigned char z, y, sum = 0;
+  Point from = {0, 0, 0}, to = {7, 7, 7};
   drawer->clear(Drawer::BUFFER_TARGET);
-  Cube::buffer[0][0] = aux;
-  drawer->mirrorZ(Drawer::BUFFER_TARGET);
-  SpecHelper::assertEqual(Cube::buffer[Cube::SIZE - 1][0], aux, "mirrorZ: should mirror Z.");
+  drawer->line(&from, &to, Drawer::BUFFER_TARGET);
+  for (z = 0; z < Cube::SIZE; z++)
+    for (y = 0; y < Cube::SIZE; y++)
+      sum += Cube::buffer[z][y];
+  SpecHelper::assertEqual(sum, 0xff, "line: should draw a line.");
 }
+
+
+
+
+
+
+
+
+
+
+
