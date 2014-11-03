@@ -220,6 +220,40 @@ void Drawer::wireframeBox(Point *from, Point *to, unsigned char target) {
   }
 }
 
+void Drawer::shiftOnZ(unsigned char direction) {
+  unsigned char y, z, aux, *t;
+  t = resolveTarget(target, 0, 0)
+  for (z = 0; z < Cube::SIZE; z++) {
+    for (y = 0; y < Cube::SIZE; y++) {
+      aux = AT(z, y);
+      if (direction == 0) {
+        AT(z, y) <<= 1;
+        AT(z, y) |= aux >> 7;
+      } else {
+        AT(z, y) >>= 1;
+        AT(z, y) |= aux << 7;
+      }
+    }
+  }
+}
+
+void Drawer::shiftOnX(unsigned char direction) {
+  unsigned char y, z, aux, *t;
+  t = resolveTarget(target, 0, 0)
+  for (z = 0; z < Cube::SIZE; z++) {
+    for (y = 0; y < Cube::SIZE; y++) {
+      aux = AT(z, y);
+      if (direction == 0) {
+        AT(z, y) <<= 1;
+        AT(z, y) |= aux >> 7;
+      } else {
+        AT(z, y) >>= 1;
+        AT(z, y) |= aux << 7;
+      }
+    }
+  }
+}
+
 void Drawer::shift(Axis axis, unsigned char direction, unsigned char target) {
   /*
   unsigned char x, y, i, j, k, state, *t;
