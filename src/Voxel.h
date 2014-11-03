@@ -5,6 +5,12 @@
 #define __ARDUINO_CUBE_VOXEL_H__ 1
 
 typedef enum {
+  AXIS_X,
+  AXIS_Y,
+  AXIS_Z
+} Axis;
+
+typedef enum {
   ON = 0xff,
   OFF = 0x00
 } VoxelState;

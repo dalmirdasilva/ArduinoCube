@@ -17,7 +17,7 @@ public:
   const static unsigned char CUBE_TARGET = 0;
   const static unsigned char DEFAULT_TARGET = CUBE_TARGET;
   
-  enum Plane {
+  enum Axis {
     AXIS_X = 0x00,
     AXIS_Y = 0x01,
     AXIS_Z = 0x02
@@ -92,8 +92,15 @@ public:
   /**
    * 
    */
+  void writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state) {
+    writeVoxel(x, y, z, state, DEFAULT_TARGET);
+  }
+ 
+  /**
+   * 
+   */
   void writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state, unsigned char target);
-  
+
   /**
    * See overloaded method.
    */
@@ -247,7 +254,7 @@ public:
   /**
    * Turn the p plane.
    */
-  void writePlane(Plane p, unsigned char pos, Voxel v, unsigned char target);
+  void writePlane(Axis p, unsigned char pos, Voxel v, unsigned char target);
   
   /**
    * See overloaded method.
@@ -332,13 +339,10 @@ public:
    */
   void wireframeBox(Point *from, Point *to, unsigned char target);
 
-  /*
-void box_walls(int x1, int y1, int z1, int x2, int y2, int z2);
-void box_wireframe(int x1, int y1, int z1, int x2, int y2, int z2);
-
-void tmp2cube();
-void shift(char axis, int direction);
-* */
+  /**
+   *
+   */
+  void shift(Axis axis, unsigned char direction, unsigned char target);
 
 private:
 
