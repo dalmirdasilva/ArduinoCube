@@ -52,10 +52,10 @@ void Drawer::turnOnPlaneZ(unsigned char z, unsigned char target) {
 }
 
 void Drawer::writePlaneZ(unsigned char z, Voxel v, unsigned char target) {
-  unsigned char i, *p = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[0][0];
+  unsigned char i, *t = &(target == BUFFER_TARGET ? Cube::buffer : Cube::cube)[0][0];
   if (z >= 0 && z < Cube::SIZE)
     for (i = 0; i < Cube::SIZE; i++)
-      *(p + (Cube::SIZE * z + i)) = (v.state == VoxelState::ON) ? 0xff : 0x00;
+      AT(i, z) = (v.state == VoxelState::ON) ? 0xff : 0x00;
 }
 
 void Drawer::turnOffPlaneY(unsigned char y, unsigned char target) {
@@ -96,8 +96,8 @@ void Drawer::writePlaneX(unsigned char x, Voxel v, unsigned char target) {
       }
 }
 
-void Drawer::writePlane(Axis p, unsigned char pos, Voxel v, unsigned char target) {
-  switch(p) {
+void Drawer::writePlane(Axis axis, unsigned char pos, Voxel v, unsigned char target) {
+  switch(axis) {
     case AXIS_X:
       writePlaneX(pos, v, target);
       break;
@@ -220,13 +220,13 @@ void Drawer::wireframeBox(Point *from, Point *to, unsigned char target) {
   }
 }
 
-void Drawer::shiftOnZ(unsigned char direction) {
+void Drawer::shiftOnX(unsigned char direction, unsigned char target) {
   unsigned char y, z, aux, *t;
-  t = resolveTarget(target, 0, 0)
+  t = resolveTarget(target, 0, 0);
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
       aux = AT(z, y);
-      if (direction == 0) {
+      if (direction == LEFT) {
         AT(z, y) <<= 1;
         AT(z, y) |= aux >> 7;
       } else {
@@ -237,13 +237,13 @@ void Drawer::shiftOnZ(unsigned char direction) {
   }
 }
 
-void Drawer::shiftOnX(unsigned char direction) {
+void Drawer::shiftOnY(unsigned char direction, unsigned char target) {
   unsigned char y, z, aux, *t;
-  t = resolveTarget(target, 0, 0)
+  t = resolveTarget(target, 0, 0);
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
       aux = AT(z, y);
-      if (direction == 0) {
+      if (direction == LEFT) {
         AT(z, y) <<= 1;
         AT(z, y) |= aux >> 7;
       } else {
@@ -252,69 +252,36 @@ void Drawer::shiftOnX(unsigned char direction) {
       }
     }
   }
+}
+
+void Drawer::shiftOnZ(unsigned char direction, unsigned char target) {
+  unsigned char z, k, *t, *p, *first, *last, *src, *dst, aux[Cube::SIZE];
+  t = resolveTarget(target, 0, 0);
+  first = t;
+  last = t + (Cube::BYTE_SIZE - Cube::SIZE);
+  p = (direction == UP) ? last : first;
+  memcpy(aux, p, Cube::SIZE);
+  for (z = 0, k = Cube::SIZE - 1; z < Cube::SIZE - 1; z++, k--) {
+    dst = (direction == UP) ? (t + Cube::SIZE * k) : (t + Cube::SIZE * z);
+    src = (direction == UP) ? dst - Cube::SIZE : dst + Cube::SIZE;
+    memcpy(dst, src, Cube::SIZE);
+  }
+  p = (direction == UP) ? first : last;
+  memcpy(p, aux, Cube::SIZE);
 }
 
 void Drawer::shift(Axis axis, unsigned char direction, unsigned char target) {
-  /*
-  unsigned char x, y, i, j, k, state, *t;
-  t = resolveTarget(target, 0, 0)
-  for (i = 0; i < CUBE_SIZE; i++) {
-    if (direction == -1) {
-      j = i;
-    } else {
-      j = (7 - i);
-    }
-    
-    for (x = 0; x < CUBE_SIZE; x++) {
-      for (y = 0; y < CUBE_SIZE; y++) {
-        if (direction == -1) {
-          k = j + 1;
-        } else {
-          k = j - 1;
-        }
-        if (axis == AXIS_Z) {
-          state = (*(t + (k + Cube::SIZE) + y) & (0x01 << x)) != 0;
-          *(t + (j + Cube::SIZE) + y) |= state;
-        }
-        if (axis == AXIS_Y) {
-          state = (*(t + (y + Cube::SIZE) + k) & (0x01 << x)) != 0;
-          *(t + (y + Cube::SIZE) + j) |= state;
-        }
-        if (axis == AXIS_X) {
-          state = (*(t + (x + Cube::SIZE) + y) & (0x01 << k)) != 0;
-          *(t + (x + Cube::SIZE) + y) |= state;
-
-          state = getvoxel(k, y, x);
-          altervoxel(j, y, x, state);
-        }
-
-        state = (*(t + (k + Cube::SIZE) + y) & (0x01 << x)) != 0;
-        *(t + (j + Cube::SIZE) + y) |= state;
-
-      }
-    }
-    
+  switch(axis) {
+    case AXIS_X:
+      shiftOnX(direction, target);
+      break;
+    case AXIS_Y:
+      shiftOnY(direction, target);
+      break;
+    case AXIS_Z:
+      shiftOnZ(direction, target);
+      break;
   }
-
-  if (direction == -1) {
-      i = 7;
-  } else {
-      i = 0;
-  }
-
-  for (x = 0; x < CUBE_SIZE; x++) {
-      for (y = 0; y < CUBE_SIZE; y++) {
-          if (axis == AXIS_Z) {
-              clrvoxel(x, y, i);
-          }
-          if (axis == AXIS_Y) {
-              clrvoxel(x, i, y);
-          }
-          if (axis == AXIS_X) {
-              clrvoxel(i, y, x);
-          }
-      }
-  }*/
 }
 
 void Drawer::flipByte(unsigned char *p) {
@@ -332,10 +299,9 @@ void Drawer::flipByte(unsigned char *p) {
 
 void Drawer::orderArgs(unsigned char *a, unsigned char *b) {
   if (*a > *b) {
-	flipArgs(a, b);
+    flipArgs(a, b);
   }
 }
-
 
 void Drawer::flipArgs(unsigned char *a, unsigned char *b) {
   unsigned char tmp = *b;

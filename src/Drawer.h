@@ -23,6 +23,13 @@ public:
     AXIS_Z = 0x02
   };
   
+  enum Direction {
+    UP = 0x00,
+    DOWN = 0x01,
+    LEFT = 0x02,
+    RIGHT = 0x03
+  };
+  
   
   /**
    * Validates if we the p Point is inside the cube.
@@ -254,7 +261,7 @@ public:
   /**
    * Turn the p plane.
    */
-  void writePlane(Axis p, unsigned char pos, Voxel v, unsigned char target);
+  void writePlane(Axis axis, unsigned char pos, Voxel v, unsigned char target);
   
   /**
    * See overloaded method.
@@ -343,6 +350,21 @@ public:
    *
    */
   void shift(Axis axis, unsigned char direction, unsigned char target);
+  
+  /**
+   *
+   */
+  void shiftOnX(unsigned char direction, unsigned char target);
+  
+  /**
+   *
+   */
+  void shiftOnY(unsigned char direction, unsigned char target); 
+  
+  /**
+   *
+   */
+  void shiftOnZ(unsigned char direction, unsigned char target);
 
 private:
 

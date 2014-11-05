@@ -5,7 +5,7 @@
 #define __ARDUINO_CUBE_DROWER_TEST_H__ 1
 
 #include <Drawer.h>
-#include <SpecHelper.h>
+#include <Asserter.h>
 
 class DrawerTest {
   
@@ -40,6 +40,12 @@ public:
   void filledBoxTest();
   
   void lineTest();
+  
+  void shiftOnXTest();
+  
+  void shiftOnYTest();
+  
+  void shiftOnZTest();
 };
 
 #endif /* __ARDUINO_CUBE_DROWER_TEST_H__ */

@@ -1,4 +1,5 @@
 #include <DrawerTest.h>
+#include <Util.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -18,16 +19,19 @@ void DrawerTest::run() {
   mirrorZTest();
   filledBoxTest();
   lineTest();
+  shiftOnXTest();
+  shiftOnYTest();
+  shiftOnZTest();
 }
 
 void DrawerTest::isInRangeTest() {
   Point p = {0, 0, 0};
-  SpecHelper::assertEqual(drawer->isInRange(&p), true, "isInRange: Point should be in range.");
+  Asserter::assertEqual(drawer->isInRange(&p), true, "isInRange: Point should be in range.");
   p.y = Cube::SIZE;
-  SpecHelper::assertEqual(drawer->isInRange(&p), false, "isInRange: Point with wrong y should not be in range.");
+  Asserter::assertEqual(drawer->isInRange(&p), false, "isInRange: Point with wrong y should not be in range.");
   p.y = 0;
   p.z = Cube::SIZE;
-  SpecHelper::assertEqual(drawer->isInRange(&p), false, "isInRange: Point with wrong z should not be in range.");
+  Asserter::assertEqual(drawer->isInRange(&p), false, "isInRange: Point with wrong z should not be in range.");
 }
  
 void DrawerTest::writeVoxelTest() {
@@ -36,14 +40,14 @@ void DrawerTest::writeVoxelTest() {
   Voxel v = {VoxelState::ON};
   Cube::buffer[z][y] = 0x00;
   drawer->writeVoxel(&p, v, Drawer::BUFFER_TARGET);
-  SpecHelper::assertEqual(Cube::buffer[z][y], (0x01 << x), "writeVoxel: Should write the correct voxel when ON.");
+  Asserter::assertEqual(Cube::buffer[z][y], (0x01 << x), "writeVoxel: Should write the correct voxel when ON.");
   v.state = VoxelState::OFF;
   drawer->writeVoxel(&p, v, Drawer::BUFFER_TARGET);
-  SpecHelper::assertEqual(Cube::buffer[z][y], 0x00, "writeVoxel: Should write the correct voxel when OFF.");
+  Asserter::assertEqual(Cube::buffer[z][y], 0x00, "writeVoxel: Should write the correct voxel when OFF.");
   Cube::buffer[z][y] = 0xff;
   Cube::cube[z][y] = 0x01 << x;
   drawer->writeVoxel(&p, v, Drawer::CUBE_TARGET);
-  SpecHelper::assertEqual(Cube::cube[z][y], 0x00, "writeVoxel: Should write the correct voxel when writting to the cube.");
+  Asserter::assertEqual(Cube::cube[z][y], 0x00, "writeVoxel: Should write the correct voxel when writting to the cube.");
 }
 
 void DrawerTest::invertVoxelTest() {
@@ -51,10 +55,10 @@ void DrawerTest::invertVoxelTest() {
   Point p = {x, y, z};
   Cube::buffer[z][y] = 0xff;
   drawer->invertVoxel(&p, Drawer::BUFFER_TARGET);
-  SpecHelper::assertEqual(Cube::buffer[z][y], ~(0x01 << x), "invertVoxel: should invert the voxel.");
+  Asserter::assertEqual(Cube::buffer[z][y], ~(0x01 << x), "invertVoxel: should invert the voxel.");
   Cube::cube[z][y] = 0x00;
   drawer->invertVoxel(&p, Drawer::CUBE_TARGET);
-  SpecHelper::assertEqual(Cube::cube[z][y], 0x01 << x, "invertVoxel: should invert the voxel when writting to the cube.");
+  Asserter::assertEqual(Cube::cube[z][y], 0x01 << x, "invertVoxel: should invert the voxel when writting to the cube.");
 }
 
 void DrawerTest::writePlaneZTest() {
@@ -68,7 +72,7 @@ void DrawerTest::writePlaneZTest() {
   for (i = 0; i < Cube::SIZE; i++)
     aux &= Cube::buffer[z][i];
     
-  SpecHelper::assertEqual(aux, 0xff, "writePlaneZTest: should write all z axis leds.");
+  Asserter::assertEqual(aux, 0xff, "writePlaneZTest: should write all z axis leds.");
 }
 
 void DrawerTest::writePlaneYTest() {
@@ -82,7 +86,7 @@ void DrawerTest::writePlaneYTest() {
   for (i = 0; i < Cube::SIZE; i++)
     aux &= Cube::buffer[i][y];
     
-  SpecHelper::assertEqual(aux, 0xff, "writePlaneXTest: should write all y axis leds.");
+  Asserter::assertEqual(aux, 0xff, "writePlaneXTest: should write all y axis leds.");
 }
 
 void DrawerTest::writePlaneXTest() {
@@ -99,13 +103,13 @@ void DrawerTest::writePlaneXTest() {
     for (j = 0; j < Cube::SIZE; j++)
       aux |= Cube::buffer[i][j] & (0x01 << x);
       
-  SpecHelper::assertEqual(aux, (0x01 << x), "writePlaneXTest: should write all x axis leds.");
+  Asserter::assertEqual(aux, (0x01 << x), "writePlaneXTest: should write all x axis leds.");
 }
 
 void DrawerTest::flipByteTest() {
   unsigned char b = 0xab;
   drawer->flipByte(&b);
-  SpecHelper::assertEqual(b, 0xd5, "flipByteTest: should flip the byte.");
+  Asserter::assertEqual(b, 0xd5, "flipByteTest: should flip the byte.");
 }
 
 void DrawerTest::mirrorXTest() {
@@ -120,7 +124,7 @@ void DrawerTest::mirrorXTest() {
     for (j = 0; j < Cube::SIZE; j++)
       aux &= Cube::buffer[i][j];
       
-  SpecHelper::assertEqual(aux, 0xab, "mirrorX: should mirror X.");
+  Asserter::assertEqual(aux, 0xab, "mirrorX: should mirror X.");
 }
 
 void DrawerTest::mirrorYTest() {
@@ -128,7 +132,7 @@ void DrawerTest::mirrorYTest() {
   drawer->clear(Drawer::BUFFER_TARGET);
   Cube::buffer[0][0] = aux;
   drawer->mirrorY(Drawer::BUFFER_TARGET);
-  SpecHelper::assertEqual(Cube::buffer[0][Cube::SIZE - 1], aux, "mirrorY: should mirror Y.");
+  Asserter::assertEqual(Cube::buffer[0][Cube::SIZE - 1], aux, "mirrorY: should mirror Y.");
 }
 
 void DrawerTest::mirrorZTest() {
@@ -136,7 +140,7 @@ void DrawerTest::mirrorZTest() {
   drawer->clear(Drawer::BUFFER_TARGET);
   Cube::buffer[0][0] = aux;
   drawer->mirrorZ(Drawer::BUFFER_TARGET);
-  SpecHelper::assertEqual(Cube::buffer[Cube::SIZE - 1][0], aux, "mirrorZ: should mirror Z.");
+  Asserter::assertEqual(Cube::buffer[Cube::SIZE - 1][0], aux, "mirrorZ: should mirror Z.");
 }
 
 void DrawerTest::filledBoxTest() {
@@ -149,7 +153,7 @@ void DrawerTest::filledBoxTest() {
     for (y = 0; y < 6; y++)
       aux &= Cube::buffer[z][y];
   
-  SpecHelper::assertEqual(aux, 0x07, "filledBox: test#1 should draw a filled box.");
+  Asserter::assertEqual(aux, 0x07, "filledBox: test#1 should draw a filled box.");
   p0.x = 1;
   p1.z = 2;
   aux = 0xff;
@@ -159,7 +163,7 @@ void DrawerTest::filledBoxTest() {
     for (y = 0; y < 6; y++)
       aux &= Cube::buffer[z][y];
       
-  SpecHelper::assertEqual(aux, 0x06, "filledBox: test#2 should draw a filled box.");
+  Asserter::assertEqual(aux, 0x06, "filledBox: test#2 should draw a filled box.");
 }
 
 void DrawerTest::lineTest() {
@@ -171,8 +175,39 @@ void DrawerTest::lineTest() {
     for (y = 0; y < Cube::SIZE; y++)
       sum += Cube::buffer[z][y];
 
-  SpecHelper::assertEqual(sum, 0xff, "line: should draw a line.");
+  Asserter::assertEqual(sum, 0xff, "line: should draw a line.");
 }
+
+void DrawerTest::shiftOnXTest() {
+  unsigned char x = 0, y = 0, z = 7, aux;
+  Point p = {x, y, z};
+  drawer->clear(Drawer::BUFFER_TARGET);
+  drawer->turnOnVoxel(&p, Drawer::BUFFER_TARGET);
+  aux = Cube::buffer[z][y];
+  drawer->shiftOnX(Drawer::RIGHT, Drawer::BUFFER_TARGET);
+  Asserter::assertEqual(Cube::buffer[z][y], Util::shift(aux, false), "shiftOnXTest: should shiftOnXTest RIGHT.");
+  aux = Cube::buffer[z][y];
+  drawer->shiftOnX(Drawer::LEFT, Drawer::BUFFER_TARGET);
+  Asserter::assertEqual(Cube::buffer[z][y], Util::shift(aux, true), "shiftOnXTest: should shiftOnXTest LEFT.");
+}
+
+void DrawerTest::shiftOnYTest() {
+  //Util::dumpCube(&Cube::buffer[0][0]);
+  Asserter::assertEqual(1, 0, "shiftOnYTest: should shiftOnYTest.");
+}
+
+void DrawerTest::shiftOnZTest() {
+  unsigned char x = 0, y = 0, z = 7;
+  Point p = {x, y, z};
+  drawer->clear(Drawer::BUFFER_TARGET);
+  drawer->turnOnVoxel(&p, Drawer::BUFFER_TARGET);
+  drawer->shiftOnZ(Drawer::UP, Drawer::BUFFER_TARGET);
+  Asserter::assertEqual(Cube::buffer[(z + 1) % Cube::SIZE][y], 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
+  drawer->shiftOnZ(Drawer::DOWN, Drawer::BUFFER_TARGET);
+  Asserter::assertEqual(Cube::buffer[z][y], 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
+}
+
+
 
 
 
