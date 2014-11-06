@@ -292,6 +292,12 @@ void Cube::shift(Axis axis, unsigned char direction, unsigned char target) {
   }
 }
 
+void Cube::writeCube(Point *p, Voxel v, unsigned char size) {
+  unsigned char x, y, z;
+  for () {
+  }
+}
+
 void Cube::flipByte(unsigned char *p) {
   unsigned char flop = 0x00;
   flop = (flop & 0xfe) | (0x01 & (*p >> 7));

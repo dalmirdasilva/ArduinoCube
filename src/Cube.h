@@ -372,6 +372,11 @@ public:
    *
    */
   void shiftOnZ(unsigned char direction, unsigned char target);
+  
+  /**
+   * 
+   */
+  void writeCube(Point *p, Voxel v, unsigned char size);
 
 private:
 
