@@ -3,7 +3,7 @@ CFLAGS = -Wall -g -std=c++0x
 INCLUDES = -I./
 LFLAGS = 
 LIBRARIES = 
-SOURCES = main.cpp Cube.cpp Drawer.cpp CubeTest.cpp Asserter.cpp
+SOURCES = main.cpp Cube.cpp CubeTest.cpp Asserter.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 MAIN = main
 
