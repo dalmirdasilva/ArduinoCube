@@ -120,8 +120,7 @@ void Cube::writePlane(Axis axis, unsigned char pos, Voxel v, unsigned char targe
 }
 
 void Cube::line(Point *from, Point *to, unsigned char target) {
-  float ySteps;
-  float zSteps;
+  float ySteps, zSteps;
   Point p;
   if (from->x > to->x) {
 	  Point *aux = from;
@@ -139,7 +138,7 @@ void Cube::line(Point *from, Point *to, unsigned char target) {
     zSteps = (float) (to->z - from->z) / (float) (to->x - from->x);
 
   for (p.x = from->x; p.x <= to->x; p.x++) {
-    p.y = (zSteps * (p.x - from->x)) + from->y;
+    p.y = (ySteps * (p.x - from->x)) + from->y;
     p.z = (zSteps * (p.x - from->x)) + from->z;
     turnOnVoxel(&p, target);
   }

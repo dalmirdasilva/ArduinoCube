@@ -6,7 +6,7 @@
 
 #include <Effect.h>
 
-Effect::Effect(Drawer *drawer) : drawer(drawer) {
+Effect::Effect(Cube *cube) : cube(cube) {
 }
 
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_CPP__ */

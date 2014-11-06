@@ -1,19 +1,18 @@
 /**
  */
 
-#ifndef __ARDUINO_CUBE_DROWER_TEST_H__
-#define __ARDUINO_CUBE_DROWER_TEST_H__ 1
+#ifndef __ARDUINO_CUBE_CUBE_TEST_H__
+#define __ARDUINO_CUBE_CUBE_TEST_H__ 1
 
-#include <Drawer.h>
-#include <Asserter.h>
+#include <Cube.h>
 
-class DrawerTest {
+class CubeTest {
   
 public:
 
-  Drawer *drawer;
+  Cube *cube;
   
-  DrawerTest(Drawer *drawer);
+  CubeTest(Cube *cube);
   
   void run();
   
@@ -48,4 +47,4 @@ public:
   void shiftOnZTest();
 };
 
-#endif /* __ARDUINO_CUBE_DROWER_TEST_H__ */
+#endif /* __ARDUINO_CUBE_CUBE_TEST_H__ */

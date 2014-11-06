@@ -1,18 +1,19 @@
 /**
+ * 
  */
  
 #ifndef __ARDUINO_CUBE_EFFECTS_EFFECT_H__
 #define __ARDUINO_CUBE_EFFECTS_EFFECT_H__ 1
 
-#include <Drawer.h>
+#include <Cube.h>
 
 class Effect {
   
-  Drawer *drawer;
+  Cube *cube;
   
-  Effect(Drawer *drawer);
+  Effect(Cube *cube);
   
-  virtual void run(void *parameters);
+  virtual void run();
 };
   
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_H__ */
