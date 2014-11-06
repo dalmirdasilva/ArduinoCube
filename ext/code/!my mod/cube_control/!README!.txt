@@ -1,0 +1,2 @@
+- requires Java
+- remove Bluetooth adapter, they slows Processing extremely down!                                                                                  

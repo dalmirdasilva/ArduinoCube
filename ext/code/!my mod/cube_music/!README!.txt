@@ -1,0 +1,4 @@
+- requires Java
+- requires native Sound Card Driver (not Microsoft's!)
+- enable Stereomix!
+- remove Bluetooth adapter, they slows Processing extremely down!

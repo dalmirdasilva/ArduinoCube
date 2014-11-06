@@ -1,0 +1,3 @@
+
+cubo_3d
+cubo_3d.jar,core.jar,shapes3d.jar,gluegen-rt.jar,jogl.jar,opengl.jar,peasycam.jar,guicomponents.jar,RXTXcomm.jar,serial.jar

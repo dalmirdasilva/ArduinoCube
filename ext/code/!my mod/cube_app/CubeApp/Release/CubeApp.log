@@ -1,0 +1,50 @@
+﻿Der Buildvorgang wurde am 22.01.2012 22:02:37 gestartet.
+     1>Projekt "C:\Users\BlackX\Desktop\Mod Code\CubeApp\CubeApp\CubeApp.vcxproj" auf Knoten "2", build Ziel(e).
+     1>InitializeBuildStatus:
+         "Release\CubeApp.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt animations.c
+         animations.c
+     1>animations.c(170): warning C4028: Formaler Parameter '1' unterscheidet sich von der Deklaration
+     1>animations.c(192): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234): Siehe Deklaration von 'fopen'
+     1>animations.c(496): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(496): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(496): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(500): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(500): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(500): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(503): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(503): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(503): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(506): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(506): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(506): warning C4244: 'Funktion': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(555): warning C4244: 'Funktion': Konvertierung von 'time_t' in 'unsigned int', möglicher Datenverlust
+     1>animations.c(766): warning C4244: '=': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(767): warning C4244: '=': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>animations.c(834): warning C4996: 'ctime': This function or variable may be unsafe. Consider using ctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\time.inl(86): Siehe Deklaration von 'ctime'
+     1>animations.c(846): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _itoa. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdlib.h(867): Siehe Deklaration von 'itoa'
+       ResourceCompile:
+         Alle Ausgaben sind aktuell.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\BlackX\Desktop\Mod Code\CubeApp\Release\CubeApp.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\CubeApp.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\BlackX\Desktop\Mod Code\CubeApp\Release\CubeApp.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\BlackX\Desktop\Mod Code\CubeApp\Release\CubeApp.lib" /MACHINE:X86 Release\resource.res
+         Release\animations.obj
+         Release\CUBE_APP.obj
+         Release\images.obj
+         Release\serial.obj
+         Code wird generiert.
+         Codegenerierung ist abgeschlossen.
+         CubeApp.vcxproj -> C:\Users\BlackX\Desktop\Mod Code\CubeApp\Release\CubeApp.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\BlackX\Desktop\Mod Code\CubeApp\Release\CubeApp.exe;#1" /manifest Release\CubeApp.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Die Datei "Release\CubeApp.unsuccessfulbuild" wird gelöscht.
+         Aktualisieren des Timestamps von "Release\CubeApp.lastbuildstate".
+     1>Die Erstellung des Projekts "C:\Users\BlackX\Desktop\Mod Code\CubeApp\CubeApp\CubeApp.vcxproj" ist abgeschlossen, build Ziel(e).
+
+Das Erstellen war erfolgreich.
+
+Verstrichene Zeit 00:00:05.81
