@@ -1,6 +1,6 @@
 /**
  */
- 
+
 #ifndef __ARDUINO_CUBE_CUBE_CPP__
 #define __ARDUINO_CUBE_CUBE_CPP__ 1
 
@@ -8,7 +8,7 @@
 #include <Util.h>
 #include <string.h>
 
-#define AT(y, z) *(t + ((z%Cube::SIZE) * Cube::SIZE) + (y%Cube::SIZE))
+#define AT(y, z) *(t + ((z) * Cube::SIZE) + (y))
 
 unsigned char Cube::buffer[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::cube[CUBE_SIZE][CUBE_SIZE] = {};
