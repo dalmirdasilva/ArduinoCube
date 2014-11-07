@@ -8,7 +8,7 @@
 #include <Util.h>
 #include <string.h>
 
-#define AT(y, z) *(t + ((z) * Cube::SIZE) + (y))
+#define AT(y, z) *(t + ((z&0x07) * Cube::SIZE) + (y&0x07 ))
 
 unsigned char Cube::buffer[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::cube[CUBE_SIZE][CUBE_SIZE] = {};
@@ -292,9 +292,15 @@ void Cube::shift(Axis axis, unsigned char direction, unsigned char target) {
   }
 }
 
-void Cube::writeCube(Point *p, Voxel v, unsigned char size) {
-  unsigned char x, y, z;
-  for () {
+void Cube::writeSubCube(Point *p, Voxel v, unsigned char size, unsigned char target) {
+  unsigned char aux, x, y, z, *t;
+  t = resolveTarget(target, 0, 0);
+  x = p->x + size;
+  for (z = p->z + size; p->z < z; p->z++) {
+    for (y = p->y + size; p->y < y; p->y++) {
+      aux = AT(p->z, p->y);
+      AT(p->z, p->y) = aux | byteLine(p->x, x);
+    }
   }
 }
 

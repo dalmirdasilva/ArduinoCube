@@ -8,6 +8,8 @@ CubeTest::CubeTest(Cube *cube) : cube(cube) {
 }
 
 void CubeTest::run() {
+  for (int i = 0; i < 50000000; i++) {
+
   isInRangeTest();
   writeVoxelTest();
   invertVoxelTest();
@@ -23,6 +25,7 @@ void CubeTest::run() {
   shiftOnXTest();
   shiftOnYTest();
   shiftOnZTest();
+  }
 }
 
 void CubeTest::isInRangeTest() {
@@ -202,8 +205,7 @@ void CubeTest::shiftOnZTest() {
   Point p = {x, y, z};
   cube->clear(Cube::Target::BUFFER);
   cube->turnOnVoxel(&p, Cube::Target::BUFFER);
-  for (int i = 0; i < 50000000; i++)
-    cube->shiftOnZ(Cube::UP, Cube::Target::BUFFER);
+  cube->shiftOnZ(Cube::UP, Cube::Target::BUFFER);
   Asserter::assertEqual(Cube::buffer[(z + 1) % Cube::SIZE][y], 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
   cube->shiftOnZ(Cube::DOWN, Cube::Target::BUFFER);
   Asserter::assertEqual(Cube::buffer[z][y], 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
