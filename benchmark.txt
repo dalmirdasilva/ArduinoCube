@@ -1,17 +1,41 @@
+###############
+commit 452615e1687feba5f156d1fa34f86e87d5af6dfb
+
+#define AT(y, z) *(t + ((z) * Cube::SIZE) + (y))
 
 real	7m6.056s
 user	7m5.964s
 sys	0m0.062s
 
+
+
+###############
 commit b15bc5be6a7f63ef358ce225a0d0a044a3fc2375
+
+#define AT(y, z) *(t + ((z%Cube::SIZE) * Cube::SIZE) + (y%Cube::SIZE))
 
 real	10m6.738s
 user	10m6.436s
 sys	0m0.118s
 
 
+
+###############
 commit ae9ba20596809e598a756d972c760830649439ed
+
+#define AT(y, z) *(t + ((z&0x07) * Cube::SIZE) + (y&0x07))
 
 real    7m16.636s
 user	7m16.357s
 sys	0m0.100s
+
+
+
+###############
+commit ae9ba20596809e598a756d972c760830649439ed
+
+#define AT(y, z) Cube::buffer[z][y]
+
+real	7m9.958s
+user	7m9.699s
+sys	0m0.120s

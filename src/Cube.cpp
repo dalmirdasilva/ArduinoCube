@@ -8,7 +8,7 @@
 #include <Util.h>
 #include <string.h>
 
-#define AT(y, z) *(t + ((z) * Cube::SIZE) + (y))
+#define AT(y, z) Cube::buffer[z][y] //*(t + ((z) * Cube::SIZE) + (y))
 
 unsigned char Cube::buffer[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::cube[CUBE_SIZE][CUBE_SIZE] = {};
