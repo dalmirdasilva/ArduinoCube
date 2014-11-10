@@ -29,7 +29,9 @@ real    7m16.636s
 user	7m16.357s
 sys	0m0.100s
 
-
+real	7m46.913s
+user	7m45.932s
+sys	0m0.376s
 
 ###############
 commit ae9ba20596809e598a756d972c760830649439ed
@@ -39,3 +41,16 @@ commit ae9ba20596809e598a756d972c760830649439ed
 real	7m9.958s
 user	7m9.699s
 sys	0m0.120s
+
+real	9m11.828s
+user	9m10.765s
+sys	0m0.388s
+
+
+###############
+
+using memset for fill method.
+
+real	5m58.610s
+user	5m57.899s
+sys	0m0.207s

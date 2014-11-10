@@ -8,8 +8,6 @@ CubeTest::CubeTest(Cube *cube) : cube(cube) {
 }
 
 void CubeTest::run() {
-  for (int i = 0; i < 50000000; i++) {
-
   isInRangeTest();
   writeVoxelTest();
   invertVoxelTest();
@@ -25,7 +23,6 @@ void CubeTest::run() {
   shiftOnXTest();
   shiftOnYTest();
   shiftOnZTest();
-  }
 }
 
 void CubeTest::isInRangeTest() {
@@ -196,8 +193,13 @@ void CubeTest::shiftOnXTest() {
 }
 
 void CubeTest::shiftOnYTest() {
+  cube->clear(Cube::Target::BUFFER);
+  Cube::buffer[0][7] = 0xff;
   //Util::dumpCube(&Cube::buffer[0][0]);
-  Asserter::assertEqual(1, 0, "shiftOnYTest: should shiftOnYTest.");
+  cube->shiftOnY(Cube::BACK, Cube::Target::BUFFER);
+  //Util::dumpCube(&Cube::buffer[0][0]);
+  Asserter::assertEqual(Cube::buffer[0][7], 0x00, "shiftOnYTest: should shiftOnYTest case 1.");
+  Asserter::assertEqual(Cube::buffer[0][6], 0xff, "shiftOnYTest: should shiftOnYTest case 2.");
 }
 
 void CubeTest::shiftOnZTest() {
@@ -210,16 +212,3 @@ void CubeTest::shiftOnZTest() {
   cube->shiftOnZ(Cube::DOWN, Cube::Target::BUFFER);
   Asserter::assertEqual(Cube::buffer[z][y], 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

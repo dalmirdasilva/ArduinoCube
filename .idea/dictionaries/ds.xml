@@ -1,6 +1,8 @@
 <component name="ProjectDictionaryState">
   <dictionary name="ds">
     <words>
+      <w>memcpy</w>
+      <w>memset</w>
       <w>voxel</w>
     </words>
   </dictionary>

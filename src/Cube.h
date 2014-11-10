@@ -6,6 +6,7 @@
 
 #define CUBE_SIZE 8
 #define CUBE_BYTE_SIZE CUBE_SIZE * CUBE_SIZE
+#define LOG2_CUBE_SIZE 7
 
 #include <Point.h>
 #include <Voxel.h>
@@ -29,7 +30,9 @@ public:
     UP = 0x00,
     DOWN = 0x01,
     LEFT = 0x02,
-    RIGHT = 0x03
+    RIGHT = 0x04,
+    FRONT = 0x08,
+    BACK = 0x10
   };
   
   const static unsigned char SIZE = CUBE_SIZE;
@@ -42,7 +45,12 @@ public:
    * Validates if we the p Point is inside the cube.
    */
   bool isInRange(Point *p) const;
-  
+
+  /**
+   * Fits the point in cube range
+   */
+  bool fitInRange(Point *p);
+
   /**
    * See overloaded method.
    */
@@ -388,8 +396,8 @@ private:
     return ((0xff << start) & ~(0xff << (end + 1)));
   }
 
-  unsigned char *resolveTarget(unsigned char target, unsigned char x, unsigned char y) {
-    return &(target == Target::BUFFER ? Cube::buffer : Cube::cube)[x][y];
+  unsigned char *resolveTarget(unsigned char target, unsigned char z, unsigned char y) {
+    return &(target == Target::BUFFER ? Cube::buffer : Cube::cube)[z][y];
   }
 
   void set(unsigned char *p, unsigned char mask) {

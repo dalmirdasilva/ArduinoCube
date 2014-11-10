@@ -8,7 +8,7 @@
 #include <Util.h>
 #include <string.h>
 
-#define AT(y, z) Cube::buffer[z][y] //*(t + ((z) * Cube::SIZE) + (y))
+#define AT(y, z) *(t + ((z & LOG2_CUBE_SIZE) * CUBE_SIZE) + (y & LOG2_CUBE_SIZE))
 
 unsigned char Cube::buffer[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::cube[CUBE_SIZE][CUBE_SIZE] = {};
@@ -19,12 +19,16 @@ bool Cube::isInRange(Point *p) const {
   return true;
 }
 
+bool Cube::fitInRange(Point *p) {
+  p->x &= LOG2_CUBE_SIZE;
+  p->y &= LOG2_CUBE_SIZE;
+  p->z &= LOG2_CUBE_SIZE;
+}
+
 void Cube::fill(unsigned char pattern, unsigned char target) {
-  unsigned char z, y, *t;
+  unsigned char *t;
   t = resolveTarget(target, 0, 0);
-  for (z = 0; z < Cube::SIZE; z++)
-    for (y = 0; y < Cube::SIZE; y++)
-      *(t + (Cube::SIZE * z + y)) = pattern;
+  memset(t, pattern, Cube::BYTE_SIZE);
 }
 
 void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state, unsigned char target) {
@@ -33,7 +37,7 @@ void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigne
   t = resolveTarget(target, z, y);
   state == VoxelState::ON ? set(t, mask) : clr(t, mask);
 }
-  
+
 void Cube::turnOnVoxel(Point *p, unsigned char target) {
   Voxel v = {VoxelState::ON};
   writeVoxel(p, v, target);
@@ -61,10 +65,11 @@ void Cube::turnOnPlaneZ(unsigned char z, unsigned char target) {
 }
 
 void Cube::writePlaneZ(unsigned char z, Voxel v, unsigned char target) {
-  unsigned char i, *t = &(target == BUFFER ? Cube::buffer : Cube::cube)[0][0];
-  if (z >= 0 && z < Cube::SIZE)
-    for (i = 0; i < Cube::SIZE; i++)
-      AT(i, z) = (v.state == VoxelState::ON) ? 0xff : 0x00;
+  unsigned char pattern, *t;
+  z %= Cube::SIZE;
+  t = resolveTarget(target, z, 0);
+  pattern = (v.state == VoxelState::ON) ? 0xff : 0x00;
+  memset(t, pattern, Cube::SIZE);
 }
 
 void Cube::turnOffPlaneY(unsigned char y, unsigned char target) {
@@ -78,10 +83,11 @@ void Cube::turnOnPlaneY(unsigned char y, unsigned char target) {
 }
 
 void Cube::writePlaneY(unsigned char y, Voxel v, unsigned char target) {
-  unsigned char i, *t = &(target == BUFFER ? Cube::buffer : Cube::cube)[0][0];
-  if (y >= 0 && y < Cube::SIZE)
-    for (i = 0; i < Cube::SIZE; i++)
-      AT(y, i) = (v.state == VoxelState::ON) ? 0xff : 0x00;
+  unsigned char i, *t;
+  y %= Cube::SIZE;
+  t = resolveTarget(target, 0, 0);
+  for (i = 0; i < Cube::SIZE; i++)
+    AT(y, i) = (v.state == VoxelState::ON) ? 0xff : 0x00;
 }
 
 void Cube::turnOffPlaneX(unsigned char x, unsigned char target) {
@@ -97,12 +103,12 @@ void Cube::turnOnPlaneX(unsigned char x, unsigned char target) {
 void Cube::writePlaneX(unsigned char x, Voxel v, unsigned char target) {
   unsigned char z, y, mask, *t;
   mask = 1 << x;
-  if (x >= 0 && x < Cube::SIZE)
-    for (z = 0; z < Cube::SIZE; z++)
-      for (y = 0; y < Cube::SIZE; y++) {
-        t = resolveTarget(target, z, y);
-        v.state == VoxelState::ON ? set(t, mask) : clr(t, mask);
-      }
+  x %= Cube::SIZE;
+  for (z = 0; z < Cube::SIZE; z++)
+    for (y = 0; y < Cube::SIZE; y++) {
+      t = resolveTarget(target, z, y);
+      v.state == VoxelState::ON ? set(t, mask) : clr(t, mask);
+    }
 }
 
 void Cube::writePlane(Axis axis, unsigned char pos, Voxel v, unsigned char target) {
@@ -186,6 +192,14 @@ void Cube::filledBox(Point *from, Point *to, unsigned char target) {
       AT(y, z) |= byteLine(from->x, to->x);
 }
 
+void Cube::writeSubCube(Point *p, Voxel v, unsigned char size, unsigned char target) {
+  unsigned char aux, x, y, z, *t;
+  t = resolveTarget(target, 0, 0);
+  x = p->x + size;
+  for (z = p->z; z < p->z + size; z++)
+    for (y = p->y; y < p->y + size; y++)
+      AT(z, y) |= byteLine(p->x, x);
+}
 
 void Cube::wallBox(Point *from, Point *to, unsigned char target) {
   unsigned char z, y, aux, *t;
@@ -246,19 +260,20 @@ void Cube::shiftOnX(unsigned char direction, unsigned char target) {
 }
 
 void Cube::shiftOnY(unsigned char direction, unsigned char target) {
-  unsigned char y, z, aux, *t;
+  unsigned char z, *t, *b, buf[Cube::SIZE][Cube::SIZE];
+  bool isFront;
+  isFront = (direction == FRONT);
   t = resolveTarget(target, 0, 0);
+  b = &(buf[0][0]);
+  memcpy(b, t, Cube::BYTE_SIZE);
+
   for (z = 0; z < Cube::SIZE; z++) {
-    for (y = 0; y < Cube::SIZE; y++) {
-      aux = AT(z, y);
-      if (direction == LEFT) {
-        AT(z, y) <<= 1;
-        AT(z, y) |= aux >> 7;
-      } else {
-        AT(z, y) >>= 1;
-        AT(z, y) |= aux << 7;
-      }
-    }
+    AT(z, (isFront ? 0 : Cube::SIZE - 1)) = buf[z][(isFront ? Cube::SIZE - 1 : 0)];
+    memcpy(
+      t + (z * Cube::SIZE) + (isFront ? 0 : Cube::SIZE),
+      b + (z * Cube::SIZE) + (isFront ? Cube::SIZE : 0),
+      Cube::SIZE - 1
+    );
   }
 }
 
@@ -289,18 +304,6 @@ void Cube::shift(Axis axis, unsigned char direction, unsigned char target) {
     case AXIS_Z:
       shiftOnZ(direction, target);
       break;
-  }
-}
-
-void Cube::writeSubCube(Point *p, Voxel v, unsigned char size, unsigned char target) {
-  unsigned char aux, x, y, z, *t;
-  t = resolveTarget(target, 0, 0);
-  x = p->x + size;
-  for (z = p->z + size; p->z < z; p->z++) {
-    for (y = p->y + size; p->y < y; p->y++) {
-      aux = AT(p->z, p->y);
-      AT(p->z, p->y) = aux | byteLine(p->x, x);
-    }
   }
 }
 
