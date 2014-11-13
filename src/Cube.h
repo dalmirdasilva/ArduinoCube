@@ -49,7 +49,7 @@ public:
   /**
    * Fits the point in cube range
    */
-  bool fitInRange(Point *p);
+  void fitInRange(Point *p);
 
   /**
    * See overloaded method.
@@ -365,17 +365,38 @@ public:
    *
    */
   void shift(Axis axis, unsigned char direction, unsigned char target);
-  
+
+  /**
+   * See overloaded method
+   */
+  void shiftOnX(unsigned char direction) {
+    shiftOnX(direction, DEFAULT_TARGET);
+  }
+
   /**
    *
    */
   void shiftOnX(unsigned char direction, unsigned char target);
-  
+
+  /**
+   * See overloaded method
+   */
+  void shiftOnY(unsigned char direction) {
+    shiftOnY(direction, DEFAULT_TARGET);
+  }
+
   /**
    *
    */
   void shiftOnY(unsigned char direction, unsigned char target); 
   
+  /**
+   * See overloaded method
+   */
+  void shiftOnZ(unsigned char direction) {
+    shiftOnZ(direction, DEFAULT_TARGET);
+  }
+
   /**
    *
    */
@@ -389,7 +410,7 @@ public:
 private:
 
   /**
-   *  Returns a byte with a row of 1's drawn in it.
+   * Returns a byte with a row of 1's drawn in it.
    * byteLine(2, 5) gives 0b00111100
    */
   unsigned char byteLine(unsigned char start, unsigned char end) {

@@ -1,12 +1,17 @@
-#include <DrawerTest.h>
+#include <CubeTest.h>
+#include <EffectTest.h>
 
 #define TEST_MODE 1
 
 int main(int argc, char *argv[]) {
   
-  Drawer drawer = Drawer();
-  DrawerTest drawerTest = DrawerTest(&drawer);
-  drawerTest.run();
+  Cube cube = Cube();
+  CubeTest cubeTest = CubeTest(&cube);
+  EffectTest effectTest = EffectTest(&cube);
+
+  cubeTest.run();
+  effectTest.run();
+
   
   return 0;
 }

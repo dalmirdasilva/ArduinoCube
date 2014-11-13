@@ -19,7 +19,7 @@ bool Cube::isInRange(Point *p) const {
   return true;
 }
 
-bool Cube::fitInRange(Point *p) {
+void Cube::fitInRange(Point *p) {
   p->x &= LOG2_CUBE_SIZE;
   p->y &= LOG2_CUBE_SIZE;
   p->z &= LOG2_CUBE_SIZE;
@@ -193,7 +193,7 @@ void Cube::filledBox(Point *from, Point *to, unsigned char target) {
 }
 
 void Cube::writeSubCube(Point *p, Voxel v, unsigned char size, unsigned char target) {
-  unsigned char aux, x, y, z, *t;
+  unsigned char x, y, z, *t;
   t = resolveTarget(target, 0, 0);
   x = p->x + size;
   for (z = p->z; z < p->z + size; z++)
@@ -266,12 +266,11 @@ void Cube::shiftOnY(unsigned char direction, unsigned char target) {
   t = resolveTarget(target, 0, 0);
   b = &(buf[0][0]);
   memcpy(b, t, Cube::BYTE_SIZE);
-
   for (z = 0; z < Cube::SIZE; z++) {
-    AT(z, (isFront ? 0 : Cube::SIZE - 1)) = buf[z][(isFront ? Cube::SIZE - 1 : 0)];
+    AT((isFront ? 0 : Cube::SIZE - 1), z) = buf[z][(isFront ? Cube::SIZE - 1 : 0)];
     memcpy(
-      t + (z * Cube::SIZE) + (isFront ? 0 : Cube::SIZE),
-      b + (z * Cube::SIZE) + (isFront ? Cube::SIZE : 0),
+      t + (z * Cube::SIZE) + (isFront ? 1 : 0),
+      b + (z * Cube::SIZE) + (isFront ? 0 : 1),
       Cube::SIZE - 1
     );
   }

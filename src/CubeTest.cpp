@@ -195,11 +195,12 @@ void CubeTest::shiftOnXTest() {
 void CubeTest::shiftOnYTest() {
   cube->clear(Cube::Target::BUFFER);
   Cube::buffer[0][7] = 0xff;
-  //Util::dumpCube(&Cube::buffer[0][0]);
   cube->shiftOnY(Cube::BACK, Cube::Target::BUFFER);
-  //Util::dumpCube(&Cube::buffer[0][0]);
   Asserter::assertEqual(Cube::buffer[0][7], 0x00, "shiftOnYTest: should shiftOnYTest case 1.");
   Asserter::assertEqual(Cube::buffer[0][6], 0xff, "shiftOnYTest: should shiftOnYTest case 2.");
+  cube->shiftOnY(Cube::FRONT, Cube::Target::BUFFER);
+  Asserter::assertEqual(Cube::buffer[0][7], 0xff, "shiftOnYTest: should shiftOnYTest case 3.");
+  Asserter::assertEqual(Cube::buffer[0][6], 0x00, "shiftOnYTest: should shiftOnYTest case 4.");
 }
 
 void CubeTest::shiftOnZTest() {

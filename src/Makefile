@@ -1,11 +1,11 @@
 CC = g++
 CFLAGS = -Wall -g -std=c++0x
-INCLUDES = -I./
-LFLAGS = 
+INCLUDES = -I./ -I./effects
+LFLAGS = -v
 LIBRARIES = 
-SOURCES = main.cpp Cube.cpp CubeTest.cpp Asserter.cpp
+SOURCES = spec.cpp effects/Rain.cpp effects/Effect.cpp Cube.cpp Asserter.cpp effects/EffectTest.cpp CubeTest.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-MAIN = main
+MAIN = spec
 
 .PHONY: depend clean
 

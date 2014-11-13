@@ -1,6 +1,5 @@
 #!/bin/bash
 
 make clean
-make
-./main
+make && time ./spec
 make clean
