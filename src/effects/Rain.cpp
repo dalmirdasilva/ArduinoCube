@@ -6,12 +6,13 @@
 
 #include <Rain.h>
 #include <Arduino.h>
+#include <Point.h>
 
 Rain::Rain(Cube *cube, RainParameters *parameters) : Effect(cube), parameters(parameters) {
 }
   
 void Rain::run() {
-  unsigned char k, x, y, n;
+  unsigned char k, n;
   unsigned int i;
   Point p = {0, 0, Cube::SIZE - 1};
   for (i = 0; i < parameters->iterations; i++) {
@@ -24,7 +25,7 @@ void Rain::run() {
     }
     delay(parameters->delay);
     cube->shiftOnZ(Cube::DOWN);
-    cube->turnOffPlaneZ(0);
+    cube->turnOffPlaneZ(Cube::SIZE - 1);
   }
 }
   

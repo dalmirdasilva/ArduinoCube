@@ -2,29 +2,25 @@
  */
 
 #ifndef __ARDUINO_CUBE_EFFECTS_BLINK_H__
-#define __ARDUINO_CUBE_EFFECTS_RAIN_H__ 1
+#define __ARDUINO_CUBE_EFFECTS_BLINK_H__ 1
 
 #include <Effect.h>
-#include <Point.h>
 #include <Cube.h>
 
 class Blink : public Effect {
 
-  unsigned char minDrops;
-  unsigned char maxDrops;
-  RainParameters *parameters;
-
 public:
 
-  struct {
-    unsigned int iterations;
-    unsigned char intensity;
-    unsigned char delay;
-  } RainParameters;
+  typedef struct {
+    unsigned char velocity;
+  } BlinkParameters;
 
-  Blink(Drawer *drawer, RainParameters *parameters);
+  BlinkParameters *parameters;
+
+
+  Blink(Cube *cube, BlinkParameters *parameters);
 
   virtual void run();
-}
+};
 
-#endif /* __ARDUINO_CUBE_EFFECTS_RAIN_H__ */
+#endif /* __ARDUINO_CUBE_EFFECTS_BLINK_H__ */

@@ -1,9 +1,19 @@
 CC = g++
 CFLAGS = -Wall -g -std=c++0x
 INCLUDES = -I./ -I./effects
-LFLAGS = -v
+LFLAGS =
 LIBRARIES = 
-SOURCES = spec.cpp effects/Rain.cpp effects/Effect.cpp Cube.cpp Asserter.cpp effects/EffectTest.cpp CubeTest.cpp
+SOURCES = \
+  Arduino.cpp \
+  spec.cpp \
+  effects/Rain.cpp \
+  effects/Blink.cpp \
+  effects/Effect.cpp \
+  Cube.cpp \
+  Asserter.cpp \
+  effects/EffectTest.cpp \
+  CubeTest.cpp
+
 OBJECTS = $(SOURCES:.cpp=.o)
 MAIN = spec
 
@@ -19,7 +29,7 @@ $(MAIN): $(OBJECTS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) *.o *~ $(MAIN)
+	$(RM) *.o *~ effects/*.o effects/*~ $(MAIN)
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^

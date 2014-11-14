@@ -9,14 +9,28 @@ EffectTest::EffectTest(Cube *cube) : cube(cube) {
 
 void EffectTest::run() {
   rainTest();
+  blinkTest();
 }
 
 void EffectTest::rainTest() {
-  Rain::RainParameters rp = {40, 8, 64, 200};
+  unsigned char i, aux = 0;
+  Rain::RainParameters rp = {40, 1, 1, 200};
   Rain r = Rain(cube, &rp);
   cube->clear();
-  Util::dumpCube(&Cube::cube[0][0]);
   r.run();
-  Util::dumpCube(&Cube::cube[0][0]);
-  Asserter::assertEqual(1, 2, "rainTest: errou");
+  for (i = 0; i < Cube::SIZE; i++)
+    aux += Cube::cube[Cube::SIZE - 1][i];
+
+  Asserter::assertEqual(aux, 0, "rainTest: It should clear the top plane.");
+  for (i = 0; i < Cube::SIZE; i++)
+    aux += Cube::cube[0][i];
+
+  Asserter::assertNotEqual(aux, 0, "rainTest: It should have turned on some LEDs.");
+}
+
+void EffectTest::blinkTest() {
+  Blink::BlinkParameters bp = {0};
+  Blink b = Blink(cube, &bp);
+  b.run();
+  Asserter::assertEqual(0, 0, "blinkTest: It should not break, we cannot test it.");
 }

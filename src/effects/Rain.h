@@ -5,7 +5,6 @@
 #define __ARDUINO_CUBE_EFFECTS_RAIN_H__ 1
 
 #include <Effect.h>
-#include <Point.h>
 #include <Cube.h>
 
 class Rain : public Effect {
