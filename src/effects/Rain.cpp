@@ -13,9 +13,9 @@ Rain::Rain(Cube *cube, RainParameters *parameters) : Effect(cube), parameters(pa
   
 void Rain::run() {
   unsigned char k, n;
-  unsigned int i;
+  unsigned int iteration;
   Point p = {0, 0, Cube::SIZE - 1};
-  for (i = 0; i < parameters->iterations; i++) {
+  for (iteration = 0; iteration < parameters->iterations; iteration++) {
     randomSeed(analogRead(0));
     n = random(parameters->minDrops, parameters->maxDrops);
     for (k = 0; k < n; k++) {

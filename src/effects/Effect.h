@@ -1,25 +1,22 @@
 /**
+ * 
  */
-
+ 
 #ifndef __ARDUINO_CUBE_EFFECTS_EFFECT_H__
 #define __ARDUINO_CUBE_EFFECTS_EFFECT_H__ 1
 
-#include <Effect.h>
 #include <Cube.h>
 
-class Effect : public Effect {
+class Effect {
+
 
 public:
 
-  typedef struct {
-    unsigned char iterations;
-  } EffectParameters;
+  Cube *cube;
 
-  EffectParameters *parameters;
-
-  Effect(Cube *cube, EffectParameters *parameters);
-
-  virtual void run();
+  Effect(Cube *cube);
+  
+  virtual void run() = 0;
 };
-
+  
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_H__ */
