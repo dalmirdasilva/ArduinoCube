@@ -16,7 +16,7 @@ long random(long to);
 
 long random(long from, long to);
 
-long map(long x, long in_min, long in_max, long out_min, long out_max);
+long map(long x, long inMin, long inMax, long outMin, long outMax);
 
 long analogRead(unsigned char port);
 

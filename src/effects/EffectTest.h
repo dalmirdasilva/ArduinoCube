@@ -1,26 +1,25 @@
 /**
  */
 
-#ifndef __ARDUINO_CUBE_EFFECT_TEST_H__
-#define __ARDUINO_CUBE_EFFECT_TEST_H__ 1
+#ifndef __ARDUINO_CUBE_EFFECTS_EFFECTTEST_H__
+#define __ARDUINO_CUBE_EFFECTS_EFFECTTEST_H__ 1
 
+#include <Effect.h>
 #include <Cube.h>
-#include <Blink.h>
-#include <Rain.h>
 
-class EffectTest {
-  
+class Effecttest : public Effect {
+
 public:
 
-  Cube *cube;
-  
-  EffectTest(Cube *cube);
+  typedef struct {
+    unsigned char iterations;
+  } EffecttestParameters;
 
-  void run();
+  EffecttestParameters *parameters;
 
-  void rainTest();
+  Effecttest(Cube *cube, EffecttestParameters *parameters);
 
-  void blinkTest();
+  virtual void run();
 };
 
-#endif /* __ARDUINO_CUBE_EFFECT_TEST_H__ */
+#endif /* __ARDUINO_CUBE_EFFECTS_EFFECTTEST_H__ */

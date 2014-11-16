@@ -12,27 +12,25 @@ Blink::Blink(Cube *cube, BlinkParameters *parameters) : Effect(cube), parameters
 }
   
 void Blink::run() {
-  int i, r;
-  cube->clear();
-  for (r = 0; r < 4; r++) {
-    i = 750;
-    while (i > 0) {
+  for (int it = 0; it < parameters->iterations; it++) {
+    executeBlink();
+  }
+}
+
+void Blink::executeBlink() {
+  int wait;
+  for (unsigned char step = 0; step < 2; step++) {
+    wait = 750;
+    while (wait > 0) {
       cube->clear();
-      delay(i);
+      delay((step == 0) ? wait : (751 - wait));
       cube->fill();
       delay(100);
-      i = i - (15 + (1000 / (i / 10)));
+      wait -= (15 + (1000 / (wait / 10)));
     }
-    delay(3000);
-    i = 750;
-    while (i > 0) {
-      cube->clear();
-      delay(751 - i);
-      cube->fill();
-      delay(100);
-      i = i - (15 + (1000 / (i / 10)));
+    if (step == 0) {
+      delay(3000);
     }
   }
 }
-  
 #endif /* __ARDUINO_CUBE_EFFECTS_BLINK_CPP__ */

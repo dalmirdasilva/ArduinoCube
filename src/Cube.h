@@ -6,7 +6,7 @@
 
 #define CUBE_SIZE 8
 #define CUBE_BYTE_SIZE CUBE_SIZE * CUBE_SIZE
-#define LOG2_CUBE_SIZE 7
+#define CUBE_SIZE_MASK 7
 
 #include <Point.h>
 #include <Voxel.h>
@@ -431,7 +431,10 @@ private:
 
   void orderArgs(unsigned char *a, unsigned char *b);
 
-  void flipArgs(unsigned char *a, unsigned char *b);
+  /**
+   * Swap args
+   */
+  void swapArgs(unsigned char *a, unsigned char *b);
 };
 
 #endif /* __ARDUINO_CUBE_CUBE_H__ */

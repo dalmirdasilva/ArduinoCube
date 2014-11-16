@@ -8,21 +8,22 @@
 #include <Util.h>
 #include <string.h>
 
-#define AT(y, z) *(t + ((z & LOG2_CUBE_SIZE) * CUBE_SIZE) + (y & LOG2_CUBE_SIZE))
+#define AT(y, z) *(t + ((z & CUBE_SIZE_MASK) * CUBE_SIZE) + (y & CUBE_SIZE_MASK))
 
 unsigned char Cube::buffer[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::cube[CUBE_SIZE][CUBE_SIZE] = {};
 
 bool Cube::isInRange(Point *p) const {
-  if (p->x < 0 || p->y < 0 || p->z < 0 || p->y >= Cube::SIZE || p->x >= Cube::SIZE || p->z >= Cube::SIZE)
+  if (p->x < 0 || p->y < 0 || p->z < 0 || p->y >= Cube::SIZE || p->x >= Cube::SIZE || p->z >= Cube::SIZE) {
     return false;
+  }
   return true;
 }
 
 void Cube::fitInRange(Point *p) {
-  p->x &= LOG2_CUBE_SIZE;
-  p->y &= LOG2_CUBE_SIZE;
-  p->z &= LOG2_CUBE_SIZE;
+  p->x &= CUBE_SIZE_MASK;
+  p->y &= CUBE_SIZE_MASK;
+  p->z &= CUBE_SIZE_MASK;
 }
 
 void Cube::fill(unsigned char pattern, unsigned char target) {
@@ -104,11 +105,12 @@ void Cube::writePlaneX(unsigned char x, Voxel v, unsigned char target) {
   unsigned char z, y, mask, *t;
   mask = 1 << x;
   x %= Cube::SIZE;
-  for (z = 0; z < Cube::SIZE; z++)
+  for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
       t = resolveTarget(target, z, y);
       v.state == VoxelState::ON ? set(t, mask) : clr(t, mask);
     }
+  }
 }
 
 void Cube::writePlane(Axis axis, unsigned char pos, Voxel v, unsigned char target) {
@@ -133,16 +135,16 @@ void Cube::line(Point *from, Point *to, unsigned char target) {
 	  from = to;
 	  to = aux;
   }
-  if (from->y > to->y)
+  if (from->y > to->y) {
     ySteps = (float) (from->y - to->y) / (float) (to->x - from->x);
-  else
+  } else {
     ySteps = (float) (to->y - from->y) / (float) (to->x - from->x);
-
-  if (from->z > to->z)
+  }
+  if (from->z > to->z) {
     zSteps = (float) (from->z - to->z) / (float) (to->x - from->x);
-  else
+  } else {
     zSteps = (float) (to->z - from->z) / (float) (to->x - from->x);
-
+  }
   for (p.x = from->x; p.x <= to->x; p.x++) {
     p.y = (ySteps * (p.x - from->x)) + from->y;
     p.z = (zSteps * (p.x - from->x)) + from->z;
@@ -154,10 +156,11 @@ void Cube::mirrorX(unsigned char target) {
   unsigned char y, z, *t, buf[Cube::SIZE][Cube::SIZE];
   t = resolveTarget(target, 0, 0);
   memcpy(buf, t, Cube::BYTE_SIZE);
-  for (z = 0; z < Cube::SIZE; z++)
-    for (y = 0; y < Cube::SIZE; y++)
+  for (z = 0; z < Cube::SIZE; z++) {
+    for (y = 0; y < Cube::SIZE; y++) {
       flipByte(&buf[z][y]);
-
+    }
+  }
   memcpy(t, buf, Cube::BYTE_SIZE);
 }
 
@@ -166,9 +169,11 @@ void Cube::mirrorY(unsigned char target) {
   t = resolveTarget(target, 0, 0);
   memcpy(buf, t, Cube::BYTE_SIZE);
   clear(target);
-  for (z = 0; z < Cube::SIZE; z++)
-    for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--)
+  for (z = 0; z < Cube::SIZE; z++) {
+    for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--) {
       AT(i, z) = buf[z][j];
+    }
+  }
 }
 
 void Cube::mirrorZ(unsigned char target) {
@@ -176,9 +181,11 @@ void Cube::mirrorZ(unsigned char target) {
   t = resolveTarget(target, 0, 0);
   memcpy(buf, t, Cube::BYTE_SIZE);
   clear(target);
-  for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--)
-    for (y = 0; y < Cube::SIZE; y++)
+  for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--) {
+    for (y = 0; y < Cube::SIZE; y++) {
       AT(y, i) = buf[j][y];
+    }
+  }
 }
 
 void Cube::filledBox(Point *from, Point *to, unsigned char target) {
@@ -187,18 +194,22 @@ void Cube::filledBox(Point *from, Point *to, unsigned char target) {
   orderArgs(&from->x, &to->x);
   orderArgs(&from->y, &to->y);
   orderArgs(&from->z, &to->z);
-  for (z = from->z; z <= to->z; z++)
-    for (y = from->y; y <= to->y; y++)
+  for (z = from->z; z <= to->z; z++) {
+    for (y = from->y; y <= to->y; y++) {
       AT(y, z) |= byteLine(from->x, to->x);
+    }
+  }
 }
 
 void Cube::writeSubCube(Point *p, Voxel v, unsigned char size, unsigned char target) {
   unsigned char x, y, z, *t;
   t = resolveTarget(target, 0, 0);
   x = p->x + size;
-  for (z = p->z; z < p->z + size; z++)
-    for (y = p->y; y < p->y + size; y++)
+  for (z = p->z; z < p->z + size; z++) {
+    for (y = p->y; y < p->y + size; y++) {
       AT(z, y) |= byteLine(p->x, x);
+    }
+  }
 }
 
 void Cube::wallBox(Point *from, Point *to, unsigned char target) {
@@ -207,15 +218,16 @@ void Cube::wallBox(Point *from, Point *to, unsigned char target) {
   orderArgs(&(from->y), &(to->y));
   orderArgs(&(from->z), &(to->z));
   t = resolveTarget(target, 0, 0);
-  for (z = from->z; z <= to->z; z++)
+  for (z = from->z; z <= to->z; z++) {
     for (y = from->y; y <= to->y; y++) {
-      if (y == from->y || y == to->y || z == from->z || z == to->z)
+      if (y == from->y || y == to->y || z == from->z || z == to->z) {
         aux = byteLine(from->x, to->x);
-      else
+      } else {
         aux |= ((0x01 << from->x) | (0x01 << to->x));
-      
+      }
       AT(y, z) = aux;
     }
+  }
 }
 
 void Cube::wireframeBox(Point *from, Point *to, unsigned char target) {
@@ -321,14 +333,14 @@ void Cube::flipByte(unsigned char *p) {
 
 void Cube::orderArgs(unsigned char *a, unsigned char *b) {
   if (*a > *b) {
-    flipArgs(a, b);
+    swapArgs(a, b);
   }
 }
 
-void Cube::flipArgs(unsigned char *a, unsigned char *b) {
-  unsigned char tmp = *b;
+void Cube::swapArgs(unsigned char *a, unsigned char *b) {
+  unsigned char _ = *b;
   *b = *a;
-  *a = tmp;
+  *a = _;
 }
 
 #endif /* __ARDUINO_CUBE_CUBE_CPP__ */
