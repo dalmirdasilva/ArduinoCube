@@ -8,7 +8,7 @@ CubeTest::CubeTest(Cube *cube) : cube(cube) {
 }
 
 void CubeTest::run() {
-  for (int i = 0; i < 500000; i++) {
+  for (int i = 0; i < 1000000; i++) {
     isInRangeTest();
     writeVoxelTest();
     invertVoxelTest();
