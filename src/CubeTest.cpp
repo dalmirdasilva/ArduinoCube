@@ -8,21 +8,23 @@ CubeTest::CubeTest(Cube *cube) : cube(cube) {
 }
 
 void CubeTest::run() {
-  isInRangeTest();
-  writeVoxelTest();
-  invertVoxelTest();
-  writePlaneZTest();
-  writePlaneYTest();
-  writePlaneXTest();
-  flipByteTest();
-  mirrorXTest();
-  mirrorYTest();
-  mirrorZTest();
-  filledBoxTest();
-  lineTest();
-  shiftOnXTest();
-  shiftOnYTest();
-  shiftOnZTest();
+  for (int i = 0; i < 500000; i++) {
+    isInRangeTest();
+    writeVoxelTest();
+    invertVoxelTest();
+    writePlaneZTest();
+    writePlaneYTest();
+    writePlaneXTest();
+    flipByteTest();
+    mirrorXTest();
+    mirrorYTest();
+    mirrorZTest();
+    filledBoxTest();
+    lineTest();
+    shiftOnXTest();
+    shiftOnYTest();
+    shiftOnZTest();
+  }
 }
 
 void CubeTest::isInRangeTest() {
