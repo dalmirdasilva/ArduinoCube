@@ -20,7 +20,7 @@ public:
     unsigned z, y;
     for (z = 0; z < Cube::SIZE; z++) {
       for (y = 0; y < Cube::SIZE; y++) {
-        printf("%02x ", *(buffer + (Cube::SIZE * z) + y));
+        printf("[%d,%d]%02x ", z, y, *(buffer + (Cube::SIZE * z) + y));
       }
       printf("\n");
     }

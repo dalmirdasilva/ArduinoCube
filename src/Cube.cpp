@@ -9,7 +9,7 @@
 #include <Arduino.h>
 #include <string.h>
 
-#define AT(y, z) *(*bufferToWrite + ((z & CUBE_SIZE_MASK) * CUBE_SIZE) + (y & CUBE_SIZE_MASK))
+#define AT(y, z) *(*bufferToWrite + ((z * CUBE_SIZE + y) & CUBE_BYTE_SIZE_MASK))
 
 unsigned char Cube::buffer0[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::buffer1[CUBE_SIZE][CUBE_SIZE] = {};
@@ -21,6 +21,16 @@ void Cube::useBackBuffer(bool use) {
   } else {
     bufferToWrite = &frontBuffer;
   }
+  interrupts();
+}
+
+
+void Cube::swapBuffers() {
+  unsigned char *buf;
+  noInterrupts();
+  buf = backBuffer;
+  backBuffer = frontBuffer;
+  frontBuffer = buf;
   interrupts();
 }
 
@@ -312,16 +322,6 @@ void Cube::shift(Axis axis, unsigned char direction) {
       break;
   }
 }
-
-void Cube::swapBuffers() {
-    unsigned char *buf;
-    noInterrupts();
-    buf = backBuffer;
-    backBuffer = frontBuffer;
-    frontBuffer = buf;
-    interrupts();
-  }
-
 
 void Cube::flipByte(unsigned char *p) {
   unsigned char flop = 0x00;

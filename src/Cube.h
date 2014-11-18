@@ -5,9 +5,10 @@
 #ifndef __ARDUINO_CUBE_CUBE_H__
 #define __ARDUINO_CUBE_CUBE_H__ 1
 
-#define CUBE_SIZE 8
+#define CUBE_SIZE 0x08
 #define CUBE_BYTE_SIZE CUBE_SIZE * CUBE_SIZE
-#define CUBE_SIZE_MASK 7
+#define CUBE_SIZE_MASK 0x07
+#define CUBE_BYTE_SIZE_MASK 0x3f
 
 #include <Point.h>
 #include <Voxel.h>
@@ -34,13 +35,16 @@ public:
     FRONT = 0x08,
     BACK = 0x10
   };
-  
+
+
   const static unsigned char SIZE = CUBE_SIZE;
   const static unsigned char BYTE_SIZE = CUBE_BYTE_SIZE;
-  static unsigned char *frontBuffer;
-  static unsigned char *backBuffer;
+  unsigned char *frontBuffer;
+  unsigned char *backBuffer;
 
   Cube() {
+    frontBuffer = &buffer0[0][0];
+    backBuffer = &buffer1[0][0];
     bufferToWrite = &frontBuffer;
   }
 
