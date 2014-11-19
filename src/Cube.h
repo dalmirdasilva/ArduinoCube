@@ -1,24 +1,25 @@
 /**
+ * Cube class
  */
  
 #ifndef __ARDUINO_CUBE_CUBE_H__
 #define __ARDUINO_CUBE_CUBE_H__ 1
 
-#define CUBE_SIZE 8
+#define CUBE_SIZE 0x08
 #define CUBE_BYTE_SIZE CUBE_SIZE * CUBE_SIZE
-#define CUBE_SIZE_MASK 7
+#define CUBE_SIZE_MASK 0x07
+#define CUBE_BYTE_SIZE_MASK 0x3f
 
 #include <Point.h>
 #include <Voxel.h>
 
 class Cube {
 
+  static unsigned char buffer0[CUBE_SIZE][CUBE_SIZE];
+  static unsigned char buffer1[CUBE_SIZE][CUBE_SIZE];
+  unsigned char **bufferToWrite;
+
 public:
-  
-  enum Target {
-    BUFFER = 0x00,
-    CUBE = 0x01
-  };
   
   enum Axis {
     AXIS_X = 0x00,
@@ -34,13 +35,24 @@ public:
     FRONT = 0x08,
     BACK = 0x10
   };
-  
+
+
   const static unsigned char SIZE = CUBE_SIZE;
   const static unsigned char BYTE_SIZE = CUBE_BYTE_SIZE;
-  const static unsigned char DEFAULT_TARGET = Target::CUBE;
-  static unsigned char buffer[CUBE_SIZE][CUBE_SIZE];
-  static unsigned char cube[CUBE_SIZE][CUBE_SIZE];
-  
+  unsigned char *frontBuffer;
+  unsigned char *backBuffer;
+
+  Cube() {
+    frontBuffer = &buffer0[0][0];
+    backBuffer = &buffer1[0][0];
+    bufferToWrite = &frontBuffer;
+  }
+
+  /**
+   * Set if will use back or front buffer to write.
+   */
+  void useBackBuffer(bool use);
+
   /**
    * Validates if we the p Point is inside the cube.
    */
@@ -52,52 +64,26 @@ public:
   void fitInRange(Point *p);
 
   /**
-   * See overloaded method.
+   * Fills the current buffer.
    */
   void fill() {
     fill(0xff);
   }
-  
+
   /**
-   * See overloaded method.
+   * Cleans the current buffer.
    */
-  void fill(unsigned char pattern) {
-    fill(pattern, DEFAULT_TARGET);
+  void clear() {
+    fill(0x00);
   }
     
   /**
-   * Fill a value into all 64 byts of the cube buffer
+   * Fill a value into all 64 bytes of the cube buffer
    * 
    * Mostly used for clearing. fill(0x00) 
    * or setting all on. fill(0xff)
    */
-  void fill(unsigned char pattern, unsigned char target);
-  
-  /**
-   * See overloaded method.
-   */
-  void clear() {
-    clear(DEFAULT_TARGET);
-  }
-  
-  /**
-   * See overloaded method.
-   */
-  void clear(unsigned char target) {
-    fill(0x00, target);
-  }
-  
-  /**
-   * 
-   */ 
-  char getBitRange(unsigned char start, unsigned char end);
-  
-  /**
-   * See overloaded method.
-   */
-  void writeVoxel(Point *p, Voxel v) {
-    writeVoxel(p, v, DEFAULT_TARGET);
-  }
+  void fill(unsigned char pattern);
   
   /**
    * Writes the v Voxel to the cube at p Point. If b == true
@@ -107,206 +93,98 @@ public:
    * @param v             Voxel
    * @param b             Write it to the buffer/cube
    */
-  void writeVoxel(Point *p, Voxel v, unsigned char target) {
-    writeVoxel(p->x, p->y, p->z, v.state, target);
+  void writeVoxel(Point *p, Voxel v) {
+    writeVoxel(p->x, p->y, p->z, v.state);
   }
   
   /**
    * 
    */
-  void writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state) {
-    writeVoxel(x, y, z, state, DEFAULT_TARGET);
-  }
- 
-  /**
-   * 
-   */
-  void writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state, unsigned char target);
+  void writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state);
 
-  /**
-   * See overloaded method.
-   */
-  void turnOnVoxel(Point *p) {
-    turnOnVoxel(p, DEFAULT_TARGET);
-  }
-  
-  /**
-   * See overloaded method.
-   */
-  void turnOffVoxel(Point *p) {
-    turnOffVoxel(p, DEFAULT_TARGET);
-  }
-    
   /**
    * Set voxel to ON
    * 
    * @param p             3D Point pointer
-   * @param b             Write it to the buffer/cube
    */
-  void turnOnVoxel(Point *p, unsigned char target);
+  void turnOnVoxel(Point *p);
   
   /**
    * Set voxel to OFF
    * 
    * @param p             3D Point pointer
-   * @param b             Write it to the buffer/cube
    */
-  void turnOffVoxel(Point *p, unsigned char target);
-  
-  /**
-   * See overloaded method
-   */
-  void invertVoxel(Point *p) {
-    invertVoxel(p, DEFAULT_TARGET);
-  }
+  void turnOffVoxel(Point *p);
   
   /**
    * Switch volex state
    */
-  void invertVoxel(Point *p, unsigned char target);
-  
-  /**
-   * See overloaded method
-   */
-  void turnOffPlaneZ(unsigned char z) {
-    turnOffPlaneZ(z, DEFAULT_TARGET);
-  }
-  
+  void invertVoxel(Point *p);
+
   /**
    * Turn off plane z.
    */
-  void turnOffPlaneZ(unsigned char z, unsigned char target);
-  
-  /**
-   * See overloaded method
-   */
-  void turnOnPlaneZ(unsigned char z) {
-    turnOnPlaneZ(z, DEFAULT_TARGET);
-  }
+  void turnOffPlaneZ(unsigned char z);
   
   /**
    * Turn on plane z.
    */
-  void turnOnPlaneZ(unsigned char z, unsigned char target);
-  
-  /**
-   * See overloaded method.
-   */
-  void writePlaneZ(unsigned char z, Voxel v) {
-    writePlaneZ(z, v, DEFAULT_TARGET);
-  }
-    
+  void turnOnPlaneZ(unsigned char z);
+
   /**
    * Write plane z.
    */
-  void writePlaneZ(unsigned char z, Voxel v, unsigned char target);
-  
-  /**
-   * See overloaded method
-   */
-  void turnOffPlaneY(unsigned char y) {
-    turnOffPlaneY(y, DEFAULT_TARGET);
-  }
+  void writePlaneZ(unsigned char z, Voxel v);
   
   /**
    * Turn off plane y.
    */
-  void turnOffPlaneY(unsigned char y, unsigned char target);
-  
-  /**
-   * See overloaded method
-   */
-  void turnOnPlaneY(unsigned char y) {
-    turnOnPlaneY(y, DEFAULT_TARGET);
-  }
+  void turnOffPlaneY(unsigned char y);
   
   /**
    * Turn on plane y.
    */
-  void turnOnPlaneY(unsigned char y, unsigned char target);
-  
-  /**
-   * See overloaded method.
-   */
-  void writePlaneY(unsigned char y, Voxel v) {
-    writePlaneY(y, v, DEFAULT_TARGET);
-  }
+  void turnOnPlaneY(unsigned char y);
   
   /**
    * Write plane y.
    */
-  void writePlaneY(unsigned char y, Voxel v, unsigned char target);
-  
-  /**
-   * See overloaded method
-   */
-  void turnOffPlaneX(unsigned char x) {
-    turnOffPlaneX(x, DEFAULT_TARGET);
-  }
+  void writePlaneY(unsigned char y, Voxel v);
   
   /**
    * Turn off plane x.
    */
-  void turnOffPlaneX(unsigned char x, unsigned char target);
-  
-  /**
-   * See overloaded method
-   */
-  void turnOnPlaneX(unsigned char x) {
-    turnOnPlaneX(x, DEFAULT_TARGET);
-  }
+  void turnOffPlaneX(unsigned char x);
   
   /**
    * Turn on plane x.
    */
-  void turnOnPlaneX(unsigned char x, unsigned char target);
+  void turnOnPlaneX(unsigned char x);
   
   /**
-   * See overloaded method.
+   * Write plane x.
    */
-  void writePlaneX(unsigned char x, Voxel v) {
-    writePlaneX(x, v, DEFAULT_TARGET);
-  }
-  
-  /**
-   * Write plane z.
-   */
-  void writePlaneX(unsigned char x, Voxel v, unsigned char target);
+  void writePlaneX(unsigned char x, Voxel v);
   
   /**
    * Turn the p plane.
    */
-  void writePlane(Axis axis, unsigned char pos, Voxel v, unsigned char target);
-  
-  /**
-   * See overloaded method.
-   */
-  void mirrorX();
+  void writePlane(Axis axis, unsigned char pos, Voxel v);
   
   /**
    * Flip the cube 180 degrees along the x axis.
    */
-  void mirrorX(unsigned char target);
-  
+  void mirrorX();
+
   /**
-   * See overloaded method.
+   * Flip the cube 180 degrees along the y axis.
    */
   void mirrorY();
   
   /**
-   * Flip the cube 180 degrees along the y axis.
-   */
-  void mirrorY(unsigned char target);
-  
-  /**
-   * See overloaded method.
-   */
-  void mirrorZ();
-  
-  /**
    * Flip the cube 180 degrees along the z axis.
    */
-  void mirrorZ(unsigned char target);
+  void mirrorZ();
   
   /**
    * Flip a byte
@@ -316,96 +194,52 @@ public:
  /**
   * Draw a 3d line
   */
- void line(Point *from, Point *to, unsigned char target); 
-
-  /**
-   * Draw a 3d line
-   */
-  void line(Point *from, Point *to) {
-    line(from, to, DEFAULT_TARGET);
-  } 
+ void line(Point *from, Point *to);
  
-  /**
-   * See overloaded method.
-   */
-  void filledBox(Point *from, Point *to) {
-    filledBox(from, to, DEFAULT_TARGET);
-  }
-  
   /**
    * Draws a filled cube.
    */
-  void filledBox(Point *from, Point *to, unsigned char target);
+  void filledBox(Point *from, Point *to);
   
-  /**
-   * See overloaded method.
-   */
-  void wallBox(Point *from, Point *to) {
-    wallBox(from, to, DEFAULT_TARGET);
-  }
-
   /**
    *
    */
-  void wallBox(Point *from, Point *to, unsigned char target);
+  void wallBox(Point *from, Point *to);
  
   /**
-   * See overloaded method.
+   *
    */
-  void wireframeBox(Point *from, Point *to) {
-    wireframeBox(from, to, DEFAULT_TARGET);
-  }
+  void wireframeBox(Point *from, Point *to);
+
+  /**
+   *
+   */
+  void shift(Axis axis, unsigned char direction);
+
+  /**
+   *
+   */
+  void shiftOnX(unsigned char direction);
+
+  /**
+   *
+   */
+  void shiftOnY(unsigned char direction);
   
   /**
    *
    */
-  void wireframeBox(Point *from, Point *to, unsigned char target);
-
-  /**
-   *
-   */
-  void shift(Axis axis, unsigned char direction, unsigned char target);
-
-  /**
-   * See overloaded method
-   */
-  void shiftOnX(unsigned char direction) {
-    shiftOnX(direction, DEFAULT_TARGET);
-  }
-
-  /**
-   *
-   */
-  void shiftOnX(unsigned char direction, unsigned char target);
-
-  /**
-   * See overloaded method
-   */
-  void shiftOnY(unsigned char direction) {
-    shiftOnY(direction, DEFAULT_TARGET);
-  }
-
-  /**
-   *
-   */
-  void shiftOnY(unsigned char direction, unsigned char target); 
-  
-  /**
-   * See overloaded method
-   */
-  void shiftOnZ(unsigned char direction) {
-    shiftOnZ(direction, DEFAULT_TARGET);
-  }
-
-  /**
-   *
-   */
-  void shiftOnZ(unsigned char direction, unsigned char target);
+  void shiftOnZ(unsigned char direction);
   
   /**
    * 
    */
-  void writeSubCube(Point *p, Voxel v, unsigned char size, unsigned char target);
+  void writeSubCube(Point *p, Voxel v, unsigned char size);
+
+  /**
+   * Swap the buffers. Current buffer becomes backed buffer and vice-versa.
+   */
+  void swapBuffers();
 
 private:
 
@@ -415,10 +249,6 @@ private:
    */
   unsigned char byteLine(unsigned char start, unsigned char end) {
     return ((0xff << start) & ~(0xff << (end + 1)));
-  }
-
-  unsigned char *resolveTarget(unsigned char target, unsigned char z, unsigned char y) {
-    return &(target == Target::BUFFER ? Cube::buffer : Cube::cube)[z][y];
   }
 
   void set(unsigned char *p, unsigned char mask) {

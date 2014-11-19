@@ -22,4 +22,8 @@ long analogRead(unsigned char port);
 
 void delay(long millis);
 
+void interrupts();
+
+void noInterrupts();
+
 #endif /* __ARDUINO_CUBE_ARDUINO_H__ */

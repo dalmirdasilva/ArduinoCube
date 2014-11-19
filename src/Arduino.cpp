@@ -33,3 +33,10 @@ long analogRead(unsigned char port) {
 
 void delay(long millis) {
 }
+
+
+void interrupts() {
+}
+
+void noInterrupts() {
+}
