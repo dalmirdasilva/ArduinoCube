@@ -54,16 +54,16 @@ void Cube::fill(unsigned char pattern) {
 void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state) {
   unsigned char mask;
   mask = 1 << x;
-  state == VoxelState::ON ? set(&AT(y, z), mask) : clr(&AT(y, z), mask);
+  state == State::ON ? set(&AT(y, z), mask) : clr(&AT(y, z), mask);
 }
 
 void Cube::turnOnVoxel(Point *p) {
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   writeVoxel(p, v);
 }
 
 void Cube::turnOffVoxel(Point *p) {
-  Voxel v = {VoxelState::OFF};
+  Voxel v = {State::OFF};
   writeVoxel(p, v);
 }
 
@@ -74,29 +74,29 @@ void Cube::invertVoxel(Point *p) {
 }
 
 void Cube::turnOffPlaneZ(unsigned char z) {
-  Voxel v = {VoxelState::OFF};
+  Voxel v = {State::OFF};
   writePlaneZ(z, v);
 }
 
 void Cube::turnOnPlaneZ(unsigned char z) {
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   writePlaneZ(z, v);
 }
 
 void Cube::writePlaneZ(unsigned char z, Voxel v) {
   unsigned char pattern;
   z %= Cube::SIZE;
-  pattern = (v.state == VoxelState::ON) ? 0xff : 0x00;
+  pattern = (v.state == State::ON) ? 0xff : 0x00;
   memset(&AT(0, z), pattern, Cube::SIZE);
 }
 
 void Cube::turnOffPlaneY(unsigned char y) {
-  Voxel v = {VoxelState::OFF};
+  Voxel v = {State::OFF};
   writePlaneY(y, v);
 }
 
 void Cube::turnOnPlaneY(unsigned char y) {
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   writePlaneY(y, v);
 }
 
@@ -104,16 +104,16 @@ void Cube::writePlaneY(unsigned char y, Voxel v) {
   unsigned char z;
   y %= Cube::SIZE;
   for (z = 0; z < Cube::SIZE; z++)
-    AT(y, z) = (v.state == VoxelState::ON) ? 0xff : 0x00;
+    AT(y, z) = (v.state == State::ON) ? 0xff : 0x00;
 }
 
 void Cube::turnOffPlaneX(unsigned char x) {
-  Voxel v = {VoxelState::OFF};
+  Voxel v = {State::OFF};
   writePlaneX(x, v);
 }
 
 void Cube::turnOnPlaneX(unsigned char x) {
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   writePlaneX(x, v);
 }
 
@@ -123,7 +123,7 @@ void Cube::writePlaneX(unsigned char x, Voxel v) {
   x %= Cube::SIZE;
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
-      v.state == VoxelState::ON ? set(&AT(y, z), mask) : clr(&AT(y, z), mask);
+      v.state == State::ON ? set(&AT(y, z), mask) : clr(&AT(y, z), mask);
     }
   }
 }

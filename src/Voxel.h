@@ -13,7 +13,7 @@ typedef enum {
 typedef enum {
   ON = 0xff,
   OFF = 0x00
-} VoxelState;
+} State;
 
 typedef struct {
   unsigned char state;

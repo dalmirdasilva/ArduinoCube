@@ -42,12 +42,12 @@ void CubeTest::isInRangeTest() {
 void CubeTest::writeVoxelTest() {
   unsigned char x = 5, y = 1, z = 1;
   Point p = {x, y, z};
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   AT(cube->frontBuffer, y, z) = 0x00;
   cube->useBackBuffer(true);
   cube->writeVoxel(&p, v);
   Asserter::assertEqual(AT(cube->backBuffer, y, z), (0x01 << x), "writeVoxel: Should write the correct voxel when ON.");
-  v.state = VoxelState::OFF;
+  v.state = State::OFF;
   cube->writeVoxel(&p, v);
   Asserter::assertEqual(AT(cube->backBuffer, y, z), 0x00, "writeVoxel: Should write the correct voxel when OFF.");
   cube->useBackBuffer(false);
@@ -70,7 +70,7 @@ void CubeTest::invertVoxelTest() {
 
 void CubeTest::writePlaneZTest() {
   unsigned char i, aux, z = 2;
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   cube->useBackBuffer(false);
   cube->clear();
   cube->writePlaneZ(z, v);
@@ -83,7 +83,7 @@ void CubeTest::writePlaneZTest() {
 
 void CubeTest::writePlaneYTest() {
   unsigned char z, aux, y = 3;
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   cube->useBackBuffer(false);
   cube->clear();
   cube->writePlaneY(y, v);
@@ -96,7 +96,7 @@ void CubeTest::writePlaneYTest() {
 
 void CubeTest::writePlaneXTest() {
   unsigned char z, y, aux, x = 3;
-  Voxel v = {VoxelState::ON};
+  Voxel v = {State::ON};
   cube->useBackBuffer(false);
   cube->clear();
   cube->writePlaneX(x, v);
