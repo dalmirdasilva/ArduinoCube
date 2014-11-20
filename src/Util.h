@@ -12,28 +12,11 @@ class Util {
 
 public:
 
-  static void dumpPoint(Point *p) {
-    printf("Point {\n  x: %d,\n  y: %d,\n  z: %d\n}\n", p->x, p->y, p->z);
-  }
+  static void dumpPoint(Point *p);
 
-  static void dumpCube(unsigned char *buffer) {
-    unsigned z, y;
-    for (z = 0; z < Cube::SIZE; z++) {
-      for (y = 0; y < Cube::SIZE; y++) {
-        printf("[%d,%d]%02x ", z, y, *(buffer + (Cube::SIZE * z) + y));
-      }
-      printf("\n");
-    }
-    printf("\n");
-  }
+  static void dumpCube(unsigned char *buffer);
   
-  static unsigned char shift(unsigned char v, unsigned char is_left) {
-    if (is_left) {
-      return (v << 1) | (v >> 7 & 0x01);
-    } else {
-      return (v >> 1) | (v << 7 & 0x80);
-    }
-  } 
+  static unsigned char shift(unsigned char v, unsigned char isLeft);
 };
 
 #endif /* __ARDUINO_CUBE_UTIL_H__ */

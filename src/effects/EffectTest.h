@@ -5,8 +5,6 @@
 #define __ARDUINO_CUBE_EFFECT_TEST_H__ 1
 
 #include <Cube.h>
-#include <Blink.h>
-#include <Rain.h>
 
 class EffectTest {
   

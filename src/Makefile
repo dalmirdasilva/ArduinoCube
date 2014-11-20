@@ -8,11 +8,13 @@ SOURCES = \
   spec.cpp \
   effects/Rain.cpp \
   effects/Blink.cpp \
+  effects/UpDown.cpp \
   effects/Effect.cpp \
   Cube.cpp \
   Asserter.cpp \
   effects/EffectTest.cpp \
-  CubeTest.cpp
+  CubeTest.cpp \
+  Util.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 MAIN = spec
