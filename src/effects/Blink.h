@@ -17,7 +17,6 @@ public:
 
   BlinkParameters *parameters;
 
-
   Blink(Cube *cube, BlinkParameters *parameters);
 
   virtual void run();

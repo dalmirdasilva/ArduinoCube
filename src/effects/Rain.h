@@ -19,7 +19,7 @@ public:
   } RainParameters;
 
   RainParameters *parameters;
-  
+
   Rain(Cube *cube, RainParameters *parameters);
   
   virtual void run();

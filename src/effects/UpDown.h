@@ -31,8 +31,14 @@ public:
 
   virtual void run();
 
+  /**
+   * Draws current position to the cube.
+   */
   void draw();
 
+  /**
+   * Move one step the LEDs to the destination.
+   */
   void move();
 };
 
