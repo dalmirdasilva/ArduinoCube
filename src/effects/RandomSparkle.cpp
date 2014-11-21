@@ -10,7 +10,8 @@ RandomSparkle::RandomSparkle(Cube *cube, RandomSparkleParameters *parameters) : 
 }
 
 void RandomSparkle::run() {
-  for (int it = 0; it < parameters->iterations; it++) {
+  int it;
+  for (it = 0; it < parameters->iterations; it++) {
   }
 }
 

@@ -36,7 +36,6 @@ public:
     BACK = 0x10
   };
 
-
   const static unsigned char SIZE = CUBE_SIZE;
   const static unsigned char BYTE_SIZE = CUBE_BYTE_SIZE;
   unsigned char *frontBuffer;
@@ -114,7 +113,7 @@ public:
    *
    * @param p             3D Point pointer
    */
-  Voxel readVoxel(Point *p);
+  void readVoxel(Point *p, Voxel *v);
   
   /**
    * Set voxel to OFF

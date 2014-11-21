@@ -5,13 +5,13 @@
 #define __ARDUINO_CUBE_EFFECTS_GAME_OF_LIFE_CPP__ 1
 
 #include <GameOfLife.h>
+#include <Arduino.h>
 
 GameOfLife::GameOfLife(Cube *cube, GameOfLifeParameters *parameters) : Effect(cube), parameters(parameters) {
   genesis();
 }
 
 void GameOfLife::run() {
-  unsigned char neighbors;
   int it;
   for (it = 0; it < parameters->iterations; it++) {
     nextGeneration();
@@ -29,13 +29,14 @@ void GameOfLife::genesis() {
 void GameOfLife::nextGeneration() {
 	unsigned char neighbors;
 	Point p;
-	cube->useBackBuffer();
+	Voxel v;
+	cube->useBackBuffer(true);
 	cube->clear();
 	for (p.z = 0; p.z < Cube::SIZE; p.z++) {
     for (p.y = 0; p.y < Cube::SIZE; p.y++) {
       for (p.x = 0; p.x < Cube::SIZE; p.x++) {
 				neighbors = getNeighbors(&p);
-        Voxel v = cube->getVoxel(&p);
+        cube->readVoxel(&p, &v);
         if (v.state == State::ON) {
 					if (neighbors <= LONELY_DEATH || neighbors >= CROWDED_DEATH) {
 						cube->turnOffVoxel(&p);
@@ -48,17 +49,20 @@ void GameOfLife::nextGeneration() {
 			}
 		}
 	}
+	cube->swapBuffers();
+	cube->useBackBuffer(false);
 }
 
 unsigned char GameOfLife::getNeighbors(Point *at) {
   unsigned char neighbors = 0;
   Point p;
-  cube->fitInRange(p);
+  cube->fitInRange(&p);
   for (p.z = at->z - 1; p.z <= at->z + 1; p.z++) {
     for (p.y = at->y - 1; p.y <= at->y + 1; p.y++) {
       for (p.x = at->x - 1; p.x <= at->x + 1; p.x++) {
         if (cube->isInRange(&p)) {
-          Voxel v = cube->getVoxel(&p);
+          Voxel v;
+          cube->readVoxel(&p, &v);
           if ((p.z != 0 || p.y != 0 || p.x != 0) && (v.state == State::ON)) {
             neighbors++;
           }
@@ -66,6 +70,7 @@ unsigned char GameOfLife::getNeighbors(Point *at) {
       }
     }
   }
+  return neighbors;
 }
 
 bool GameOfLife::hasChanges() {

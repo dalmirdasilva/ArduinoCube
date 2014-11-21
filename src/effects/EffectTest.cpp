@@ -4,6 +4,7 @@
 #include <Blink.h>
 #include <Rain.h>
 #include <UpDown.h>
+#include <GameOfLife.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -30,8 +31,8 @@ void EffectTest::run() {
 
 void EffectTest::rainTest() {
   unsigned char i, aux = 0;
-  Rain::RainParameters rp = {40, 1, 1, 200};
-  Rain r = Rain(cube, &rp);
+  Rain::RainParameters p = {40, 1, 1, 200};
+  Rain r = Rain(cube, &p);
   cube->clear();
   r.run();
   for (i = 0; i < Cube::SIZE; i++) {
@@ -45,8 +46,8 @@ void EffectTest::rainTest() {
 }
 
 void EffectTest::blinkTest() {
-  Blink::BlinkParameters bp = {0};
-  Blink b = Blink(cube, &bp);
+  Blink::BlinkParameters p = {0};
+  Blink b = Blink(cube, &p);
   b.run();
   Asserter::assertEqual(0, 0, "blinkTest: It should not break, we cannot test it.");
 }
@@ -65,6 +66,10 @@ void EffectTest::flowingBoxTest() {
 }
 
 void EffectTest::gameOfLifeTest() {
+  GameOfLife::GameOfLifeParameters p = {};
+  GameOfLife g = GameOfLife(cube, &p);
+  g.run();
+  Asserter::assertEqual(0, 0, "GameOfLife: It should not break, we cannot test it.");
 }
 
 void EffectTest::randomSparkleTest() {
@@ -80,11 +85,10 @@ void EffectTest::suspendTest() {
 }
 
 void EffectTest::upDownTest() {
-  UpDown::UpDownParameters up = {0x03, 0x01, 0x00, AXIS_X};
-  UpDown u = UpDown(cube, &up);
+  UpDown::UpDownParameters p = {0x03, 0x01, 0x00, AXIS_X};
+  UpDown u = UpDown(cube, &p);
   u.run();
   Asserter::assertEqual(0, 0, "upDownTest: It should not break, we cannot test it.");
-
 }
 
 void EffectTest::wormSqueezeTest() {

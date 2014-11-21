@@ -9,6 +9,7 @@ SOURCES = \
   effects/Rain.cpp \
   effects/Blink.cpp \
   effects/UpDown.cpp \
+  effects/GameOfLife.cpp \
   effects/Effect.cpp \
   Cube.cpp \
   Asserter.cpp \

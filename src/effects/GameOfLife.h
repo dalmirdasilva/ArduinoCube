@@ -18,6 +18,8 @@ public:
 
   typedef struct {
     unsigned char iterations;
+    unsigned int delay;
+
   } GameOfLifeParameters;
 
   GameOfLifeParameters *parameters;
@@ -25,6 +27,8 @@ public:
   GameOfLife(Cube *cube, GameOfLifeParameters *parameters);
 
   virtual void run();
+
+  void genesis();
 
   unsigned char getNeighbors(Point *p);
 

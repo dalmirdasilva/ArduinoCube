@@ -57,11 +57,9 @@ void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigne
   state == State::ON ? set(&AT(y, z), mask) : clr(&AT(y, z), mask);
 }
 
-Voxel Cube::readVoxel(Point *p) {
-  Voxel v;
+void Cube::readVoxel(Point *p, Voxel *v) {
   fitInRange(p);
-  v.state =  (AT(p->y, p->z) & (0x01 << p->x)) != 0 ? State::ON : State::OFF;
-  return v;
+  v->state =  (AT(p->y, p->z) & (0x01 << p->x)) != 0 ? State::ON : State::OFF;
 }
 
 void Cube::turnOnVoxel(Point *p) {
