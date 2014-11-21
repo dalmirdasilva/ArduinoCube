@@ -24,8 +24,7 @@ void UpDown::run() {
       locations[i].destination = random(Cube::SIZE);
     }
     for (i = 0; i < Cube::SIZE; i++) {
-      move();
-      draw();
+      move(); draw();
       delay(parameters->delay);
     }
   }

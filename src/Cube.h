@@ -108,6 +108,13 @@ public:
    * @param p             3D Point pointer
    */
   void turnOnVoxel(Point *p);
+
+  /**
+   * Get Voxel
+   *
+   * @param p             3D Point pointer
+   */
+  Voxel readVoxel(Point *p);
   
   /**
    * Set voxel to OFF
