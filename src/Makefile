@@ -6,11 +6,11 @@ LIBRARIES =
 SOURCES = \
   Arduino.cpp \
   spec.cpp \
+  effects/Effect.cpp \
   effects/Rain.cpp \
   effects/Blink.cpp \
   effects/UpDown.cpp \
   effects/GameOfLife.cpp \
-  effects/Effect.cpp \
   Cube.cpp \
   Asserter.cpp \
   effects/EffectTest.cpp \

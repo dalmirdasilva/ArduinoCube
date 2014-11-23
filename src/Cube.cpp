@@ -267,7 +267,7 @@ void Cube::wireframeBox(Point *from, Point *to) {
   }
 }
 
-void Cube::shiftOnX(unsigned char direction) {
+void Cube::shiftOnX(Direction direction) {
   unsigned char y, z, aux;
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
@@ -283,7 +283,7 @@ void Cube::shiftOnX(unsigned char direction) {
   }
 }
 
-void Cube::shiftOnY(unsigned char direction) {
+void Cube::shiftOnY(Direction direction) {
   unsigned char z, *b, buf[Cube::SIZE][Cube::SIZE];
   bool isFront;
   isFront = (direction == FRONT);
@@ -299,7 +299,7 @@ void Cube::shiftOnY(unsigned char direction) {
   }
 }
 
-void Cube::shiftOnZ(unsigned char direction) {
+void Cube::shiftOnZ(Direction direction) {
   unsigned char z, k, *p, *first, *last, *src, *dst, aux[Cube::SIZE];
   first = *bufferToWrite;
   last = *bufferToWrite + (Cube::BYTE_SIZE - Cube::SIZE);
@@ -314,7 +314,7 @@ void Cube::shiftOnZ(unsigned char direction) {
   memcpy(p, aux, Cube::SIZE);
 }
 
-void Cube::shift(Axis axis, unsigned char direction) {
+void Cube::shift(Axis axis, Direction direction) {
   switch(axis) {
     case AXIS_X:
       shiftOnX(direction);

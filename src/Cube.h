@@ -20,21 +20,6 @@ class Cube {
   unsigned char **bufferToWrite;
 
 public:
-  
-  enum Axis {
-    AXIS_X = 0x00,
-    AXIS_Y = 0x01,
-    AXIS_Z = 0x02
-  };
-  
-  enum Direction {
-    UP = 0x00,
-    DOWN = 0x01,
-    LEFT = 0x02,
-    RIGHT = 0x04,
-    FRONT = 0x08,
-    BACK = 0x10
-  };
 
   const static unsigned char SIZE = CUBE_SIZE;
   const static unsigned char BYTE_SIZE = CUBE_BYTE_SIZE;
@@ -220,22 +205,22 @@ public:
   /**
    *
    */
-  void shift(Axis axis, unsigned char direction);
+  void shift(Axis axis, Direction direction);
 
   /**
    *
    */
-  void shiftOnX(unsigned char direction);
+  void shiftOnX(Direction direction);
 
   /**
    *
    */
-  void shiftOnY(unsigned char direction);
+  void shiftOnY(Direction direction);
   
   /**
    *
    */
-  void shiftOnZ(unsigned char direction);
+  void shiftOnZ(Direction direction);
   
   /**
    * 

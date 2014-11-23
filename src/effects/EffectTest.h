@@ -16,6 +16,8 @@ public:
 
   void run();
 
+  void selfTest();
+
   void rainTest();
 
   void blinkTest();

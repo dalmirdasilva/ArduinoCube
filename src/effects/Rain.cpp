@@ -24,7 +24,7 @@ void Rain::run() {
       cube->turnOnVoxel(&p);
     }
     delay(parameters->delay);
-    cube->shiftOnZ(Cube::DOWN);
+    cube->shiftOnZ(Direction::DOWN);
     cube->turnOffPlaneZ(Cube::SIZE - 1);
   }
 }

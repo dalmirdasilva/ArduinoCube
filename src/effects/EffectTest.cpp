@@ -14,6 +14,7 @@ EffectTest::EffectTest(Cube *cube) : cube(cube) {
 }
 
 void EffectTest::run() {
+  selfTest();
   rainTest();
   blinkTest();
   boingBoingTest();
@@ -27,6 +28,14 @@ void EffectTest::run() {
   suspendTest();
   upDownTest();
   wormSqueezeTest();
+}
+
+void EffectTest::selfTest() {
+  Point p = {0, 0, 0};
+  Effect e = Effect(cube);
+  cube->clear();
+  e.sendVoxel(AXIS_Y, FRONT, &p, 0);
+  Asserter::assertEqual(0, 0, "selfTest: It should not break.");
 }
 
 void EffectTest::rainTest() {

@@ -201,10 +201,10 @@ void CubeTest::shiftOnXTest() {
   cube->clear();
   cube->turnOnVoxel(&p);
   aux = AT(cube->frontBuffer, y, z);
-  cube->shiftOnX(Cube::RIGHT);
+  cube->shiftOnX(Direction::RIGHT);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::shift(aux, false), "shiftOnXTest: should shiftOnXTest RIGHT.");
   aux = AT(cube->frontBuffer, y, z);
-  cube->shiftOnX(Cube::LEFT);
+  cube->shiftOnX(Direction::LEFT);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::shift(aux, true), "shiftOnXTest: should shiftOnXTest LEFT.");
 }
 
@@ -212,10 +212,10 @@ void CubeTest::shiftOnYTest() {
   cube->useBackBuffer(false);
   cube->clear();
   AT(cube->frontBuffer, 7, 0) = 0xff;
-  cube->shiftOnY(Cube::BACK);
+  cube->shiftOnY(Direction::BACK);
   Asserter::assertEqual(AT(cube->frontBuffer, 7, 0), 0x00, "shiftOnYTest: should shiftOnYTest case 1.");
   Asserter::assertEqual(AT(cube->frontBuffer, 6, 0), 0xff, "shiftOnYTest: should shiftOnYTest case 2.");
-  cube->shiftOnY(Cube::FRONT);
+  cube->shiftOnY(Direction::FRONT);
   Asserter::assertEqual(AT(cube->frontBuffer, 7, 0), 0xff, "shiftOnYTest: should shiftOnYTest case 3.");
   Asserter::assertEqual(AT(cube->frontBuffer, 6, 0), 0x00, "shiftOnYTest: should shiftOnYTest case 4.");
 }
@@ -226,8 +226,8 @@ void CubeTest::shiftOnZTest() {
   cube->useBackBuffer(false);
   cube->clear();
   cube->turnOnVoxel(&p);
-  cube->shiftOnZ(Cube::UP);
+  cube->shiftOnZ(Direction::UP);
   Asserter::assertEqual(AT(cube->frontBuffer, y, (z + 1) % Cube::SIZE), 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
-  cube->shiftOnZ(Cube::DOWN);
+  cube->shiftOnZ(Direction::DOWN);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
 }
