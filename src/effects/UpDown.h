@@ -19,10 +19,9 @@ class UpDown : public Effect {
 public:
 
   typedef struct {
-    unsigned char initialPosition;
-
-    unsigned int delay;
     Axis axis;
+    unsigned char initialPosition;
+    unsigned int delay;
   } UpDownSettings;
 
   UpDownSettings *settings;

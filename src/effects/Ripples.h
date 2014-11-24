@@ -12,6 +12,7 @@ class Ripples : public Effect {
 public:
 
   typedef struct {
+
   } RipplesSettings;
 
   RipplesSettings *settings;

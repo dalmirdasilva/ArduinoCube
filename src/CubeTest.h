@@ -14,37 +14,37 @@ public:
   
   CubeTest(Cube *cube);
   
-  void run();
+  unsigned int run();
   
-  void isInRangeTest();
+  unsigned int isInRangeTest();
   
-  void writeVoxelTest();
+  unsigned int writeVoxelTest();
   
-  void invertVoxelTest();
+  unsigned int invertVoxelTest();
   
-  void writePlaneZTest();
+  unsigned int writePlaneZTest();
   
-  void writePlaneYTest();
+  unsigned int writePlaneYTest();
   
-  void writePlaneXTest();
+  unsigned int writePlaneXTest();
   
-  void flipByteTest();
+  unsigned int flipByteTest();
   
-  void mirrorXTest();
+  unsigned int mirrorXTest();
   
-  void mirrorYTest();
+  unsigned int mirrorYTest();
   
-  void mirrorZTest();
+  unsigned int mirrorZTest();
   
-  void filledBoxTest();
+  unsigned int filledBoxTest();
   
-  void lineTest();
+  unsigned int lineTest();
   
-  void shiftOnXTest();
+  unsigned int shiftOnXTest();
   
-  void shiftOnYTest();
+  unsigned int shiftOnYTest();
   
-  void shiftOnZTest();
+  unsigned int shiftOnZTest();
 };
 
 #endif /* __ARDUINO_CUBE_CUBE_TEST_H__ */

@@ -14,35 +14,35 @@ public:
   
   EffectTest(Cube *cube);
 
-  void run();
+  unsigned int run();
 
-  void selfTest();
+  unsigned int selfTest();
 
-  void rainTest();
+  unsigned int rainTest();
 
-  void blinkTest();
+  unsigned int blinkTest();
 
-  void boingBoingTest();
+  unsigned int boingBoingTest();
 
-  void boxShrinkGrowTest();
+  unsigned int boxShrinkGrowTest();
 
-  void boxWoopWoopTest();
+  unsigned int boxWoopWoopTest();
 
-  void flowingBoxTest();
+  unsigned int flowingBoxTest();
 
-  void gameOfLifeTest();
+  unsigned int gameOfLifeTest();
 
-  void randomSparkleTest();
+  unsigned int randomSparkleTest();
 
-  void ripplesTest();
+  unsigned int ripplesTest();
 
-  void stairsTest();
+  unsigned int stairsTest();
 
-  void suspendTest();
+  unsigned int suspendTest();
 
-  void upDownTest();
+  unsigned int upDownTest();
 
-  void wormSqueezeTest();
+  unsigned int wormSqueezeTest();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECT_TEST_H__ */

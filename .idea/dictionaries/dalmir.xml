@@ -3,6 +3,8 @@
     <words>
       <w>&amp;buf</w>
       <w>arduino</w>
+      <w>argc</w>
+      <w>argv</w>
       <w>boing</w>
       <w>extern</w>
       <w>unistd</w>

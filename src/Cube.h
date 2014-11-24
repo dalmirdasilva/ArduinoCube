@@ -243,7 +243,7 @@ private:
   }
 
   void set(unsigned char *p, unsigned char mask) {
-    *p |= mask;
+    *p |= mask + 1;
   }
   
   void clr(unsigned char *p, unsigned char mask) {
