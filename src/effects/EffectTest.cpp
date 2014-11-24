@@ -32,18 +32,25 @@ void EffectTest::run() {
 
 void EffectTest::selfTest() {
   Point p = {0, 0, 0};
-  Effect e = Effect(cube);
+  Effect effect = Effect(cube);
   cube->clear();
-  e.sendVoxel(AXIS_Y, FRONT, &p, 0);
+  effect.sendVoxel(AXIS_Y, FRONT, &p, 0);
   Asserter::assertEqual(0, 0, "selfTest: It should not break.");
+}
+
+void EffectTest::blinkTest() {
+  Blink::BlinkSettings effectSettings = {750};
+  Blink effect = Blink(cube, &effectSettings);
+  effect.run(1);
+  Asserter::assertEqual(0, 0, "blinkTest: It should not break, we cannot test it.");
 }
 
 void EffectTest::rainTest() {
   unsigned char i, aux = 0;
-  Rain::RainParameters p = {40, 1, 1, 200};
-  Rain r = Rain(cube, &p);
+  Rain::RainSettings effectSettings = {1, 1, 200};
+  Rain effect = Rain(cube, &effectSettings);
   cube->clear();
-  r.run();
+  effect.run(40);
   for (i = 0; i < Cube::SIZE; i++) {
     aux += AT(cube->frontBuffer, i, Cube::SIZE - 1);
   }
@@ -53,14 +60,6 @@ void EffectTest::rainTest() {
   }
   Asserter::assertNotEqual(aux, 0, "rainTest: It should have turned on some LEDs.");
 }
-
-void EffectTest::blinkTest() {
-  Blink::BlinkParameters p = {0};
-  Blink b = Blink(cube, &p);
-  b.run();
-  Asserter::assertEqual(0, 0, "blinkTest: It should not break, we cannot test it.");
-}
-
 
 void EffectTest::boingBoingTest() {
 }
@@ -75,9 +74,9 @@ void EffectTest::flowingBoxTest() {
 }
 
 void EffectTest::gameOfLifeTest() {
-  GameOfLife::GameOfLifeParameters p = {};
-  GameOfLife g = GameOfLife(cube, &p);
-  g.run();
+  GameOfLife::GameOfLifeSettings effectSettings = {0, 8};
+  GameOfLife effect = GameOfLife(cube, &effectSettings);
+  effect.run(1);
   Asserter::assertEqual(0, 0, "GameOfLife: It should not break, we cannot test it.");
 }
 
@@ -94,9 +93,9 @@ void EffectTest::suspendTest() {
 }
 
 void EffectTest::upDownTest() {
-  UpDown::UpDownParameters p = {0x03, 0x01, 0x00, AXIS_X};
-  UpDown u = UpDown(cube, &p);
-  u.run();
+  UpDown::UpDownSettings effectSettings = {3, 0, AXIS_X};
+  UpDown effect = UpDown(cube, &effectSettings);
+  effect.run(1);
   Asserter::assertEqual(0, 0, "upDownTest: It should not break, we cannot test it.");
 }
 

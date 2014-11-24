@@ -11,7 +11,7 @@
 Effect::Effect(Cube *cube) : cube(cube) {
 }
 
-void Effect::run() {
+void Effect::run(unsigned int iterations) {
 }
 
 void Effect::sendVoxel(Axis axis, Direction direction, Point *origin, unsigned int wait) {
@@ -32,11 +32,16 @@ void Effect::sendVoxel(Axis axis, Direction direction, Point *origin, unsigned i
     increment = -1;
   }
   for (; (increment > 0) ? *dimension < Cube::SIZE : *dimension >= 0; *dimension += increment) {
-    cube->turnOnVoxel(origin);
+    cube->turnVoxelOn(origin);
     delay(wait);
-    cube->turnOffVoxel(origin);
+    cube->turnVoxelOff(origin);
   }
 }
 
+void Effect::randomizePoint(Point *p) {
+  p->x = random(Cube::SIZE);
+  p->y = random(Cube::SIZE);
+  p->z = random(Cube::SIZE);
+}
 
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_CPP__ */

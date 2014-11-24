@@ -62,12 +62,12 @@ void Cube::readVoxel(Point *p, Voxel *v) {
   v->state =  (AT(p->y, p->z) & (0x01 << p->x)) != 0 ? State::ON : State::OFF;
 }
 
-void Cube::turnOnVoxel(Point *p) {
+void Cube::turnVoxelOn(Point *p) {
   Voxel v = {State::ON};
   writeVoxel(p, v);
 }
 
-void Cube::turnOffVoxel(Point *p) {
+void Cube::turnVoxelOff(Point *p) {
   Voxel v = {State::OFF};
   writeVoxel(p, v);
 }
@@ -78,12 +78,12 @@ void Cube::invertVoxel(Point *p) {
   (AT(p->y, p->z) & mask) ? clr(&AT(p->y, p->z), mask) : set(&AT(p->y, p->z), mask);
 }
 
-void Cube::turnOffPlaneZ(unsigned char z) {
+void Cube::turnPlaneZOff(unsigned char z) {
   Voxel v = {State::OFF};
   writePlaneZ(z, v);
 }
 
-void Cube::turnOnPlaneZ(unsigned char z) {
+void Cube::turnPlaneZOn(unsigned char z) {
   Voxel v = {State::ON};
   writePlaneZ(z, v);
 }
@@ -95,12 +95,12 @@ void Cube::writePlaneZ(unsigned char z, Voxel v) {
   memset(&AT(0, z), pattern, Cube::SIZE);
 }
 
-void Cube::turnOffPlaneY(unsigned char y) {
+void Cube::turnPlaneYOff(unsigned char y) {
   Voxel v = {State::OFF};
   writePlaneY(y, v);
 }
 
-void Cube::turnOnPlaneY(unsigned char y) {
+void Cube::turnPlaneYOn(unsigned char y) {
   Voxel v = {State::ON};
   writePlaneY(y, v);
 }
@@ -112,12 +112,12 @@ void Cube::writePlaneY(unsigned char y, Voxel v) {
     AT(y, z) = (v.state == State::ON) ? 0xff : 0x00;
 }
 
-void Cube::turnOffPlaneX(unsigned char x) {
+void Cube::turnPlaneXOff(unsigned char x) {
   Voxel v = {State::OFF};
   writePlaneX(x, v);
 }
 
-void Cube::turnOnPlaneX(unsigned char x) {
+void Cube::turnPlaneXOn(unsigned char x) {
   Voxel v = {State::ON};
   writePlaneX(x, v);
 }
@@ -168,7 +168,7 @@ void Cube::line(Point *from, Point *to) {
   for (p.x = from->x; p.x <= to->x; p.x++) {
     p.y = (ySteps * (p.x - from->x)) + from->y;
     p.z = (zSteps * (p.x - from->x)) + from->z;
-    turnOnVoxel(&p);
+    turnVoxelOn(&p);
   }
 }
 

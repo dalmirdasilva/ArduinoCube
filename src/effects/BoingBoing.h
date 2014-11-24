@@ -12,14 +12,13 @@ class BoingBoing : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } BoingBoingParameters;
+  } BoingBoingSettings;
 
-  BoingBoingParameters *parameters;
+  BoingBoingSettings *settings;
 
-  BoingBoing(Cube *cube, BoingBoingParameters *parameters);
+  BoingBoing(Cube *cube, BoingBoingSettings *settings);
 
-  virtual void run();
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOING_BOING_H__ */

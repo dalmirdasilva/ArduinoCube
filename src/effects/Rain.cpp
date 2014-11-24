@@ -8,24 +8,24 @@
 #include <Arduino.h>
 #include <Point.h>
 
-Rain::Rain(Cube *cube, RainParameters *parameters) : Effect(cube), parameters(parameters) {
+Rain::Rain(Cube *cube, RainSettings *settings) : Effect(cube), settings(settings) {
 }
   
-void Rain::run() {
+void Rain::run(unsigned int iterations) {
   unsigned char k, n;
   unsigned int iteration;
   Point p = {0, 0, Cube::SIZE - 1};
-  for (iteration = 0; iteration < parameters->iterations; iteration++) {
+  for (iteration = 0; iteration < iterations; iteration++) {
     randomSeed(analogRead(0));
-    n = random(parameters->minDrops, parameters->maxDrops);
+    n = random(settings->minDrops, settings->maxDrops);
     for (k = 0; k < n; k++) {
       p.x = random(0, Cube::SIZE);
       p.y = random(0, Cube::SIZE);
-      cube->turnOnVoxel(&p);
+      cube->turnVoxelOn(&p);
     }
-    delay(parameters->delay);
+    delay(settings->delay);
     cube->shiftOnZ(Direction::DOWN);
-    cube->turnOffPlaneZ(Cube::SIZE - 1);
+    cube->turnPlaneZOff(Cube::SIZE - 1);
   }
 }
   

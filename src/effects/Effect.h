@@ -16,9 +16,11 @@ public:
 
   Effect(Cube *cube);
   
-  virtual void run();
+  virtual void run(unsigned int iterations);
 
   void sendVoxel(Axis axis, Direction direction, Point *origin, unsigned int wait);
+
+  void randomizePoint(Point *p);
 };
   
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_H__ */

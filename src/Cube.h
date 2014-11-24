@@ -91,7 +91,7 @@ public:
    * 
    * @param p             3D Point pointer
    */
-  void turnOnVoxel(Point *p);
+  void turnVoxelOn(Point *p);
 
   /**
    * Get Voxel
@@ -105,7 +105,7 @@ public:
    * 
    * @param p             3D Point pointer
    */
-  void turnOffVoxel(Point *p);
+  void turnVoxelOff(Point *p);
   
   /**
    * Switch volex state
@@ -115,12 +115,12 @@ public:
   /**
    * Turn off plane z.
    */
-  void turnOffPlaneZ(unsigned char z);
+  void turnPlaneZOff(unsigned char z);
   
   /**
    * Turn on plane z.
    */
-  void turnOnPlaneZ(unsigned char z);
+  void turnPlaneZOn(unsigned char z);
 
   /**
    * Write plane z.
@@ -130,12 +130,12 @@ public:
   /**
    * Turn off plane y.
    */
-  void turnOffPlaneY(unsigned char y);
+  void turnPlaneYOff(unsigned char y);
   
   /**
    * Turn on plane y.
    */
-  void turnOnPlaneY(unsigned char y);
+  void turnPlaneYOn(unsigned char y);
   
   /**
    * Write plane y.
@@ -145,12 +145,12 @@ public:
   /**
    * Turn off plane x.
    */
-  void turnOffPlaneX(unsigned char x);
+  void turnPlaneXOff(unsigned char x);
   
   /**
    * Turn on plane x.
    */
-  void turnOnPlaneX(unsigned char x);
+  void turnPlaneXOn(unsigned char x);
   
   /**
    * Write plane x.

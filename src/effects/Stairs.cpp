@@ -6,11 +6,11 @@
 
 #include <Stairs.h>
 
-Stairs::Stairs(Cube *cube, StairsParameters *parameters) : Effect(cube), parameters(parameters) {
+Stairs::Stairs(Cube *cube, StairsSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void Stairs::run() {
-  for (int it = 0; it < parameters->iterations; it++) {
+void Stairs::run(unsigned int iterations) {
+  for (iteration = 0; iteration < iterations ; iteration++) {
   }
 }
 

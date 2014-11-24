@@ -12,14 +12,14 @@ class Stairs : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } StairsParameters;
 
-  StairsParameters *parameters;
+  } StairsSettings;
 
-  Stairs(Cube *cube, StairsParameters *parameters);
+  StairsSettings *settings;
 
-  virtual void run();
+  Stairs(Cube *cube, StairsSettings *settings);
+
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_STAIRS_H__ */

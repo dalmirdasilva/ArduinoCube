@@ -17,16 +17,15 @@ public:
   static const unsigned char CREATE_MAX = 3;
 
   typedef struct {
-    unsigned char iterations;
     unsigned int delay;
+    unsigned char firstGenerationSize;
+  } GameOfLifeSettings;
 
-  } GameOfLifeParameters;
+  GameOfLifeSettings *settings;
 
-  GameOfLifeParameters *parameters;
+  GameOfLife(Cube *cube, GameOfLifeSettings *settings);
 
-  GameOfLife(Cube *cube, GameOfLifeParameters *parameters);
-
-  virtual void run();
+  virtual void run(unsigned int iterations);
 
   void genesis();
 

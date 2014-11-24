@@ -12,14 +12,13 @@ class BoxShrinkGrow : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } BoxShrinkGrowParameters;
+  } BoxShrinkGrowSettings;
 
-  BoxShrinkGrowParameters *parameters;
+  BoxShrinkGrowSettings *settings;
 
-  BoxShrinkGrow(Cube *cube, BoxShrinkGrowParameters *parameters);
+  BoxShrinkGrow(Cube *cube, BoxShrinkGrowSettings *settings);
 
-  virtual void run();
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOX_SHRINK_GROW_H__ */

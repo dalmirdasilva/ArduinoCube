@@ -12,14 +12,14 @@ class BoxWoopWoop : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } BoxWoopWoopParameters;
 
-  BoxWoopWoopParameters *parameters;
+  } BoxWoopWoopSettings;
 
-  BoxWoopWoop(Cube *cube, BoxWoopWoopParameters *parameters);
+  BoxWoopWoopSettings *settings;
 
-  virtual void run();
+  BoxWoopWoop(Cube *cube, BoxWoopWoopSettings *settings);
+
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOX_WOOP_WOOP_H__ */

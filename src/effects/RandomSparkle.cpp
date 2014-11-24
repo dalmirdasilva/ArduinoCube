@@ -6,12 +6,12 @@
 
 #include <RandomSparkle.h>
 
-RandomSparkle::RandomSparkle(Cube *cube, RandomSparkleParameters *parameters) : Effect(cube), parameters(parameters) {
+RandomSparkle::RandomSparkle(Cube *cube, RandomSparkleSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void RandomSparkle::run() {
-  int it;
-  for (it = 0; it < parameters->iterations; it++) {
+void RandomSparkle::run(unsigned int iterations) {
+  unsigned int iteration;
+  for (iteration = 0;iteration < iterations ; iteration++) {
   }
 }
 

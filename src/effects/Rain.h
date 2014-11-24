@@ -12,17 +12,16 @@ class Rain : public Effect {
 public:
   
   typedef struct {
-    unsigned int iterations;
     unsigned char minDrops;
     unsigned char maxDrops;
     unsigned char delay;
-  } RainParameters;
+  } RainSettings;
 
-  RainParameters *parameters;
+  RainSettings *settings;
 
-  Rain(Cube *cube, RainParameters *parameters);
+  Rain(Cube *cube, RainSettings *settings);
   
-  virtual void run();
+  virtual void run(unsigned int iterations);
 };
   
 #endif /* __ARDUINO_CUBE_EFFECTS_RAIN_H__ */

@@ -12,14 +12,14 @@ class Blink : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } BlinkParameters;
+    int delay;
+  } BlinkSettings;
 
-  BlinkParameters *parameters;
+  BlinkSettings *settings;
 
-  Blink(Cube *cube, BlinkParameters *parameters);
+  Blink(Cube *cube, BlinkSettings *settings);
 
-  virtual void run();
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BLINK_H__ */

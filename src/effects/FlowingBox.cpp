@@ -6,11 +6,11 @@
 
 #include <FlowingBox.h>
 
-FlowingBox::FlowingBox(Cube *cube, FlowingBoxParameters *parameters) : Effect(cube), parameters(parameters) {
+FlowingBox::FlowingBox(Cube *cube, FlowingBoxSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void FlowingBox::run() {
-  for (int it = 0; it < parameters->iterations; it++) {
+void FlowingBox::run(unsigned int iterations) {
+  for (iteration = 0; iteration < iterations ; iteration++) {
   }
 }
 
