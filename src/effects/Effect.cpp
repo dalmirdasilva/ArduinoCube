@@ -43,10 +43,4 @@ void Effect::sendVoxel(Point *p, Direction dir, unsigned int wait) {
   }
 }
 
-void Effect::randomizePoint(Point *p) {
-  p->x = random(Cube::SIZE);
-  p->y = random(Cube::SIZE);
-  p->z = random(Cube::SIZE);
-}
-
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_CPP__ */

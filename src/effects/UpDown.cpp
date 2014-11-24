@@ -19,7 +19,6 @@ void UpDown::run(unsigned int iterations) {
     locations[i].position = settings->initialPosition;
   }
   for (iteration = 0; iteration < iterations; iteration++) {
-    randomSeed(analogRead(0));
     for (i = 0; i < Cube::BYTE_SIZE; i++) {
       locations[i].destination = random(Cube::SIZE);
     }

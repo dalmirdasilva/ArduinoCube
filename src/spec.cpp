@@ -1,21 +1,24 @@
-#include <CubeTest.h>
-#include <EffectTest.h>
+#include <CubeSpec.h>
+#include <EffectSpec.h>
+#include <PointSpec.h>
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
+  unsigned int cubeErrorCount, effectErrorCount, pointErrorCount;
 
-  unsigned int cubeErrorCount, effectErrorCount;
   Cube cube = Cube();
 
-  CubeTest cubeTest = CubeTest(&cube);
-  EffectTest effectTest = EffectTest(&cube);
+  CubeSpec cubeSpec = CubeSpec(&cube);
+  PointSpec pointSpec = PointSpec();
+  EffectSpec effectSpec = EffectSpec(&cube);
 
-  cubeErrorCount = cubeTest.run();
-  effectErrorCount = effectTest.run();
-
+  cubeErrorCount = cubeSpec.run();
+  effectErrorCount = effectSpec.run();
+  pointErrorCount = pointSpec.run();
 
   printf("cubeErrorCount: %d\n", cubeErrorCount);
   printf("effectErrorCount: %d\n", effectErrorCount);
+  printf("pointErrorCount: %d\n", pointErrorCount);
 
-  return 0;
+  return cubeErrorCount + effectErrorCount + pointErrorCount;
 }

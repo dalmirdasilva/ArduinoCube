@@ -6,6 +6,7 @@
 #define __ARDUINO_CUBE_EFFECTS_EFFECT_H__ 1
 
 #include <Cube.h>
+#include <math.h>
 
 class Effect {
 

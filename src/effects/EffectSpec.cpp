@@ -1,4 +1,4 @@
-#include <EffectTest.h>
+#include <EffectSpec.h>
 #include <Asserter.h>
 #include <Util.h>
 #include <Blink.h>
@@ -10,10 +10,10 @@
 
 #define AT(b, y, z) *(b + ((((z) * CUBE_SIZE) + (y))))
 
-EffectTest::EffectTest(Cube *cube) : cube(cube) {
+EffectSpec::EffectSpec(Cube *cube) : cube(cube) {
 }
 
-unsigned int EffectTest::run() {
+unsigned int EffectSpec::run() {
   unsigned int errorCount = 0;
   errorCount += selfTest();
   errorCount += rainTest();
@@ -32,9 +32,9 @@ unsigned int EffectTest::run() {
   return errorCount;
 }
 
-unsigned int EffectTest::selfTest() {
+unsigned int EffectSpec::selfSpec() {
   unsigned int errorCount = 0;
-  Point p = {0, 0, 0};
+  Point p = Point();
   Effect effect = Effect(cube);
   cube->clear();
   effect.sendVoxel(&p, FRONT, 0);
@@ -42,16 +42,16 @@ unsigned int EffectTest::selfTest() {
   return errorCount;
 }
 
-unsigned int EffectTest::blinkTest() {
+unsigned int EffectSpec::blinkSpec() {
   unsigned int errorCount = 0;
   Blink::BlinkSettings effectSettings = {750};
   Blink effect = Blink(cube, &effectSettings);
   effect.run(1);
-  errorCount += (unsigned int) Asserter::assertEqual(0, 0, "blinkTest: It should not break, we cannot test it.");
+  errorCount += (unsigned int) Asserter::assertEqual(0, 0, "blinkSpec: It should not break, we cannot test it.");
   return errorCount;
 }
 
-unsigned int EffectTest::rainTest() {
+unsigned int EffectSpec::rainSpec() {
   unsigned int errorCount = 0;
   unsigned char i, aux = 0;
   Rain::RainSettings effectSettings = {1, 1, 200};
@@ -61,35 +61,35 @@ unsigned int EffectTest::rainTest() {
   for (i = 0; i < Cube::SIZE; i++) {
     aux += AT(cube->frontBuffer, i, Cube::SIZE - 1);
   }
-  errorCount += (unsigned int) Asserter::assertEqual(aux, 0, "rainTest: It should clear the top plane.");
+  errorCount += (unsigned int) Asserter::assertEqual(aux, 0, "rainSpec: It should clear the top plane.");
   for (i = 0; i < Cube::SIZE; i++) {
     aux += AT(cube->frontBuffer, i, 0);
   }
-  errorCount += (unsigned int) Asserter::assertNotEqual(aux, 0, "rainTest: It should have turned on some LEDs.");
+  errorCount += (unsigned int) Asserter::assertNotEqual(aux, 0, "rainSpec: It should have turned on some LEDs.");
   return errorCount;
 }
 
-unsigned int EffectTest::boingBoingTest() {
+unsigned int EffectSpec::boingBoingSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::boxShrinkGrowTest() {
+unsigned int EffectSpec::boxShrinkGrowSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::boxWoopWoopTest() {
+unsigned int EffectSpec::boxWoopWoopSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::flowingBoxTest() {
+unsigned int EffectSpec::flowingBoxSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::gameOfLifeTest() {
+unsigned int EffectSpec::gameOfLifeSpec() {
   unsigned int errorCount = 0;
   GameOfLife::GameOfLifeSettings effectSettings = {0, 8};
   GameOfLife effect = GameOfLife(cube, &effectSettings);
@@ -98,36 +98,36 @@ unsigned int EffectTest::gameOfLifeTest() {
   return errorCount;
 }
 
-unsigned int EffectTest::randomSparkleTest() {
+unsigned int EffectSpec::randomSparkleSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::ripplesTest() {
+unsigned int EffectSpec::ripplesSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::stairsTest() {
+unsigned int EffectSpec::stairsSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::suspendTest() {
+unsigned int EffectSpec::suspendSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }
 
-unsigned int EffectTest::upDownTest() {
+unsigned int EffectSpec::upDownSpec() {
   unsigned int errorCount = 0;
   UpDown::UpDownSettings effectSettings = {Axis::AXIS_X, 3, 0};
   UpDown effect = UpDown(cube, &effectSettings);
   effect.run(1);
-  errorCount += (unsigned int) Asserter::assertEqual(0, 0, "upDownTest: It should not break, we cannot test it.");
+  errorCount += (unsigned int) Asserter::assertEqual(0, 0, "upDownSpec: It should not break, we cannot test it.");
   return errorCount;
 }
 
-unsigned int EffectTest::wormSqueezeTest() {
+unsigned int EffectSpec::wormSqueezeSpec() {
   unsigned int errorCount = 0;
   return errorCount;
 }

@@ -3,7 +3,7 @@
 
 bool Asserter::assert(bool assertion, const char *msg) {
   bool failure = false;
- if (assertion) {
+  if (assertion) {
     printf("\e[32m(*) passed: %s\e[0m\n", msg);
   } else {
     failure = true;

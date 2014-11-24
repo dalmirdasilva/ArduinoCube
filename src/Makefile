@@ -13,8 +13,10 @@ SOURCES = \
   effects/GameOfLife.cpp \
   Cube.cpp \
   Asserter.cpp \
-  effects/EffectTest.cpp \
-  CubeTest.cpp \
+  effects/EffectSpec.cpp \
+  PointSpec.cpp \
+  CubeSpec.cpp \
+  Point.cpp \
   Util.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)

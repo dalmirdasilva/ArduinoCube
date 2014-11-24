@@ -27,7 +27,7 @@ void GameOfLife::genesis() {
   Point p;
   cube->clear();
   for (i = 0; i < settings->firstGenerationSize; i++) {
-    randomizePoint(&p);
+    p.randomize(Cube::SIZE);
     cube->turnVoxelOn(&p);
   }
 }

@@ -18,7 +18,7 @@ void TurnOnRandomly::run(unsigned int iterations) {
   for (iteration = 0; iteration < iterations; iteration++) {
     cube->clear();
     for (i = 0; i < settings->maxOnVoxels; i++) {
-      randomizePoint(&p);
+      p.randomizePoint(Cube::SIZE);
       cube->turnVoxelOn(&p);
     }
   }
