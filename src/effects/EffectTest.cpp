@@ -34,7 +34,7 @@ void EffectTest::selfTest() {
   Point p = {0, 0, 0};
   Effect e = Effect(cube);
   cube->clear();
-  e.sendVoxel(AXIS_Y, FRONT, &p, 0);
+  e.sendVoxel(&p, FRONT, 0);
   Asserter::assertEqual(0, 0, "selfTest: It should not break.");
 }
 

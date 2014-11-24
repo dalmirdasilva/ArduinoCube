@@ -14,27 +14,32 @@ Effect::Effect(Cube *cube) : cube(cube) {
 void Effect::run() {
 }
 
-void Effect::sendVoxel(Axis axis, Direction direction, Point *origin, unsigned int wait) {
-  char *dimension;
-  char increment = 1;
-  switch (axis) {
-    case AXIS_X:
-      dimension = (char*)&(origin->x);
+void Effect::sendVoxel(Point *p, Direction dir, unsigned int wait) {
+  Voxel origin, current;
+  char *dim, inc = 1;
+  cube->readVoxel(p, &origin);
+  switch (dir) {
+    case UP:
+      inc = -1;
+    case DOWN:
+      dim = (char*)&(p->z);
       break;
-    case AXIS_Y:
-      dimension = (char*)&(origin->y);
+    case FRONT:
+      inc = -1;
+    case BACK:
+      dim = (char*)&(p->y);
       break;
-    case AXIS_Z:
-      dimension = (char*)&(origin->z);
+    case RIGHT:
+      inc = -1;
+    case LEFT:
+      dim = (char*)&(p->x);
       break;
   }
-  if (direction == UP || direction == RIGHT || direction == FRONT) {
-    increment = -1;
-  }
-  for (; (increment > 0) ? *dimension < Cube::SIZE : *dimension >= 0; *dimension += increment) {
-    cube->turnOnVoxel(origin);
+  for (; (inc > 0) ? *dim < Cube::SIZE : *dim >= 0; *dim += inc) {
+    cube->readVoxel(p, &current);
+    cube->writeVoxel(p, origin);
     delay(wait);
-    cube->turnOffVoxel(origin);
+    cube->writeVoxel(p, current);
   }
 }
 

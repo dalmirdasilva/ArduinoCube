@@ -18,7 +18,7 @@ public:
   
   virtual void run();
 
-  void sendVoxel(Axis axis, Direction direction, Point *origin, unsigned int wait);
+  void sendVoxel(Point *origin, Direction direction, unsigned int wait);
 };
   
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_H__ */
