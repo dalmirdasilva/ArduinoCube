@@ -43,7 +43,7 @@ void GameOfLife::nextGeneration() {
       for (p.x = 0; p.x < Cube::SIZE; p.x++) {
 				neighbors = getNeighbors(&p);
         cube->readVoxel(&p, &v);
-        if (v.state == State::ON) {
+        if (v.state == ON) {
 					if (neighbors <= LONELY_DEATH || neighbors >= CROWDED_DEATH) {
 						cube->turnVoxelOff(&p);
 					}
@@ -62,14 +62,14 @@ void GameOfLife::nextGeneration() {
 unsigned char GameOfLife::getNeighbors(Point *at) {
   unsigned char neighbors = 0;
   Point p;
+  Voxel v;
   cube->fitInRange(&p);
   for (p.z = at->z - 1; p.z <= at->z + 1; p.z++) {
     for (p.y = at->y - 1; p.y <= at->y + 1; p.y++) {
       for (p.x = at->x - 1; p.x <= at->x + 1; p.x++) {
         if (cube->isInRange(&p)) {
-          Voxel v;
           cube->readVoxel(&p, &v);
-          if ((p.z != 0 || p.y != 0 || p.x != 0) && (v.state == State::ON)) {
+          if ((p.z != 0 || p.y != 0 || p.x != 0) && (v.state == ON)) {
             neighbors++;
           }
         }

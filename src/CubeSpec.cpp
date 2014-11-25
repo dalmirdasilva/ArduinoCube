@@ -45,12 +45,12 @@ unsigned int CubeSpec::writeVoxelSpec() {
   unsigned int errorCount = 0;
   unsigned char x = 5, y = 1, z = 1;
   Point p = Point(x, y, z);
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   AT(cube->frontBuffer, y, z) = 0x00;
   cube->useBackBuffer(true);
   cube->writeVoxel(&p, v);
   errorCount += (unsigned int) Asserter::assertEqual(AT(cube->backBuffer, y, z), (0x01 << x), "writeVoxel: Should write the correct voxel when ON.");
-  v.state = State::OFF;
+  v.state = OFF;
   cube->writeVoxel(&p, v);
   errorCount += (unsigned int) Asserter::assertEqual(AT(cube->backBuffer, y, z), 0x00, "writeVoxel: Should write the correct voxel when OFF.");
   cube->useBackBuffer(false);
@@ -77,7 +77,7 @@ unsigned int CubeSpec::invertVoxelSpec() {
 unsigned int CubeSpec::writePlaneZSpec() {
   unsigned int errorCount = 0;
   unsigned char i, aux, z = 2;
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   cube->useBackBuffer(false);
   cube->clear();
   cube->writePlaneZ(z, v);
@@ -92,7 +92,7 @@ unsigned int CubeSpec::writePlaneZSpec() {
 unsigned int CubeSpec::writePlaneYSpec() {
   unsigned int errorCount = 0;
   unsigned char z, aux, y = 3;
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   cube->useBackBuffer(false);
   cube->clear();
   cube->writePlaneY(y, v);
@@ -107,7 +107,7 @@ unsigned int CubeSpec::writePlaneYSpec() {
 unsigned int CubeSpec::writePlaneXSpec() {
   unsigned int errorCount = 0;
   unsigned char z, y, aux, x = 3;
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   cube->useBackBuffer(false);
   cube->clear();
   cube->writePlaneX(x, v);

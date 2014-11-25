@@ -38,13 +38,13 @@ void UpDown::draw() {
       p = locations[i * Cube::SIZE + j].position;
       switch(settings->axis) {
         case AXIS_Z:
-          cube->writeVoxel(i, j, p, State::ON);
+          cube->writeVoxel(i, j, p, ON);
           break;
         case AXIS_Y:
-          cube->writeVoxel(i, p, j, State::ON);
+          cube->writeVoxel(i, p, j, ON);
           break;
         case AXIS_X:
-          cube->writeVoxel(p, j, i, State::ON);
+          cube->writeVoxel(p, j, i, ON);
           break;
       }
     }

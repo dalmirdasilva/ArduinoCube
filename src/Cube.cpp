@@ -54,21 +54,21 @@ void Cube::fill(unsigned char pattern) {
 void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state) {
   unsigned char mask;
   mask = 1 << x;
-  state == State::ON ? Util::set(&AT(y, z), mask) : Util::clr(&AT(y, z), mask);
+  state == ON ? Util::set(&AT(y, z), mask) : Util::clr(&AT(y, z), mask);
 }
 
 void Cube::readVoxel(Point *p, Voxel *v) {
   fitInRange(p);
-  v->state =  (AT(p->y, p->z) & (0x01 << p->x)) != 0 ? State::ON : State::OFF;
+  v->state =  (AT(p->y, p->z) & (0x01 << p->x)) != 0 ? ON : OFF;
 }
 
 void Cube::turnVoxelOn(Point *p) {
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   writeVoxel(p, v);
 }
 
 void Cube::turnVoxelOff(Point *p) {
-  Voxel v = {State::OFF};
+  Voxel v = {OFF};
   writeVoxel(p, v);
 }
 
@@ -79,29 +79,29 @@ void Cube::invertVoxel(Point *p) {
 }
 
 void Cube::turnPlaneZOff(unsigned char z) {
-  Voxel v = {State::OFF};
+  Voxel v = {OFF};
   writePlaneZ(z, v);
 }
 
 void Cube::turnPlaneZOn(unsigned char z) {
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   writePlaneZ(z, v);
 }
 
 void Cube::writePlaneZ(unsigned char z, Voxel v) {
   unsigned char pattern;
   z %= Cube::SIZE;
-  pattern = (v.state == State::ON) ? 0xff : 0x00;
+  pattern = (v.state == ON) ? 0xff : 0x00;
   memset(&AT(0, z), pattern, Cube::SIZE);
 }
 
 void Cube::turnPlaneYOff(unsigned char y) {
-  Voxel v = {State::OFF};
+  Voxel v = {OFF};
   writePlaneY(y, v);
 }
 
 void Cube::turnPlaneYOn(unsigned char y) {
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   writePlaneY(y, v);
 }
 
@@ -109,16 +109,16 @@ void Cube::writePlaneY(unsigned char y, Voxel v) {
   unsigned char z;
   y %= Cube::SIZE;
   for (z = 0; z < Cube::SIZE; z++)
-    AT(y, z) = (v.state == State::ON) ? 0xff : 0x00;
+    AT(y, z) = (v.state == ON) ? 0xff : 0x00;
 }
 
 void Cube::turnPlaneXOff(unsigned char x) {
-  Voxel v = {State::OFF};
+  Voxel v = {OFF};
   writePlaneX(x, v);
 }
 
 void Cube::turnPlaneXOn(unsigned char x) {
-  Voxel v = {State::ON};
+  Voxel v = {ON};
   writePlaneX(x, v);
 }
 
@@ -128,7 +128,7 @@ void Cube::writePlaneX(unsigned char x, Voxel v) {
   x %= Cube::SIZE;
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
-      v.state == State::ON ? Util::set(&AT(y, z), mask) : Util::clr(&AT(y, z), mask);
+      v.state == ON ? Util::set(&AT(y, z), mask) : Util::clr(&AT(y, z), mask);
     }
   }
 }
