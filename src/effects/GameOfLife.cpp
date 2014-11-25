@@ -7,23 +7,29 @@
 #include <GameOfLife.h>
 #include <Arduino.h>
 
-GameOfLife::GameOfLife(Cube *cube, GameOfLifeParameters *parameters) : Effect(cube), parameters(parameters) {
+GameOfLife::GameOfLife(Cube *cube, GameOfLifeSettings *settings) : Effect(cube), settings(settings) {
   genesis();
 }
 
-void GameOfLife::run() {
-  int it;
-  for (it = 0; it < parameters->iterations; it++) {
+void GameOfLife::run(unsigned int iterations) {
+  unsigned int iteration;
+  for (iteration = 0; iteration < iterations; iteration++) {
     nextGeneration();
     if (!hasChanges()) {
       return;
     }
-		delay(parameters->delay);
+		delay(settings->delay);
   }
 }
 
 void GameOfLife::genesis() {
-
+  unsigned char i;
+  Point p;
+  cube->clear();
+  for (i = 0; i < settings->firstGenerationSize; i++) {
+    randomizePoint(&p);
+    cube->turnVoxelOn(&p);
+  }
 }
 
 void GameOfLife::nextGeneration() {
@@ -39,11 +45,11 @@ void GameOfLife::nextGeneration() {
         cube->readVoxel(&p, &v);
         if (v.state == State::ON) {
 					if (neighbors <= LONELY_DEATH || neighbors >= CROWDED_DEATH) {
-						cube->turnOffVoxel(&p);
+						cube->turnVoxelOff(&p);
 					}
 				} else {
 					if (neighbors >= CREATE_MIN && neighbors <= CREATE_MAX) {
-						cube->turnOnVoxel(&p);
+						cube->turnVoxelOn(&p);
           }
 				}
 			}

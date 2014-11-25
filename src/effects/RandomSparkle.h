@@ -12,14 +12,14 @@ class RandomSparkle : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } RandomSparkleParameters;
 
-  RandomSparkleParameters *parameters;
+  } RandomSparkleSettings;
 
-  RandomSparkle(Cube *cube, RandomSparkleParameters *parameters);
+  RandomSparkleSettings *settings;
 
-  virtual void run();
+  RandomSparkle(Cube *cube, RandomSparkleSettings *settings);
+
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_RANDOM_SPARKLE_H__ */

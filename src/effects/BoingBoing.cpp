@@ -6,11 +6,12 @@
 
 #include <BoingBoing.h>
 
-BoingBoing::BoingBoing(Cube *cube, BoingBoingParameters *parameters) : Effect(cube), parameters(parameters) {
+BoingBoing::BoingBoing(Cube *cube, BoingBoingSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void BoingBoing::run() {
-  for (int it = 0; it < parameters->iterations; it++) {
+void BoingBoing::run(unsigned int iterations) {
+  unsigned int iteration;
+  for (iteration = 0; iteration < iterations ; iteration++) {
   }
 }
 

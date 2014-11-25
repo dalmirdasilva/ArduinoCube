@@ -20,16 +20,16 @@ public:
 
   typedef struct {
     unsigned char initialPosition;
-    unsigned char iterations;
+
     unsigned int delay;
     Axis axis;
-  } UpDownParameters;
+  } UpDownSettings;
 
-  UpDownParameters *parameters;
+  UpDownSettings *settings;
 
-  UpDown(Cube *cube, UpDownParameters *parameters);
+  UpDown(Cube *cube, UpDownSettings *settings);
 
-  virtual void run();
+  virtual void run(unsigned int iterations);
 
   /**
    * Draws current position to the cube.

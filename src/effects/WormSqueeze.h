@@ -12,14 +12,14 @@ class WormSqueeze : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } WormSqueezeParameters;
 
-  WormSqueezeParameters *parameters;
+  } WormSqueezeSettings;
 
-  WormSqueeze(Cube *cube, WormSqueezeParameters *parameters);
+  WormSqueezeSettings *settings;
 
-  virtual void run();
+  WormSqueeze(Cube *cube, WormSqueezeSettings *settings);
+
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_WORM_SQUEEZE_H__ */

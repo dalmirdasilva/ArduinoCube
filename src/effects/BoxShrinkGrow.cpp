@@ -6,12 +6,12 @@
 
 #include <BoxShrinkGrow.h>
 
-BoxShrinkGrow::BoxShrinkGrow(Cube *cube, BoxShrinkGrowParameters *parameters) : Effect(cube), parameters(parameters) {
+BoxShrinkGrow::BoxShrinkGrow(Cube *cube, BoxShrinkGrowSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void BoxShrinkGrow::run() {
+void BoxShrinkGrow::run(unsigned int iterations) {
   int iteration, size;
-  for (int iteration = 0; iteration < parameters->iterations; iteration++) {
+  for (iteration = 0; iteration < iterations; iteration++) {
     for (size = 0; size < Cube::SIZE; size++) {
       drawWireframeBox(size);
     }

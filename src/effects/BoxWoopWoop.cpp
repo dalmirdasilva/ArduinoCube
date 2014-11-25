@@ -6,11 +6,11 @@
 
 #include <BoxWoopWoop.h>
 
-BoxWoopWoop::BoxWoopWoop(Cube *cube, BoxWoopWoopParameters *parameters) : Effect(cube), parameters(parameters) {
+BoxWoopWoop::BoxWoopWoop(Cube *cube, BoxWoopWoopSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void BoxWoopWoop::run() {
-  for (int it = 0; it < parameters->iterations; it++) {
+void BoxWoopWoop::run(unsigned int iterations) {
+  for (int iteration = 0; iteration < iterations; iteration++) {
   }
 }
 

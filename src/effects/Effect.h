@@ -16,7 +16,7 @@ public:
 
   Effect(Cube *cube);
   
-  virtual void run();
+  virtual void run(unsigned int iterations);
 
   void sendVoxel(Point *origin, Direction direction, unsigned int wait);
 };

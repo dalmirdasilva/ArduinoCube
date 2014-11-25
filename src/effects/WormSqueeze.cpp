@@ -6,11 +6,11 @@
 
 #include <WormSqueeze.h>
 
-WormSqueeze::WormSqueeze(Cube *cube, WormSqueezeParameters *parameters) : Effect(cube), parameters(parameters) {
+WormSqueeze::WormSqueeze(Cube *cube, WormSqueezeSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void WormSqueeze::run() {
-  for (int it = 0; it < parameters->iterations; it++) {
+void WormSqueeze::run(unsigned int iterations) {
+  for (iteration = 0; iteration < iterations ; iteration++) {
   }
 }
 

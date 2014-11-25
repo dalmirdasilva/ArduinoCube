@@ -8,21 +8,22 @@
 #include <Arduino.h>
 #include <Point.h>
 
-Blink::Blink(Cube *cube, BlinkParameters *parameters) : Effect(cube), parameters(parameters) {
+Blink::Blink(Cube *cube, BlinkSettings *settings) : Effect(cube), settings(settings) {
 }
   
-void Blink::run() {
+void Blink::run(unsigned int iterations) {
+  unsigned int iteration;
   unsigned char step;
-  int wait, iteration;
-  for (iteration = 0; iteration < parameters->iterations; iteration++) {
+  int stepDelay;
+  for (iteration = 0; iteration < iterations; iteration++) {
     for (step = 0; step < 2; step++) {
-      wait = 750;
-      while (wait > 0) {
+      stepDelay = settings->delay;
+      while (stepDelay > 0) {
         cube->clear();
-        delay((step == 0) ? wait : (751 - wait));
+        delay((step == 0) ? stepDelay : ((settings->delay + 1) - stepDelay));
         cube->fill();
         delay(100);
-        wait -= (15 + (1000 / (wait / 10)));
+        stepDelay -= (15 + (1000 / (stepDelay / 10)));
       }
       if (step == 0) {
         delay(3000);

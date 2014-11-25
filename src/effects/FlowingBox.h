@@ -12,14 +12,13 @@ class FlowingBox : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } FlowingBoxParameters;
+  } FlowingBoxSettings;
 
-  FlowingBoxParameters *parameters;
+  FlowingBoxSettings *settings;
 
-  FlowingBox(Cube *cube, FlowingBoxParameters *parameters);
+  FlowingBox(Cube *cube, FlowingBoxSettings *settings);
 
-  virtual void run();
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_FLOWING_BOX_H__ */

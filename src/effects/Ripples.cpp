@@ -6,11 +6,13 @@
 
 #include <Ripples.h>
 
-Ripples::Ripples(Cube *cube, RipplesParameters *parameters) : Effect(cube), parameters(parameters) {
+Ripples::Ripples(Cube *cube, RipplesSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void Ripples::run() {
-  for (int it = 0; it < parameters->iterations; it++) {
+void Ripples::run(unsigned int iterations) {
+  unsigned int iteration;
+  for (iteration = 0;iteration < iterations ; iteration++) {
+
   }
 }
 

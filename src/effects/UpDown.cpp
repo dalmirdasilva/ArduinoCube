@@ -8,24 +8,24 @@
 #include <Arduino.h>
 #include <Util.h>
 
-UpDown::UpDown(Cube *cube, UpDownParameters *parameters) : Effect(cube), parameters(parameters) {
+UpDown::UpDown(Cube *cube, UpDownSettings *settings) : Effect(cube), settings(settings) {
 }
 
-void UpDown::run() {
+void UpDown::run(unsigned int iterations) {
   unsigned char i;
-  int iteration;
+  unsigned int iteration;
   cube->clear();
   for (i = 0; i < Cube::BYTE_SIZE; i++) {
-    locations[i].position = parameters->initialPosition;
+    locations[i].position = settings->initialPosition;
   }
-  for (iteration = 0; iteration < parameters->iterations; iteration++) {
+  for (iteration = 0; iteration < iterations; iteration++) {
     randomSeed(analogRead(0));
     for (i = 0; i < Cube::BYTE_SIZE; i++) {
       locations[i].destination = random(Cube::SIZE);
     }
     for (i = 0; i < Cube::SIZE; i++) {
       move(); draw();
-      delay(parameters->delay);
+      delay(settings->delay);
     }
   }
 }
@@ -37,7 +37,7 @@ void UpDown::draw() {
   for (i = 0; i < Cube::SIZE; i++) {
     for (j = 0; j < Cube::SIZE; j++) {
       p = locations[i * Cube::SIZE + j].position;
-      switch(parameters->axis) {
+      switch(settings->axis) {
         case AXIS_Z:
           cube->writeVoxel(i, j, p, State::ON);
           break;

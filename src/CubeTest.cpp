@@ -10,23 +10,21 @@ CubeTest::CubeTest(Cube *cube) : cube(cube) {
 }
 
 void CubeTest::run() {
-  for (int i = 0; i < 1; i++) {
-    isInRangeTest();
-    writeVoxelTest();
-    invertVoxelTest();
-    writePlaneZTest();
-    writePlaneYTest();
-    writePlaneXTest();
-    flipByteTest();
-    mirrorXTest();
-    mirrorYTest();
-    mirrorZTest();
-    filledBoxTest();
-    lineTest();
-    shiftOnXTest();
-    shiftOnYTest();
-    shiftOnZTest();
-  }
+  isInRangeTest();
+  writeVoxelTest();
+  invertVoxelTest();
+  writePlaneZTest();
+  writePlaneYTest();
+  writePlaneXTest();
+  flipByteTest();
+  mirrorXTest();
+  mirrorYTest();
+  mirrorZTest();
+  filledBoxTest();
+  lineTest();
+  shiftOnXTest();
+  shiftOnYTest();
+  shiftOnZTest();
 }
 
 void CubeTest::isInRangeTest() {
@@ -199,7 +197,7 @@ void CubeTest::shiftOnXTest() {
   Point p = {x, y, z};
   cube->useBackBuffer(false);
   cube->clear();
-  cube->turnOnVoxel(&p);
+  cube->turnVoxelOn(&p);
   aux = AT(cube->frontBuffer, y, z);
   cube->shiftOnX(Direction::RIGHT);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::shift(aux, false), "shiftOnXTest: should shiftOnXTest RIGHT.");
@@ -225,7 +223,7 @@ void CubeTest::shiftOnZTest() {
   Point p = {x, y, z};
   cube->useBackBuffer(false);
   cube->clear();
-  cube->turnOnVoxel(&p);
+  cube->turnVoxelOn(&p);
   cube->shiftOnZ(Direction::UP);
   Asserter::assertEqual(AT(cube->frontBuffer, y, (z + 1) % Cube::SIZE), 0x01 << x, "shiftOnZTest: should shiftOnZTest UP.");
   cube->shiftOnZ(Direction::DOWN);

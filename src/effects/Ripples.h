@@ -12,14 +12,13 @@ class Ripples : public Effect {
 public:
 
   typedef struct {
-    unsigned char iterations;
-  } RipplesParameters;
+  } RipplesSettings;
 
-  RipplesParameters *parameters;
+  RipplesSettings *settings;
 
-  Ripples(Cube *cube, RipplesParameters *parameters);
+  Ripples(Cube *cube, RipplesSettings *settings);
 
-  virtual void run();
+  virtual void run(unsigned int iterations);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_RIPPLES_H__ */
