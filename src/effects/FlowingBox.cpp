@@ -10,7 +10,9 @@ FlowingBox::FlowingBox(Cube *cube, FlowingBoxSettings *settings) : Effect(cube),
 }
 
 void FlowingBox::run(unsigned int iterations) {
+  unsigned int iteration;
   for (iteration = 0; iteration < iterations ; iteration++) {
+
   }
 }
 
