@@ -54,7 +54,7 @@ void Cube::fill(unsigned char pattern) {
 void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state) {
   unsigned char mask;
   mask = 1 << x;
-  state == State::ON ? set(&AT(y, z), mask) : clr(&AT(y, z), mask);
+  state == State::ON ? Util::set(&AT(y, z), mask) : Util::clr(&AT(y, z), mask);
 }
 
 void Cube::readVoxel(Point *p, Voxel *v) {
@@ -75,7 +75,7 @@ void Cube::turnVoxelOff(Point *p) {
 void Cube::invertVoxel(Point *p) {
   unsigned char mask;
   mask = 0x01 << p->x;
-  (AT(p->y, p->z) & mask) ? clr(&AT(p->y, p->z), mask) : set(&AT(p->y, p->z), mask);
+  (AT(p->y, p->z) & mask) ? Util::clr(&AT(p->y, p->z), mask) : Util::set(&AT(p->y, p->z), mask);
 }
 
 void Cube::turnPlaneZOff(unsigned char z) {
@@ -128,7 +128,7 @@ void Cube::writePlaneX(unsigned char x, Voxel v) {
   x %= Cube::SIZE;
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
-      v.state == State::ON ? set(&AT(y, z), mask) : clr(&AT(y, z), mask);
+      v.state == State::ON ? Util::set(&AT(y, z), mask) : Util::clr(&AT(y, z), mask);
     }
   }
 }
@@ -177,7 +177,7 @@ void Cube::mirrorX() {
   memcpy(buf, *bufferToWrite, Cube::BYTE_SIZE);
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
-      flipByte(&buf[z][y]);
+      Util::flipByte(&buf[z][y]);
     }
   }
   memcpy(*bufferToWrite, buf, Cube::BYTE_SIZE);
@@ -207,12 +207,12 @@ void Cube::mirrorZ() {
 
 void Cube::filledBox(Point *from, Point *to) {
   unsigned char z, y;
-  orderArgs(&from->x, &to->x);
-  orderArgs(&from->y, &to->y);
-  orderArgs(&from->z, &to->z);
+  Util::orderArgs(&from->x, &to->x);
+  Util::orderArgs(&from->y, &to->y);
+  Util::orderArgs(&from->z, &to->z);
   for (z = from->z; z <= to->z; z++) {
     for (y = from->y; y <= to->y; y++) {
-      AT(y, z) |= byteLine(from->x, to->x);
+      AT(y, z) |= Util::byteLine(from->x, to->x);
     }
   }
 }
@@ -222,20 +222,20 @@ void Cube::writeSubCube(Point *p, Voxel v, unsigned char size) {
   x = p->x + size;
   for (z = p->z; z < p->z + size; z++) {
     for (y = p->y; y < p->y + size; y++) {
-      AT(z, y) |= byteLine(p->x, x);
+      AT(z, y) |= Util::byteLine(p->x, x);
     }
   }
 }
 
 void Cube::wallBox(Point *from, Point *to) {
   unsigned char z, y, aux;
-  orderArgs(&(from->x), &(to->x));
-  orderArgs(&(from->y), &(to->y));
-  orderArgs(&(from->z), &(to->z));
+  Util::orderArgs(&(from->x), &(to->x));
+  Util::orderArgs(&(from->y), &(to->y));
+  Util::orderArgs(&(from->z), &(to->z));
   for (z = from->z; z <= to->z; z++) {
     for (y = from->y; y <= to->y; y++) {
       if (y == from->y || y == to->y || z == from->z || z == to->z) {
-        aux = byteLine(from->x, to->x);
+        aux = Util::byteLine(from->x, to->x);
       } else {
         aux |= ((0x01 << from->x) | (0x01 << to->x));
       }
@@ -246,13 +246,13 @@ void Cube::wallBox(Point *from, Point *to) {
 
 void Cube::wireframeBox(Point *from, Point *to) {
   unsigned char z, y;
-  orderArgs(&(from->x), &(to->x));
-  orderArgs(&(from->y), &(to->y));
-  orderArgs(&(from->z), &(to->z));
-  AT(from->y, from->z) = byteLine(from->x, to->x);
-  AT(to->y, from->z) = byteLine(from->x, to->x);
-  AT(from->y, to->z) = byteLine(from->x, to->x);
-  AT(to->y, to->z) = byteLine(from->x, to->x);
+  Util::orderArgs(&(from->x), &(to->x));
+  Util::orderArgs(&(from->y), &(to->y));
+  Util::orderArgs(&(from->z), &(to->z));
+  AT(from->y, from->z) = Util::byteLine(from->x, to->x);
+  AT(to->y, from->z) = Util::byteLine(from->x, to->x);
+  AT(from->y, to->z) = Util::byteLine(from->x, to->x);
+  AT(to->y, to->z) = Util::byteLine(from->x, to->x);
   for (y = from->y; y <= to->y; y++) {
     writeVoxel(from->x, y, from->z, ON);
     writeVoxel(from->x, y, to->z, ON);
@@ -326,31 +326,6 @@ void Cube::shift(Axis axis, Direction direction) {
       shiftOnZ(direction);
       break;
   }
-}
-
-void Cube::flipByte(unsigned char *p) {
-  unsigned char flop = 0x00;
-  flop = (flop & 0xfe) | (0x01 & (*p >> 7));
-  flop = (flop & 0xfd) | (0x02 & (*p >> 5));
-  flop = (flop & 0xfb) | (0x04 & (*p >> 3));
-  flop = (flop & 0xf7) | (0x08 & (*p >> 1));
-  flop = (flop & 0xef) | (0x10 & (*p << 1));
-  flop = (flop & 0xdf) | (0x20 & (*p << 3));
-  flop = (flop & 0xbf) | (0x40 & (*p << 5));
-  flop = (flop & 0x7f) | (0x80 & (*p << 7));
-  *p = flop;
-}
-
-void Cube::orderArgs(unsigned char *a, unsigned char *b) {
-  if (*a > *b) {
-    swapArgs(a, b);
-  }
-}
-
-void Cube::swapArgs(unsigned char *a, unsigned char *b) {
-  unsigned char _ = *b;
-  *b = *a;
-  *a = _;
 }
 
 #endif /* __ARDUINO_CUBE_CUBE_CPP__ */

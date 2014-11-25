@@ -176,11 +176,6 @@ public:
    * Flip the cube 180 degrees along the z axis.
    */
   void mirrorZ();
-  
-  /**
-   * Flip a byte
-   */
-  void flipByte(unsigned char *p);
  
  /**
   * Draw a 3d line
@@ -231,31 +226,6 @@ public:
    * Swap the buffers. Current buffer becomes backed buffer and vice-versa.
    */
   void swapBuffers();
-
-private:
-
-  /**
-   * Returns a byte with a row of 1's drawn in it.
-   * byteLine(2, 5) gives 0b00111100
-   */
-  unsigned char byteLine(unsigned char start, unsigned char end) {
-    return ((0xff << start) & ~(0xff << (end + 1)));
-  }
-
-  void set(unsigned char *p, unsigned char mask) {
-    *p |= mask;
-  }
-  
-  void clr(unsigned char *p, unsigned char mask) {
-    *p &= ~mask;
-  }
-
-  void orderArgs(unsigned char *a, unsigned char *b);
-
-  /**
-   * Swap args
-   */
-  void swapArgs(unsigned char *a, unsigned char *b);
 };
 
 #endif /* __ARDUINO_CUBE_CUBE_H__ */

@@ -8,9 +8,9 @@ max = 8;
 F = figure;
 hold on
 axis([1, max, 1, max, 1 max]);
-set(gca, 'XTickLabel', 0:0:0);
-set(gca, 'YTickLabel', 0:0:0);
-set(gca, 'ZTickLabel', 0:0:0);
+Util::set(gca, 'XTickLabel', 0:0:0);
+Util::set(gca, 'YTickLabel', 0:0:0);
+Util::set(gca, 'ZTickLabel', 0:0:0);
 xlabel('X');
 ylabel('Y');
 zlabel('Z');

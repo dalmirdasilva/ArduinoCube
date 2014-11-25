@@ -124,7 +124,7 @@ unsigned int CubeSpec::writePlaneXSpec() {
 unsigned int CubeSpec::flipByteSpec() {
   unsigned int errorCount = 0;
   unsigned char b = 0xab;
-  cube->flipByte(&b);
+  Util::flipByte(&b);
   errorCount += (unsigned int) Asserter::assertEqual(b, 0xd5, "flipByteSpec: should flip the byte.");
   return errorCount;
 }
@@ -228,10 +228,10 @@ unsigned int CubeSpec::shiftOnXSpec() {
   cube->turnVoxelOn(&p);
   aux = AT(cube->frontBuffer, y, z);
   cube->shiftOnX(Direction::RIGHT);
-  errorCount += (unsigned int) Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::shift(aux, false), "shiftOnXSpec: should shiftOnXSpec RIGHT.");
+  errorCount += (unsigned int) Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::rotatingShift(aux, false), "shiftOnXSpec: should shiftOnXSpec RIGHT.");
   aux = AT(cube->frontBuffer, y, z);
   cube->shiftOnX(Direction::LEFT);
-  errorCount += (unsigned int) Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::shift(aux, true), "shiftOnXSpec: should shiftOnXSpec LEFT.");
+  errorCount += (unsigned int) Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::rotatingShift(aux, true), "shiftOnXSpec: should shiftOnXSpec LEFT.");
   return errorCount;
 }
 

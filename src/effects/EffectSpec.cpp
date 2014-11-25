@@ -15,20 +15,20 @@ EffectSpec::EffectSpec(Cube *cube) : cube(cube) {
 
 unsigned int EffectSpec::run() {
   unsigned int errorCount = 0;
-  errorCount += selfTest();
-  errorCount += rainTest();
-  errorCount +git add = blinkTest();
-  errorCount += boingBoingTest();
-  errorCount += boxShrinkGrowTest();
-  errorCount += boxWoopWoopTest();
-  errorCount += flowingBoxTest();
-  errorCount += gameOfLifeTest();
-  errorCount += randomSparkleTest();
-  errorCount += ripplesTest();
-  errorCount += stairsTest();
-  errorCount += suspendTest();
-  errorCount += upDownTest();
-  errorCount += wormSqueezeTest();
+  errorCount += selfSpec();
+  errorCount += rainSpec();
+  errorCount += blinkSpec();
+  errorCount += boingBoingSpec();
+  errorCount += boxShrinkGrowSpec();
+  errorCount += boxWoopWoopSpec();
+  errorCount += flowingBoxSpec();
+  errorCount += gameOfLifeSpec();
+  errorCount += randomSparkleSpec();
+  errorCount += ripplesSpec();
+  errorCount += stairsSpec();
+  errorCount += suspendSpec();
+  errorCount += upDownSpec();
+  errorCount += wormSqueezeSpec();
   return errorCount;
 }
 
@@ -38,7 +38,7 @@ unsigned int EffectSpec::selfSpec() {
   Effect effect = Effect(cube);
   cube->clear();
   effect.sendVoxel(&p, FRONT, 0);
-  errorCount += (unsigned int) Asserter::assertEqual(0, 0, "selfTest: It should not break.");
+  errorCount += (unsigned int) Asserter::assertEqual(0, 0, "selfSpec: It should not break.");
   return errorCount;
 }
 
