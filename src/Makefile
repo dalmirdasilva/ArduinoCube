@@ -11,8 +11,10 @@ SOURCES = \
   effects/Blink.cpp \
   effects/UpDown.cpp \
   effects/GameOfLife.cpp \
+  effects/TurnOnRandomly.cpp \
   Cube.cpp \
   Asserter.cpp \
+  Dumper.cpp \
   effects/EffectSpec.cpp \
   PointSpec.cpp \
   CubeSpec.cpp \

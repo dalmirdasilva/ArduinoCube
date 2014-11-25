@@ -7,6 +7,7 @@
 #include <TurnOnRandomly.h>
 #include <Arduino.h>
 #include <Point.h>
+#include <Dumper.h>
 
 TurnOnRandomly::TurnOnRandomly(Cube *cube, TurnOnRandomlySettings *settings) : Effect(cube), settings(settings) {
 }
@@ -17,10 +18,12 @@ void TurnOnRandomly::run(unsigned int iterations) {
   Point p;
   for (iteration = 0; iteration < iterations; iteration++) {
     cube->clear();
+    Dumper::dumpCube(cube);
     for (i = 0; i < settings->maxOnVoxels; i++) {
-      p.randomizePoint(Cube::SIZE);
+      p.randomize(Cube::SIZE);
       cube->turnVoxelOn(&p);
     }
+    Dumper::dumpCube(cube);
   }
 }
 

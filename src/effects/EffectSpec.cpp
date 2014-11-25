@@ -5,6 +5,7 @@
 #include <Rain.h>
 #include <UpDown.h>
 #include <GameOfLife.h>
+#include <TurnOnRandomly.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -29,6 +30,7 @@ unsigned int EffectSpec::run() {
   errorCount += suspendSpec();
   errorCount += upDownSpec();
   errorCount += wormSqueezeSpec();
+  errorCount += turnOnRandomlySpec();
   return errorCount;
 }
 
@@ -129,5 +131,14 @@ unsigned int EffectSpec::upDownSpec() {
 
 unsigned int EffectSpec::wormSqueezeSpec() {
   unsigned int errorCount = 0;
+  return errorCount;
+}
+
+unsigned int EffectSpec::turnOnRandomlySpec() {
+  unsigned int errorCount = 0;
+  TurnOnRandomly::TurnOnRandomlySettings effectSettings = {1};
+  TurnOnRandomly effect = TurnOnRandomly(cube, &effectSettings);
+  effect.run(1);
+  errorCount += (unsigned int) Asserter::assertEqual(0, 0, "turnOnRandomlySpec: It should not break, we cannot test it.");
   return errorCount;
 }

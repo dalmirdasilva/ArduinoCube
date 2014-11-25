@@ -43,6 +43,8 @@ public:
   unsigned int upDownSpec();
 
   unsigned int wormSqueezeSpec();
+
+  unsigned int turnOnRandomlySpec();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECT_TEST_H__ */

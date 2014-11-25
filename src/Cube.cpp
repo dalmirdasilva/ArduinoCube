@@ -24,7 +24,6 @@ void Cube::useBackBuffer(bool use) {
   interrupts();
 }
 
-
 void Cube::swapBuffers() {
   unsigned char *buf;
   noInterrupts();

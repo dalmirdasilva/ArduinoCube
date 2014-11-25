@@ -17,7 +17,7 @@ public:
 
   TurnOnRandomlySettings *settings;
 
-  Blink(Cube *cube, TurnOnRandomlySettings *settings);
+  TurnOnRandomly(Cube *cube, TurnOnRandomlySettings *settings);
 
   virtual void run(unsigned int iterations);
 };
