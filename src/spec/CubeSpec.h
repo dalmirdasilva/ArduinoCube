@@ -14,37 +14,37 @@ public:
   
   CubeSpec(Cube *cube);
   
-  unsigned int run();
+  void run();
   
-  unsigned int isInRangeSpec();
+  void isInRangeSpec();
   
-  unsigned int writeVoxelSpec();
+  void writeVoxelSpec();
   
-  unsigned int invertVoxelSpec();
+  void invertVoxelSpec();
   
-  unsigned int writePlaneZSpec();
+  void writePlaneZSpec();
   
-  unsigned int writePlaneYSpec();
+  void writePlaneYSpec();
   
-  unsigned int writePlaneXSpec();
+  void writePlaneXSpec();
   
-  unsigned int flipByteSpec();
+  void flipByteSpec();
   
-  unsigned int mirrorXSpec();
+  void mirrorXSpec();
   
-  unsigned int mirrorYSpec();
+  void mirrorYSpec();
   
-  unsigned int mirrorZSpec();
+  void mirrorZSpec();
   
-  unsigned int filledBoxSpec();
+  void filledBoxSpec();
   
-  unsigned int lineSpec();
+  void lineSpec();
   
-  unsigned int shiftOnXSpec();
+  void shiftOnXSpec();
   
-  unsigned int shiftOnYSpec();
+  void shiftOnYSpec();
   
-  unsigned int shiftOnZSpec();
+  void shiftOnZSpec();
 };
 
 #endif /* __ARDUINO_CUBE_CUBE_TEST_H__ */

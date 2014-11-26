@@ -10,19 +10,19 @@ public:
   
   PointSpec();
   
-  unsigned int run();
+  void run();
 
-  unsigned int randomizeSpec();
-  
-  unsigned int distanceOnXToSpec();
+  void randomizeSpec();
 
-  unsigned int distanceOnYToSpec();
+  void distanceOnXToSpec();
 
-  unsigned int distanceOnZToSpec();
+  void distanceOnYToSpec();
 
-  unsigned int distance2DToSpec();
+  void distanceOnZToSpec();
 
-  unsigned int distance3DSpec();
+  void distance2DToSpec();
+
+  void distance3DSpec();
 };
 
 #endif /* __ARDUINO_CUBE_POINT_TEST_H__ */
