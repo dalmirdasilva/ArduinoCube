@@ -10,7 +10,7 @@ Suspend::Suspend(Cube *cube, SuspendSettings *settings) : Effect(cube), settings
 }
 
 void Suspend::run(unsigned int iterations) {
-  for (iteration = 0; iteration < iterations ; iteration++) {
+  for (iteration = 0; iteration < iterations; iteration++) {
   }
 }
 
