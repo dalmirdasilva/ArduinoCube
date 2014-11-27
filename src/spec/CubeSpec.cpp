@@ -42,13 +42,13 @@ void CubeSpec::writeVoxelSpec() {
   Point p = Point(x, y, z);
   Voxel v = {ON};
   AT(cube->frontBuffer, y, z) = 0x00;
-  cube->useBackBuffer(true);
+  cube->useBackBuffer();
   cube->writeVoxel(&p, v);
   Asserter::assertEqual(AT(cube->backBuffer, y, z), (0x01 << x), "writeVoxel: Should write the correct voxel when ON.");
   v.state = OFF;
   cube->writeVoxel(&p, v);
   Asserter::assertEqual(AT(cube->backBuffer, y, z), 0x00, "writeVoxel: Should write the correct voxel when OFF.");
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->writeVoxel(&p, v);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), 0x00, "writeVoxel: Should write the correct voxel when writing to the front buffer.");
 }
@@ -57,10 +57,10 @@ void CubeSpec::invertVoxelSpec() {
   unsigned char x = 5, y = 3, z = 1;
   Point p = Point(x, y, z);
   AT(cube->frontBuffer, y, z) = 0xff;
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->invertVoxel(&p);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), ~(0x01 << x), "invertVoxel: should invert the voxel.");
-  cube->useBackBuffer(true);
+  cube->useBackBuffer();
   AT(cube->backBuffer, y, z) = 0x00;
   cube->invertVoxel(&p);
   Asserter::assertEqual(AT(cube->backBuffer, y, z), 0x01 << x, "invertVoxel: should invert the voxel when writing to the back buffer.");
@@ -69,7 +69,7 @@ void CubeSpec::invertVoxelSpec() {
 void CubeSpec::writePlaneZSpec() {
   unsigned char i, aux, z = 2;
   Voxel v = {ON};
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   cube->writePlaneZ(z, v);
   aux = 0xff;
@@ -82,7 +82,7 @@ void CubeSpec::writePlaneZSpec() {
 void CubeSpec::writePlaneYSpec() {
   unsigned char z, aux, y = 3;
   Voxel v = {ON};
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   cube->writePlaneY(y, v);
   aux = 0xff;
@@ -95,7 +95,7 @@ void CubeSpec::writePlaneYSpec() {
 void CubeSpec::writePlaneXSpec() {
   unsigned char z, y, aux, x = 3;
   Voxel v = {ON};
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   cube->writePlaneX(x, v);
   aux = 0x01 << x;
@@ -115,7 +115,7 @@ void CubeSpec::flipByteSpec() {
 
 void CubeSpec::mirrorXSpec() {
   unsigned char aux, z, y;
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->fill(0xd5);
   cube->mirrorX();
   aux = 0xab;
@@ -129,7 +129,7 @@ void CubeSpec::mirrorXSpec() {
 
 void CubeSpec::mirrorYSpec() {
   unsigned char aux = 0xaa;
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   AT(cube->frontBuffer, 0, 0) = aux;
   cube->mirrorY();
@@ -138,13 +138,13 @@ void CubeSpec::mirrorYSpec() {
 
 void CubeSpec::mirrorZSpec() {
   unsigned char aux = 0xaa;
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   AT(cube->frontBuffer, 0, 0) = aux;
   cube->mirrorZ();
   Asserter::assertEqual(AT(cube->frontBuffer, 0, Cube::SIZE - 1), aux, "mirrorZ: should mirror Z.");
   cube->clear();
-  cube->useBackBuffer(true);
+  cube->useBackBuffer();
   cube->clear();
   AT(cube->backBuffer, 0, 0) = aux;
   cube->mirrorZ();
@@ -156,7 +156,7 @@ void CubeSpec::filledBoxSpec() {
   unsigned char z, y, aux = 0xff;
   Point p0 = Point(0, 0, 0);
   Point p1  = Point(2, 5, 5);
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   cube->filledBox(&p0, &p1);
   for (z = 0; z < 6; z++) {
@@ -182,7 +182,7 @@ void CubeSpec::lineSpec() {
   unsigned char z, y, sum = 0;
   Point from = Point(0, 0, 0);
   Point to = Point(7, 7, 7);
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   cube->line(&from, &to);
   for (z = 0; z < Cube::SIZE; z++) {
@@ -196,7 +196,7 @@ void CubeSpec::lineSpec() {
 void CubeSpec::shiftOnXSpec() {
   unsigned char x = 0, y = 0, z = 7, aux;
   Point p = Point(x, y, z);
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   cube->turnVoxelOn(&p);
   aux = AT(cube->frontBuffer, y, z);
@@ -208,7 +208,7 @@ void CubeSpec::shiftOnXSpec() {
 }
 
 void CubeSpec::shiftOnYSpec() {
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   AT(cube->frontBuffer, 7, 0) = 0xff;
   cube->shiftOnY(Direction::BACK);
@@ -222,7 +222,7 @@ void CubeSpec::shiftOnYSpec() {
 void CubeSpec::shiftOnZSpec() {
   unsigned char x = 0, y = 0, z = 7;
   Point p = Point(x, y, z);
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
   cube->clear();
   cube->turnVoxelOn(&p);
   cube->shiftOnZ(Direction::UP);

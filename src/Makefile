@@ -8,11 +8,21 @@ SOURCES = \
   core/Cube.cpp \
   core/Point.cpp \
   effect/Effect.cpp \
-  effect/Rain.cpp \
   effect/Blink.cpp \
-  effect/UpDown.cpp \
+  effect/BoingBoing.cpp \
+  effect/BoxShrinkGrow.cpp \
+  effect/BoxWoopWoop.cpp \
+  effect/FlowingBox.cpp \
   effect/GameOfLife.cpp \
+  effect/MovingBoxShrinkGrow.cpp \
+  effect/Rain.cpp \
+  effect/RandomSparkle.cpp \
+  effect/Ripples.cpp \
+  effect/Stairs.cpp \
+  effect/Suspend.cpp \
   effect/TurnOnRandomly.cpp \
+  effect/UpDown.cpp \
+  effect/WormSqueeze.cpp \
   spec.cpp \
   spec/Asserter.cpp \
   spec/PointSpec.cpp \

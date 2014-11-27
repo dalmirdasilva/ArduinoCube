@@ -31,7 +31,7 @@ void UpDown::run(unsigned int iterations) {
 
 void UpDown::draw() {
   unsigned char i, j, p;
-  cube->useBackBuffer(true);
+  cube->useBackBuffer();
   cube->clear();
   for (i = 0; i < Cube::SIZE; i++) {
     for (j = 0; j < Cube::SIZE; j++) {
@@ -50,7 +50,7 @@ void UpDown::draw() {
     }
   }
   cube->swapBuffers();
-  cube->useBackBuffer(false);
+  cube->useFrontBuffer();
 }
 
 void UpDown::move() {

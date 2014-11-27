@@ -36,7 +36,7 @@ void GameOfLife::nextGeneration() {
 	unsigned char neighbors;
 	Point p;
 	Voxel v;
-	cube->useBackBuffer(true);
+	cube->useBackBuffer();
 	cube->clear();
 	for (p.z = 0; p.z < Cube::SIZE; p.z++) {
     for (p.y = 0; p.y < Cube::SIZE; p.y++) {
@@ -56,7 +56,7 @@ void GameOfLife::nextGeneration() {
 		}
 	}
 	cube->swapBuffers();
-	cube->useBackBuffer(false);
+	cube->useFrontBuffer();
 }
 
 unsigned char GameOfLife::getNeighbors(Point *at) {

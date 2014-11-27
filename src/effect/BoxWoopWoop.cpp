@@ -10,9 +10,9 @@ BoxWoopWoop::BoxWoopWoop(Cube *cube, BoxWoopWoopSettings *settings) : Effect(cub
 }
 
 void BoxWoopWoop::run(unsigned int iterations) {
-  unsigned int iteration, i;
+  unsigned int iteration;
   for (iteration = 0; iteration < iterations; iteration++) {
-      int i, ii;
+      /*int i, ii;
       cube->clear();
       for (i = 0; i < 4; i++) {
           ii = i;
@@ -22,7 +22,7 @@ void BoxWoopWoop::run(unsigned int iterations) {
           box_wireframe(4 + ii, 4 + ii, 4 + ii, 3 - ii, 3 - ii, 3 - ii);
           delay_ms(delay);
           fill(0x00);
-      }
+      }*/
   }
 }
 

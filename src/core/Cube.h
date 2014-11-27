@@ -5,10 +5,14 @@
 #ifndef __ARDUINO_CUBE_CUBE_H__
 #define __ARDUINO_CUBE_CUBE_H__ 1
 
-#define CUBE_SIZE 0x08
-#define CUBE_BYTE_SIZE CUBE_SIZE * CUBE_SIZE
-#define CUBE_SIZE_MASK 0x07
-#define CUBE_BYTE_SIZE_MASK 0x3f
+#define CUBE_SIZE             0x08
+#define CUBE_BYTE_SIZE        CUBE_SIZE * CUBE_SIZE
+#define CUBE_SIZE_MASK        0x07
+#define CUBE_BYTE_SIZE_MASK   0x3f
+
+#define YES                   1
+#define NO                    0
+#define FAITHFUL              YES
 
 #include <Point.h>
 #include <Voxel.h>
@@ -26,6 +30,11 @@ public:
   unsigned char *frontBuffer;
   unsigned char *backBuffer;
 
+  typedef enum {
+    FRONT_BUFFER = 0x00,
+    BACK_BUFFER = 0x01
+  } Buffer;
+
   Cube() {
     frontBuffer = &buffer0[0][0];
     backBuffer = &buffer1[0][0];
@@ -33,9 +42,23 @@ public:
   }
 
   /**
-   * Set if will use back or front buffer to write.
+   * Set if will use back or front buffer to write to.
    */
-  void useBackBuffer(bool use);
+  void selectBuffer(Buffer buffer);
+
+  /**
+   * Set the buffer to use back buffer.
+   */
+  void useBackBuffer() {
+    selectBuffer(BACK_BUFFER);
+  }
+
+  /**
+   * Set the buffer to use front buffer.
+   */
+  void useFrontBuffer() {
+    selectBuffer(FRONT_BUFFER);
+  }
 
   /**
    * Validates if we the p Point is inside the cube.

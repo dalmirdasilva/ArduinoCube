@@ -11,7 +11,7 @@ Ripples::Ripples(Cube *cube, RipplesSettings *settings) : Effect(cube), settings
 
 void Ripples::run(unsigned int iterations) {
   unsigned int iteration;
-  for (iteration = 0;iteration < iterations; iteration++) {
+  for (iteration = 0; iteration < iterations; iteration++) {
 
   }
 }

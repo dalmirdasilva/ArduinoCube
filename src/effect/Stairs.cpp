@@ -15,7 +15,7 @@ void Stairs::run(unsigned int iterations) {
 
   }
 }
-
+/*
 int effect_telcstairs_do(int x, int val, int delay) {
     int y, z;
     for (y = 0, z = x; y <= z; y++, x--) {
@@ -38,6 +38,6 @@ void effect_telcstairs(int invert, int delay, int val) {
             x = effect_telcstairs_do(x, val, delay);
         }
     }
-}
+}*/
 
 #endif /* __ARDUINO_CUBE_EFFECTS_STAIRS_CPP__ */
