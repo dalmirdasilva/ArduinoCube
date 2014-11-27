@@ -1,10 +1,10 @@
 #include <CubeSpec.h>
 #include <EffectSpec.h>
 #include <PointSpec.h>
+#include <Asserter.h>
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
-  unsigned int cubeErrorCount, effectErrorCount, pointErrorCount;
 
   Cube cube = Cube();
 
@@ -12,13 +12,17 @@ int main(int argc, char *argv[]) {
   PointSpec pointSpec = PointSpec();
   EffectSpec effectSpec = EffectSpec(&cube);
 
-  cubeErrorCount = cubeSpec.run();
-  effectErrorCount = effectSpec.run();
-  pointErrorCount = pointSpec.run();
+  Asserter::reset();
+  cubeSpec.run();
+  printf("Cube error count: %d\n", Asserter::getCounter()->error);
 
-  printf("cubeErrorCount: %d\n", cubeErrorCount);
-  printf("effectErrorCount: %d\n", effectErrorCount);
-  printf("pointErrorCount: %d\n", pointErrorCount);
+  Asserter::reset();
+  effectSpec.run();
+  printf("Effect error count: %d\n", Asserter::getCounter()->error);
 
-  return cubeErrorCount + effectErrorCount + pointErrorCount;
+  Asserter::reset();
+  pointSpec.run();
+  printf("Point error count: %d\n", Asserter::getCounter()->error);
+
+  return 0;
 }

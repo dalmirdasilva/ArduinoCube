@@ -12,7 +12,6 @@ class Stairs : public Effect {
 public:
 
   typedef struct {
-
   } StairsSettings;
 
   StairsSettings *settings;

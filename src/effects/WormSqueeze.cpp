@@ -10,7 +10,7 @@ WormSqueeze::WormSqueeze(Cube *cube, WormSqueezeSettings *settings) : Effect(cub
 }
 
 void WormSqueeze::run(unsigned int iterations) {
-  for (iteration = 0; iteration < iterations ; iteration++) {
+  for (iteration = 0; iteration < iterations; iteration++) {
   }
 }
 

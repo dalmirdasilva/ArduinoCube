@@ -11,7 +11,8 @@ BoingBoing::BoingBoing(Cube *cube, BoingBoingSettings *settings) : Effect(cube),
 
 void BoingBoing::run(unsigned int iterations) {
   unsigned int iteration;
-  for (iteration = 0; iteration < iterations ; iteration++) {
+  for (iteration = 0; iteration < iterations; iteration++) {
+
   }
 }
 
