@@ -6,8 +6,12 @@
       <w>argc</w>
       <w>argv</w>
       <w>boing</w>
+      <w>cflags</w>
       <w>extern</w>
+      <w>lflags</w>
+      <w>makedepend</w>
       <w>sqrtf</w>
+      <w>srcs</w>
       <w>unistd</w>
       <w>voxels</w>
       <w>wireframe</w>

@@ -2,39 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0931cbec-862c-4615-9de7-b980886d4f05" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/spec/Asserter.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/spec/Asserter.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/spec/CubeSpec.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/spec/CubeSpec.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/spec/PointSpec.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/spec/PointSpec.h" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Asserter.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Asserter.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CubeSpec.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CubeSpec.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/PointSpec.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/PointSpec.h" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Cube.cpp" afterPath="$PROJECT_DIR$/src/core/Cube.cpp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Cube.h" afterPath="$PROJECT_DIR$/src/core/Cube.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Dumper.cpp" afterPath="$PROJECT_DIR$/src/util/Dumper.cpp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Dumper.h" afterPath="$PROJECT_DIR$/src/util/Dumper.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Point.cpp" afterPath="$PROJECT_DIR$/src/core/Point.cpp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Point.h" afterPath="$PROJECT_DIR$/src/core/Point.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Util.cpp" afterPath="$PROJECT_DIR$/src/util/Util.cpp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Util.h" afterPath="$PROJECT_DIR$/src/util/Util.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Voxel.cpp" afterPath="$PROJECT_DIR$/src/core/Voxel.cpp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Voxel.h" afterPath="$PROJECT_DIR$/src/core/Voxel.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/BoingBoing.cpp" afterPath="$PROJECT_DIR$/src/effects/BoingBoing.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/FlowingBox.cpp" afterPath="$PROJECT_DIR$/src/effects/FlowingBox.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Makefile" afterPath="$PROJECT_DIR$/src/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/RandomSparkle.cpp" afterPath="$PROJECT_DIR$/src/effects/RandomSparkle.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/Ripples.cpp" afterPath="$PROJECT_DIR$/src/effects/Ripples.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/Stairs.cpp" afterPath="$PROJECT_DIR$/src/effects/Stairs.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/Stairs.h" afterPath="$PROJECT_DIR$/src/effects/Stairs.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/Suspend.cpp" afterPath="$PROJECT_DIR$/src/effects/Suspend.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effects/WormSqueeze.cpp" afterPath="$PROJECT_DIR$/src/effects/WormSqueeze.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spec.cpp" afterPath="$PROJECT_DIR$/src/spec.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spec.sh" afterPath="$PROJECT_DIR$/src/spec.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/dalmir.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/dalmir.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ArduinoCube.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,21 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlowingBox.cpp" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FlowingBox.cpp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/effects/FlowingBox.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42105263" vertical-offset="0" max-vertical-offset="513">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Effect.cpp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/effects/Effect.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
-              <caret line="4" column="37" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="414">
+              <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -131,7 +91,17 @@
         <entry file="file://$PROJECT_DIR$/src/Makefile">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
-              <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+              <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.07377049" vertical-offset="0" max-vertical-offset="488">
+              <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -198,6 +168,7 @@
         <option value="$PROJECT_DIR$/src/Dumper.cpp" />
         <option value="$PROJECT_DIR$/src/effects/BoxWoopWoop.cpp" />
         <option value="$PROJECT_DIR$/src/effects/FlowingBox.cpp" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -290,38 +261,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ArduinoCube" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ArduinoCube" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ArduinoCube" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ArduinoCube" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ArduinoCube" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="effects" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -924,14 +863,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/effects/FlowingBox.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="27" max-vertical-offset="540">
@@ -964,10 +895,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ArduinoCube.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="513">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/effects/FlowingBox.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42105263" vertical-offset="0" max-vertical-offset="513">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="414">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07377049" vertical-offset="0" max-vertical-offset="488">
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
           <folding />
         </state>
       </provider>

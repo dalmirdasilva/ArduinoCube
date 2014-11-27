@@ -1,2 +1,3 @@
-src/*.o
+*.o
 src/main
+src/spec
