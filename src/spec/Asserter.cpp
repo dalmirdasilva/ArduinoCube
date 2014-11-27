@@ -1,12 +1,12 @@
 #include <Asserter.h>
 #include <stdio.h>
 
-char *ASSERT_PASSED_OUTPUT = (char *) "\e[32m(*) passed: %s\e[0m\n";
-char *ASSERT_FAILED_OUTPUT = (char *) "\e[31m(*) failed: %s\e[0m\n";
-char *ASSERT_EQUAL_FAILED_OUTPUT = (char *) "\e[31m(F) failed: %s (expected %d to be equal %d)\e[0m\n";
-char *ASSERT_NOT_EQUAL_FAILED_OUTPUT = (char *) "\e[31m(F) failed: %s (expected %d to not be equal %d)\e[0m\n";
+const char Asserter::ASSERT_PASSED_OUTPUT[] = "\e[32m(*) passed: %s\e[0m\n";
+const char Asserter::ASSERT_FAILED_OUTPUT[] = "\e[31m(*) failed: %s\e[0m\n";
+const char Asserter::ASSERT_EQUAL_FAILED_OUTPUT[] = "\e[31m(F) failed: %s (expected %d to be equal %d)\e[0m\n";
+const char Asserter::ASSERT_NOT_EQUAL_FAILED_OUTPUT[] = "\e[31m(F) failed: %s (expected %d to not be equal %d)\e[0m\n";
 
-Asserter::Counter counter = {0, 0};
+Asserter::Counter Asserter::counter = {0, 0};
 
 void Asserter::reset() {
   counter.success = 0;

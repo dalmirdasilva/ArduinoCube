@@ -8,15 +8,16 @@ echo
 
 ARDUINO_LIB_PATH="/usr/share/arduino/libraries/"
 
-declare -a LIBRARIES=("Cube" "Point" "Util" "Voxel")
-declare -a EFFECTS=("Effect" "Blink" "GameOfLife" "Rain")
+declare -a CORE_LIBS=("Cube" "Point" "Voxel")
+declare -a UTIL_LIBS=("Util")
+declare -a EFFECT_LIBS=("Effect" "Blink" "GameOfLife" "Rain")
 
 function install() {
   from=$1
   name=$2
   to=$ARDUINO_LIB_PATH$name
   echo "Installing $name"
-  echo "Creating destination folder: $to."
+  echo "Creating destination folder: $to"
   mkdir -p "$ARDUINO_LIB_PATH$name"
   rm -rf "$ARDUINO_LIB_PATH$name/*"
   echo "Coping: $from/$name.* to $to"
@@ -24,12 +25,19 @@ function install() {
   echo
 }
 
-for LIB in "${LIBRARIES[@]}"
+for LIB in "${CORE_LIBS[@]}"
 do
-  install "src" "$LIB"
+  install "src/core" "$LIB"
 done
 
-for EFFECT in "${EFFECTS[@]}"
+for LIB in "${UTIL_LIBS[@]}"
 do
-  install "src/effects" "$EFFECT"
+  install "src/util" "$LIB"
 done
+
+for LIB in "${EFFECT_LIBS[@]}"
+do
+  install "src/effect" "$LIB"
+done
+
+echo "Done."

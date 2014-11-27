@@ -11,19 +11,17 @@
 
 TurnOnRandomly::TurnOnRandomly(Cube *cube, TurnOnRandomlySettings *settings) : Effect(cube), settings(settings) {
 }
-  
+
 void TurnOnRandomly::run(unsigned int iterations) {
   unsigned int iteration;
   unsigned char i;
   Point p;
   for (iteration = 0; iteration < iterations; iteration++) {
     cube->clear();
-    Dumper::dumpCube(cube);
     for (i = 0; i < settings->maxOnVoxels; i++) {
       p.randomize(Cube::SIZE);
       cube->turnVoxelOn(&p);
     }
-    Dumper::dumpCube(cube);
   }
 }
 

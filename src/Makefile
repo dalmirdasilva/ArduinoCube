@@ -1,23 +1,23 @@
 CC = g++
 CFLAGS = -Wall -g -std=c++0x
-INCLUDES = -I./ -I./effects -I./spec -I./core -I./util
+INCLUDES = -I./ -I./effect -I./spec -I./core -I./util
 LFLAGS =
 LIBRARIES = 
 SOURCES = \
   Arduino.cpp \
   core/Cube.cpp \
   core/Point.cpp \
-  effects/Effect.cpp \
-  effects/Rain.cpp \
-  effects/Blink.cpp \
-  effects/UpDown.cpp \
-  effects/GameOfLife.cpp \
-  effects/TurnOnRandomly.cpp \
-  effects/EffectSpec.cpp \
+  effect/Effect.cpp \
+  effect/Rain.cpp \
+  effect/Blink.cpp \
+  effect/UpDown.cpp \
+  effect/GameOfLife.cpp \
+  effect/TurnOnRandomly.cpp \
   spec.cpp \
   spec/Asserter.cpp \
   spec/PointSpec.cpp \
   spec/CubeSpec.cpp \
+  spec/EffectSpec.cpp \
   util/Dumper.cpp \
   util/Util.cpp
 
@@ -36,7 +36,7 @@ $(MAIN): $(OBJECTS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) *.o *~ effects/*.o effects/*~ util/*.o util/*~ core/*.o core/*~ spec/*.o spec/*~ $(MAIN)
+	$(RM) *.o *~ effect/*.o effect/*~ util/*.o util/*~ core/*.o core/*~ spec/*.o spec/*~ $(MAIN)
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^
