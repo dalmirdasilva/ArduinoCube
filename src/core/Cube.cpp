@@ -9,11 +9,7 @@
 #include <Arduino.h>
 #include <string.h>
 
-#if FAITHFUL == NO
 #define AT(y, z) *(*bufferToWrite + ((z * CUBE_SIZE + y) & CUBE_BYTE_SIZE_MASK))
-#else
-#define AT(y, z) *(*bufferToWrite + (z * CUBE_SIZE + y))
-#endif
 
 unsigned char Cube::buffer0[CUBE_SIZE][CUBE_SIZE] = {};
 unsigned char Cube::buffer1[CUBE_SIZE][CUBE_SIZE] = {};
@@ -61,9 +57,7 @@ void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigne
 }
 
 void Cube::readVoxel(Point *p, Voxel *v) {
-  #if FAITHFUL == NO
   fitInRange(p);
-  #endif
   v->state =  (AT(p->y, p->z) & (0x01 << p->x)) != 0 ? ON : OFF;
 }
 

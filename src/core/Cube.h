@@ -10,10 +10,6 @@
 #define CUBE_SIZE_MASK        0x07
 #define CUBE_BYTE_SIZE_MASK   0x3f
 
-#define YES                   1
-#define NO                    0
-#define FAITHFUL              YES
-
 #include <Point.h>
 #include <Voxel.h>
 
