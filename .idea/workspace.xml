@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0931cbec-862c-4615-9de7-b980886d4f05" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/effect/MovingBoxShrinkGrow.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/effect/MovingBoxShrinkGrow.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/BoxShrinkGrow.cpp" afterPath="$PROJECT_DIR$/src/effect/BoxShrinkGrow.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/BoxShrinkGrow.h" afterPath="$PROJECT_DIR$/src/effect/BoxShrinkGrow.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/BoxWoopWoop.cpp" afterPath="$PROJECT_DIR$/src/effect/BoxWoopWoop.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/Cube.cpp" afterPath="$PROJECT_DIR$/src/core/Cube.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/Cube.h" afterPath="$PROJECT_DIR$/src/core/Cube.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spec/CubeSpec.cpp" afterPath="$PROJECT_DIR$/src/spec/CubeSpec.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/GameOfLife.cpp" afterPath="$PROJECT_DIR$/src/effect/GameOfLife.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Makefile" afterPath="$PROJECT_DIR$/src/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/RandomSparkle.cpp" afterPath="$PROJECT_DIR$/src/effect/RandomSparkle.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/Ripples.cpp" afterPath="$PROJECT_DIR$/src/effect/Ripples.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/Stairs.cpp" afterPath="$PROJECT_DIR$/src/effect/Stairs.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/Suspend.cpp" afterPath="$PROJECT_DIR$/src/effect/Suspend.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/UpDown.cpp" afterPath="$PROJECT_DIR$/src/effect/UpDown.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/effect/WormSqueeze.cpp" afterPath="$PROJECT_DIR$/src/effect/WormSqueeze.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spec.cpp" afterPath="$PROJECT_DIR$/src/spec.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="0931cbec-862c-4615-9de7-b980886d4f05" name="Default" comment="" />
     <ignored path="ArduinoCube.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />

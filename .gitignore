@@ -1,5 +1,6 @@
 *.o
 src/main
-src/spec
 .idea
 ArduinoCube.iml
+.idea/workspace.xml
+.idea/*
