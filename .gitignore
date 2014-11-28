@@ -1,3 +1,5 @@
 *.o
 src/main
 src/spec
+.idea
+ArduinoCube.iml
