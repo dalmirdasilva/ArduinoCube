@@ -6,13 +6,15 @@
 
 #include <Effect.h>
 #include <Cube.h>
+#include <TextRender.h>
 
 class ShiftingText : public Effect {
 
 public:
 
   typedef struct {
-
+    TextRender *render;
+    char *text;
   } ShiftingTextSettings;
 
   ShiftingTextSettings *settings;

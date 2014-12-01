@@ -47,6 +47,8 @@ public:
   void wormSqueezeSpec();
 
   void turnOnRandomlySpec();
+
+  void shiftingTextSpec();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECT_TEST_H__ */

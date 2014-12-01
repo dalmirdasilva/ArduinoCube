@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -g -std=c++0x
-INCLUDES = -I./ -I./effect -I./spec -I./core -I./util
+INCLUDES = -I./ -I./effect -I./spec -I./core -I./util -I./lib
 LFLAGS =
 LIBRARIES = 
 SOURCES = \

@@ -15,35 +15,44 @@
 
 class TextRender {
 
-    /**
-     * The cube.
-     */
-    Cube *cube;
-    
-    /**
-     * The used font.
-     */
-    BitmapFont *font;
+  /**
+   * The cube.
+   */
+  Cube *cube;
+
+  /**
+   * The used font.
+   */
+  BitmapFont *font;
 
 public:
 
-    /**
-     * Public constructor.
-     *
-     * @param cube                  The cube instance
-     * @param font                  The font to be used.
-     */
-    TextRender(Cube *cube, BitmapFont *font);
+  typedef enum {
+    XYZ,
+    XZY,
+    YXZ,
+    YZX,
+    ZXY,
+    ZYX
+  } TextOrientation;
 
-    /**
-     * Write a char on the cube
-     *
-     * @param p                         3D point
-     * @param axis                      Axis to print
-     * @param c                         The char.
-     * @param size                      The size.
-     */
-    void printChar(Point p, Axis axis, unsigned char depth, const unsigned char c);
+  /**
+   * Public constructor.
+   *
+   * @param cube                  The cube instance
+   * @param font                  The font to be used.
+   */
+  TextRender(Cube *cube, BitmapFont *font);
+
+  /**
+   * Write a char on the cube
+   *
+   * @param p                         3D point
+   * @param axis                      Axis to print
+   * @param c                         The char.
+   * @param size                      The size.
+   */
+  void printChar(Point *p, TextOrientation orientation, unsigned char depth, const unsigned char c);
 };
 
 #endif /* __SDCC_CUBE_TEXT_RENDER_H__ */

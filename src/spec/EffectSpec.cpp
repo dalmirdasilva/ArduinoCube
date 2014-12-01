@@ -16,6 +16,7 @@
 #include <TurnOnRandomly.h>
 #include <UpDown.h>
 #include <WormSqueeze.h>
+#include <ShiftingText.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -41,6 +42,7 @@ void EffectSpec::run() {
   upDownSpec();
   wormSqueezeSpec();
   turnOnRandomlySpec();
+  shiftingTextSpec();
 }
 
 void EffectSpec::selfSpec() {
@@ -164,4 +166,13 @@ void EffectSpec::turnOnRandomlySpec() {
   TurnOnRandomly effect = TurnOnRandomly(cube, &settings);
   effect.run(1);
   Asserter::assertEqual(0, 0, "turnOnRandomlySpec: It should not break, we cannot test it.");
+}
+
+void EffectSpec::shiftingTextSpec() {
+  unsigned char fontStream = {
+    0x0, 0x5, 0x8, 0x2, 0x48, 0x48, 0x0, 0xc, 0x50, 0x50, 0x0, 0x11,
+    0x7f, 0x8, 0x8, 0x8, 0x7f, 0x7f, 0x9, 0x9, 0x9, 0x6
+  };
+  shiftingTextSettings settings = {&fontStream, (char *) "HP"};
+
 }
