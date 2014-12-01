@@ -23,19 +23,21 @@ void BoxShrinkGrow::run(unsigned int iterations) {
 void BoxShrinkGrow::shrink() {
   char size;
   for (size = Cube::SIZE - 1; size >= 0; size--) {
-    draw(size);
-    cube->swapBuffers();
-    delay(settings->delay);
+    drawFrame(size);
   }
 }
 
 void BoxShrinkGrow::grow() {
   char size;
   for (size = 0; size < Cube::SIZE; size++) {
+    drawFrame(size);
+  }
+}
+
+void BoxShrinkGrow::drawFrame(char size) {
     draw(size);
     cube->swapBuffers();
     delay(settings->delay);
-  }
 }
 
 void BoxShrinkGrow::draw(char size) {

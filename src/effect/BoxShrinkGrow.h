@@ -32,6 +32,8 @@ public:
 
   void grow();
 
+  void drawFrame(char size);
+
   virtual void draw(char size);
 };
 
