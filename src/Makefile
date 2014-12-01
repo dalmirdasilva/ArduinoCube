@@ -7,6 +7,8 @@ SOURCES = \
   Arduino.cpp \
   core/Cube.cpp \
   core/Point.cpp \
+  core/BitmapFont.cpp \
+  core/TextRender.cpp \
   effect/Effect.cpp \
   effect/Blink.cpp \
   effect/BoingBoing.cpp \

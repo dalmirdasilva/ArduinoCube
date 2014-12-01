@@ -4,6 +4,7 @@
       <w>asserter</w>
       <w>memcpy</w>
       <w>memset</w>
+      <w>sizeof</w>
       <w>struct</w>
       <w>voxel</w>
     </words>

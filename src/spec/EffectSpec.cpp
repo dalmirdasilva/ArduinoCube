@@ -19,6 +19,9 @@
 #include <ShiftingText.h>
 #include <stdio.h>
 #include <string.h>
+#include <ByteArraySeekableInputStream.h>
+#include <BitmapFont.h>
+#include <TextRender.h>
 
 #define AT(b, y, z) *(b + ((((z) * CUBE_SIZE) + (y))))
 
@@ -169,10 +172,13 @@ void EffectSpec::turnOnRandomlySpec() {
 }
 
 void EffectSpec::shiftingTextSpec() {
-  unsigned char fontStream = {
+  unsigned char fontStream[] = {
     0x0, 0x5, 0x8, 0x2, 0x48, 0x48, 0x0, 0xc, 0x50, 0x50, 0x0, 0x11,
     0x7f, 0x8, 0x8, 0x8, 0x7f, 0x7f, 0x9, 0x9, 0x9, 0x6
   };
-  shiftingTextSettings settings = {&fontStream, (char *) "HP"};
+  ByteArraySeekableInputStream is = ByteArraySeekableInputStream(&fontStream[0], (unsigned int) sizeof(fontStream));
+  BitmapFont font = BitmapFont(&is);
+  TextRender render = TextRender(cube, &font);
+  ShiftingText::ShiftingTextSettings settings = {&render, (char *) "HP"};
 
 }
