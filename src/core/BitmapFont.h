@@ -194,7 +194,7 @@ public:
     /**
      * Gets the character height.
      * 
-     * @return                  The heigh of a char.
+     * @return                  The height of a char.
      */
     unsigned char getCharacterHeight();
     

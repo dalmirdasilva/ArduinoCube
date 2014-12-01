@@ -25,13 +25,17 @@ SOURCES = \
   effect/TurnOnRandomly.cpp \
   effect/UpDown.cpp \
   effect/WormSqueeze.cpp \
+  effect/ShiftingText.cpp \
   spec.cpp \
   spec/Asserter.cpp \
   spec/PointSpec.cpp \
   spec/CubeSpec.cpp \
   spec/EffectSpec.cpp \
   util/Dumper.cpp \
-  util/Util.cpp
+  util/Util.cpp \
+  lib/InputStream.cpp \
+  lib/ByteArrayInputStream.cpp \
+  lib/ByteArraySeekableInputStream.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 MAIN = spec_bin
@@ -48,7 +52,7 @@ $(MAIN): $(OBJECTS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) *.o *~ effect/*.o effect/*~ util/*.o util/*~ core/*.o core/*~ spec/*.o spec/*~ $(MAIN)
+	$(RM) *.o *~ effect/*.o effect/*~ lib/*.o lib/*~ util/*.o util/*~ core/*.o core/*~ spec/*.o spec/*~ $(MAIN)
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^

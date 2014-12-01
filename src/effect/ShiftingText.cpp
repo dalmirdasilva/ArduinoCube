@@ -5,15 +5,28 @@
 #define __ARDUINO_CUBE_EFFECTS_SHIFTING_TEXT_CPP__ 1
 
 #include <ShiftingText.h>
+#include <Dumper.h>
 
 ShiftingText::ShiftingText(Cube *cube, ShiftingTextSettings *settings) : Effect(cube), settings(settings) {
 }
 
 void ShiftingText::run(unsigned int iterations) {
   unsigned int iteration;
+  const char *c;
   for (iteration = 0; iteration < iterations; iteration++) {
-
+    c = settings->text;
+    while(*c != '\0') {
+      displayChar(*c);
+      c++;
+    }
   }
+}
+
+void ShiftingText::displayChar(const char c) {
+  Point p = Point(0, 0, 0);
+  cube->clear();
+  settings->render->printChar(&p, TextRender::XYZ, settings->charDepth, c);
+  Dumper::dumpCube(cube);
 }
 
 #endif /* __ARDUINO_CUBE_EFFECTS_SHIFTING_TEXT_CPP__ */

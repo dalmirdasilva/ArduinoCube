@@ -12,6 +12,7 @@
 #define __ARDUINO_CUBE_TEXT_RENDER_H__ 1
 
 #include <BitmapFont.h>
+#include <Cube.h>
 
 class TextRender {
 
@@ -52,7 +53,12 @@ public:
    * @param c                         The char.
    * @param size                      The size.
    */
-  void printChar(Point *p, TextOrientation orientation, unsigned char depth, const unsigned char c);
+  void printChar(Point *p, TextOrientation orientation, unsigned char depth, const char c);
+
+  /**
+   * Adjust coordinates according to the orientation
+   */
+  void adjustCoordinates(Point *p, TextOrientation orientation, unsigned char **x, unsigned char **y, unsigned char **z);
 };
 
 #endif /* __SDCC_CUBE_TEXT_RENDER_H__ */
