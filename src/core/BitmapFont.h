@@ -129,27 +129,7 @@
  *         |0|0|0|0|0|0| -> the LSB
  *         +-+-+-+-+-+-+
  * </pre>        
- * 
- * Just when a character which has the height bigger than 8 that the things comes
- * more difficult. For example, imagine if the above letter with w: 10 and h: 16.
- * 
  *
- * <pre> 
- *         +-+-+-+-+-+-+-+-+-+-+-+-+       +-+-+-+-+-+-+-+-+-+-+-+-+
- *         |1|1|1|1|1|1|1|1|1|1|1|1|       |0|0|0|0|1|1|1|1|0|0|0|0| -> the MSB
- *         |1|1|1|1|1|1|1|1|1|1|1|1|       |0|0|0|0|1|1|1|1|0|0|0|0|
- *         |1|1|1|1|1|1|1|1|1|1|1|1|       |0|0|0|0|1|1|1|1|0|0|0|0|
- *         |1|1|1|1|1|1|1|1|1|1|1|1|       |0|0|0|0|1|1|1|1|0|0|0|0|
- *         |0|0|0|0|1|1|1|1|0|0|0|0|       |0|0|0|0|1|1|1|1|0|0|0|0|
- *         |0|0|0|0|1|1|1|1|0|0|0|0|       |0|0|0|0|0|0|0|0|0|0|0|0|
- *         |0|0|0|0|1|1|1|1|0|0|0|0|       |0|0|0|0|0|0|0|0|0|0|0|0|
- *         |0|0|0|0|1|1|1|1|0|0|0|0|       |0|0|0|0|0|0|0|0|0|0|0|0| -> the LSB
- *         +-+-+-+-+-+-+-+-+-+-+-+-+       +-+-+-+-+-+-+-+-+-+-+-+-+
- * </pre>
- * 
- * The first 10 bytes are the top part of the character, and the las 10 bytes are
- * the bottom part of the character.
- * 
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
@@ -159,6 +139,7 @@
 #include <SeekableInputStream.h>
 
 class BitmapFont {
+
 protected:
     
     /**

@@ -2,6 +2,9 @@
 #include <EffectSpec.h>
 #include <PointSpec.h>
 #include <Asserter.h>
+#include <Effect.h>
+#include <Rain.h>
+#include <Stairs.h>
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
