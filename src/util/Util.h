@@ -12,6 +12,15 @@ class Util {
 
 public:
 
+  typedef enum {
+    XYZ_AS_XYZ,
+    XYZ_AS_XZY,
+    XYZ_AS_YXZ,
+    XYZ_AS_YZX,
+    XYZ_AS_ZXY,
+    XYZ_AS_ZYX
+  } Orientation;
+
   /**
    * Shift the byte rotating it
    */
@@ -53,6 +62,11 @@ public:
   static void clr(unsigned char *p, unsigned char mask) {
     *p &= ~mask;
   }
+
+  /**
+   * Adjust coordinates according to the orientation
+   */
+  void (Point *from, Point *to, Orientation orientation);
 };
 
 #endif /* __ARDUINO_CUBE_UTIL_H__ */
