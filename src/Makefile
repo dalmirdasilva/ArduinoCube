@@ -1,6 +1,16 @@
 CC = g++
 CFLAGS = -Wall -g -std=c++0x
-INCLUDES = -I./ -I./effect -I./spec -I./core -I./util -I./lib
+INCLUDES = -I./ \
+  -I./effect \
+  -I./spec \
+  -I./core \
+  -I./util \
+  -I./lib/InputStream \
+  -I./lib/ByteArrayInputStream \
+  -I./lib/ByteArraySeekableInputStream \
+  -I./lib/SeekableInputStream \
+  -I./lib/Seekable \
+  -I./lib/Closeable
 LFLAGS =
 LIBRARIES = 
 SOURCES = \
@@ -33,9 +43,9 @@ SOURCES = \
   spec/EffectSpec.cpp \
   util/Dumper.cpp \
   util/Util.cpp \
-  lib/InputStream.cpp \
-  lib/ByteArrayInputStream.cpp \
-  lib/ByteArraySeekableInputStream.cpp
+  lib/InputStream/InputStream.cpp \
+  lib/ByteArrayInputStream/ByteArrayInputStream.cpp \
+  lib/ByteArraySeekableInputStream/ByteArraySeekableInputStream.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 MAIN = spec_bin
@@ -52,7 +62,8 @@ $(MAIN): $(OBJECTS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) *.o *~ effect/*.o effect/*~ lib/*.o lib/*~ util/*.o util/*~ core/*.o core/*~ spec/*.o spec/*~ $(MAIN)
+	find . -type f -name "*.o" -exec $(RM) {} \;
+	$(RM) $(MAIN)
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^

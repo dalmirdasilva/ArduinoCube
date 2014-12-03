@@ -15,8 +15,9 @@ public:
   typedef struct {
     TextRender *render;
     const char *text;
-    unsigned int delay;
     unsigned char charDepth;
+    unsigned char orientation;
+    unsigned int delay;
   } ShiftingTextSettings;
 
   ShiftingTextSettings *settings;

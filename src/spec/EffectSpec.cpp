@@ -179,7 +179,7 @@ void EffectSpec::shiftingTextSpec() {
   ByteArraySeekableInputStream is = ByteArraySeekableInputStream(&fontStream[0], (unsigned int) sizeof(fontStream));
   BitmapFont font = BitmapFont(&is);
   TextRender render = TextRender(cube, &font);
-  ShiftingText::ShiftingTextSettings settings = {&render, (const char *) "HP", 0, 2};
+  ShiftingText::ShiftingTextSettings settings = {&render, (const char *) "HP", 2, TextRender::XYZ, 0};
   ShiftingText effect = ShiftingText(cube, &settings);
   effect.run(1);
   Asserter::assertEqual(0, 0, "shiftingTextSpec: It should not break, we cannot test it.");
