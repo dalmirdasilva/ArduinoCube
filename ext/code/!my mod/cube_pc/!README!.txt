@@ -1,2 +1,0 @@
-- use start.exe (to init com port) if cube.exe doesn't works! (requires Java)
-- remove Bluetooth adapter, they slows Processing extremely down!
