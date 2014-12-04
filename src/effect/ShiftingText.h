@@ -26,7 +26,9 @@ public:
 
   virtual void run(unsigned int iterations);
 
-  void displayChar(const char c);
+  void displayCharacter(const char c);
+  
+  void shiftCharacter();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_SHIFTING_TEXT_H__ */

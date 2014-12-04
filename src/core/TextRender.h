@@ -29,6 +29,15 @@ class TextRender {
 
 public:
 
+  typedef enum {
+    XYZ,
+    XZY,
+    YXZ,
+    YZX,
+    ZXY,
+    ZYX
+  } TextOrientation;
+
   /**
    * Public constructor.
    *
@@ -45,7 +54,10 @@ public:
    * @param c                         The char.
    * @param size                      The size.
    */
-  void printChar(Point *p, Orientation orientation, unsigned char depth, const char c);
+  void printChar(Point *p, TextOrientation orientation, unsigned char depth, const char c);
+  
+  
+  void adjustCoordinates(Point *p, TextOrientation orientation, unsigned char **x, unsigned char **y, unsigned char **z);
 };
 
 #endif /* __SDCC_CUBE_TEXT_RENDER_H__ */

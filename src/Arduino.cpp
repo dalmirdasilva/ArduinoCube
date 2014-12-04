@@ -32,6 +32,7 @@ long analogRead(unsigned char port) {
 }
 
 void delay(long millis) {
+  usleep(millis * 1000);
 }
 
 

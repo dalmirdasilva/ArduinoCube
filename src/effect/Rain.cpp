@@ -23,7 +23,7 @@ void Rain::run(unsigned int iterations) {
       cube->turnVoxelOn(&p);
     }
     delay(settings->delay);
-    cube->shiftOnZ(Direction::DOWN);
+    cube->shiftOnZ(DOWN);
     cube->turnPlaneZOff(Cube::SIZE - 1);
   }
 }
