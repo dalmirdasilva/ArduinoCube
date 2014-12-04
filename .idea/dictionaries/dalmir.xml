@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="dalmir">
     <words>
+      <w>&amp;arg</w>
       <w>&amp;buf</w>
       <w>arduino</w>
       <w>argc</w>
@@ -11,8 +12,12 @@
       <w>extern</w>
       <w>lflags</w>
       <w>makedepend</w>
+      <w>modelview</w>
+      <w>pthread</w>
+      <w>rotatef</w>
       <w>sqrtf</w>
       <w>srcs</w>
+      <w>translatef</w>
       <w>unistd</w>
       <w>voxels</w>
       <w>wireframe</w>

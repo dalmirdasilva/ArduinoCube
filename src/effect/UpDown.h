@@ -15,20 +15,14 @@ class UpDown : public Effect {
   } Location;
 
   Location locations[Cube::BYTE_SIZE];
+  Axis axis;
+  unsigned char initialPosition;
 
 public:
 
-  typedef struct {
-    Axis axis;
-    unsigned char initialPosition;
-    unsigned int delay;
-  } UpDownSettings;
+  UpDown(Cube *cube, unsigned int iterations, unsigned int iterationDelay, Axis axis, unsigned char initialPosition);
 
-  UpDownSettings *settings;
-
-  UpDown(Cube *cube, UpDownSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 
   /**
    * Draws current position to the cube.

@@ -8,17 +8,11 @@
 #include <Cube.h>
 
 class FlowingBox : public Effect {
-
 public:
 
-  typedef struct {
-  } FlowingBoxSettings;
+  FlowingBox(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  FlowingBoxSettings *settings;
-
-  FlowingBox(Cube *cube, FlowingBoxSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_FLOWING_BOX_H__ */

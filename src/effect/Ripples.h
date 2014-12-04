@@ -8,18 +8,11 @@
 #include <Cube.h>
 
 class Ripples : public Effect {
-
 public:
 
-  typedef struct {
+  Ripples(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  } RipplesSettings;
-
-  RipplesSettings *settings;
-
-  Ripples(Cube *cube, RipplesSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_RIPPLES_H__ */

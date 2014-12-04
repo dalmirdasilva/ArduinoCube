@@ -8,11 +8,11 @@
 
 const unsigned char MovingBoxShrinkGrow::MAX_DIFF_MOVEMENTS = 0x03;
 
-MovingBoxShrinkGrow::MovingBoxShrinkGrow(Cube *cube, MovingBoxShrinkGrowSettings *settings) :
-  BoxShrinkGrow(cube, settings->parentSettings), settings(settings) {
+MovingBoxShrinkGrow::MovingBoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType) :
+   BoxShrinkGrow(cube, iterations, iterationDelay, boxType) {
 }
 
-void MovingBoxShrinkGrow::run(unsigned int iterations) {
+void MovingBoxShrinkGrow::run() {
   unsigned int iteration;
   cube->useBackBuffer();
   for (iteration = 0; iteration < iterations; iteration++) {

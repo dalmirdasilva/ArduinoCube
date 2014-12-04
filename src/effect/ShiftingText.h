@@ -17,14 +17,13 @@ public:
     const char *text;
     unsigned char charDepth;
     unsigned char orientation;
-    unsigned int delay;
   } ShiftingTextSettings;
 
   ShiftingTextSettings *settings;
 
-  ShiftingText(Cube *cube, ShiftingTextSettings *settings);
+  ShiftingText(Cube *cube, unsigned int iterations, unsigned int iterationDelay, ShiftingTextSettings *settings);
 
-  virtual void run(unsigned int iterations);
+  virtual void run();
 
   void displayCharacter(const char c);
   

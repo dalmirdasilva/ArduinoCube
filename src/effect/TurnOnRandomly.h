@@ -9,17 +9,13 @@
 
 class TurnOnRandomly : public Effect {
 
+  unsigned char maxOnVoxels;
+
 public:
 
-  typedef struct {
-    unsigned char maxOnVoxels;
-  } TurnOnRandomlySettings;
+  TurnOnRandomly(Cube *cube, unsigned int iterations, unsigned int iterationDelay, unsigned char maxOnVoxels);
 
-  TurnOnRandomlySettings *settings;
-
-  TurnOnRandomly(Cube *cube, TurnOnRandomlySettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_TURN_ON_RANDOMLY_H__ */

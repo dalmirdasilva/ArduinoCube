@@ -8,17 +8,11 @@
 #include <Cube.h>
 
 class Stairs : public Effect {
-
 public:
 
-  typedef struct {
-  } StairsSettings;
+  Stairs(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  StairsSettings *settings;
-
-  Stairs(Cube *cube, StairsSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_STAIRS_H__ */

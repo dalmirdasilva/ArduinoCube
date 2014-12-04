@@ -6,10 +6,11 @@
 
 #include <Suspend.h>
 
-Suspend::Suspend(Cube *cube, SuspendSettings *settings) : Effect(cube), settings(settings) {
+Suspend::Suspend(Cube *cube, unsigned int iterations, unsigned int iterationDelay) :
+   Effect(cube, iterations, iterationDelay) {
 }
 
-void Suspend::run(unsigned int iterations) {
+void Suspend::run() {
   unsigned int iteration;
   for (iteration = 0; iteration < iterations; iteration++) {
   }

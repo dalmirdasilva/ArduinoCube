@@ -8,18 +8,11 @@
 #include <Cube.h>
 
 class Suspend : public Effect {
-
 public:
 
-  typedef struct {
+  Suspend(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  } SuspendSettings;
-
-  SuspendSettings *settings;
-
-  Suspend(Cube *cube, SuspendSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_SUSPEND_H__ */

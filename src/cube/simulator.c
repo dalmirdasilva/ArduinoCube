@@ -12,7 +12,7 @@
 #define SPACE 0.14
 
 void render();
-void specialKeys();
+void special();
 
 double rotateOnY, rotateOnX;
 int isClicked, previousX, previousY, deltaX, deltaY;
@@ -48,19 +48,23 @@ void render() {
   glutSwapBuffers();
 }
 
-void specialKeys(int key, int x, int y) {
+void special(int key, int x, int y) {
   switch(key) {
     case GLUT_KEY_RIGHT:
-      rotateOnY +=  ROTATE_STEP;
+      cube.shiftOnX(RIGHT);
+      //rotateOnY +=  ROTATE_STEP;
       break;
     case GLUT_KEY_LEFT:
-      rotateOnY -=  ROTATE_STEP;
+      cube.shiftOnX(LEFT);
+      //rotateOnY -=  ROTATE_STEP;
       break;
     case GLUT_KEY_UP:
-      rotateOnX +=  ROTATE_STEP;
+      cube.shiftOnY(FRONT);
+      //rotateOnX +=  ROTATE_STEP;
       break;
     case GLUT_KEY_DOWN:
-      rotateOnX -=  ROTATE_STEP;
+      cube.shiftOnY(BACK);
+      //rotateOnX -=  ROTATE_STEP;
       break;
   }
   glutPostRedisplay();
@@ -95,13 +99,13 @@ void mouseMotion(int x, int y) {
 }
 
 void *cube_init(void *arg) {
-  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+  glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
   glutInitWindowSize(800, 800);
   glutCreateWindow("ArduinoCube");
   glEnable(GL_DEPTH_TEST);
   glutDisplayFunc(render);
   glutIdleFunc(render);
-  glutSpecialFunc(specialKeys);
+  glutSpecialFunc(special);
   glutMouseFunc(mouse);
   glutMotionFunc(mouseMotion);
   glutMainLoop();

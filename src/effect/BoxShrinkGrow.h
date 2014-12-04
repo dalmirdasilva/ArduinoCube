@@ -17,16 +17,9 @@ public:
     WALL = 0x02
   } BoxType;
 
-  typedef struct {
-    unsigned int delay;
-    BoxType boxType;
-  } BoxShrinkGrowSettings;
+  BoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType);
 
-  BoxShrinkGrowSettings *settings;
-
-  BoxShrinkGrow(Cube *cube, BoxShrinkGrowSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 
   void shrink();
 
@@ -35,6 +28,10 @@ public:
   void drawFrame(char size);
 
   virtual void draw(char size);
+
+protected:
+
+  BoxType boxType;
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOX_SHRINK_GROW_H__ */

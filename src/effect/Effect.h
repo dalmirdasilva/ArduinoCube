@@ -10,16 +10,17 @@
 
 class Effect {
 
-
 public:
 
+  unsigned int iterations;
+  unsigned int iterationDelay;
   Cube *cube;
 
-  Effect(Cube *cube);
+  Effect(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
   
-  virtual void run(unsigned int iterations);
+  virtual void run();
 
-  void sendVoxel(Point *origin, Direction direction, unsigned int wait);
+  void sendVoxel(Point *origin, Direction direction, unsigned int stepDelay);
 };
   
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_H__ */

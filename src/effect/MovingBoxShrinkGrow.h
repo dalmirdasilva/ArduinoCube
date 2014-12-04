@@ -9,20 +9,15 @@
 
 class MovingBoxShrinkGrow : public BoxShrinkGrow {
 
+  unsigned char state;
+
 public:
 
   const static unsigned char MAX_DIFF_MOVEMENTS;
-  unsigned char state;
 
-  typedef struct {
-    BoxShrinkGrowSettings *parentSettings;
-  } MovingBoxShrinkGrowSettings;
+  MovingBoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType);
 
-  MovingBoxShrinkGrowSettings *settings;
-
-  MovingBoxShrinkGrow(Cube *cube, MovingBoxShrinkGrowSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 
   void draw(char size);
 };

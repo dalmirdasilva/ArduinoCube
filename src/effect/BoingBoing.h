@@ -8,17 +8,11 @@
 #include <Cube.h>
 
 class BoingBoing : public Effect {
-
 public:
 
-  typedef struct {
-  } BoingBoingSettings;
+  BoingBoing(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  BoingBoingSettings *settings;
-
-  BoingBoing(Cube *cube, BoingBoingSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOING_BOING_H__ */

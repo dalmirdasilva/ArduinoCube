@@ -7,10 +7,11 @@
 #include <ShiftingText.h>
 #include <Dumper.h>
 
-ShiftingText::ShiftingText(Cube *cube, ShiftingTextSettings *settings) : Effect(cube), settings(settings) {
+ShiftingText::ShiftingText(Cube *cube, unsigned int iterations, unsigned int iterationDelay, ShiftingTextSettings *settings) :
+  Effect(cube, iterations, iterationDelay), settings(settings) {
 }
 
-void ShiftingText::run(unsigned int iterations) {
+void ShiftingText::run() {
   unsigned int iteration;
   const char *c;
   for (iteration = 0; iteration < iterations; iteration++) {
@@ -31,7 +32,6 @@ void ShiftingText::displayCharacter(const char c) {
 }
 
 void ShiftingText::shiftCharacter() {
-
 }
 
 #endif /* __ARDUINO_CUBE_EFFECTS_SHIFTING_TEXT_CPP__ */

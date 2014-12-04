@@ -4,20 +4,20 @@
 #include <Cube.h>
 #include <Blink.h>
 #include <Rain.h>
+#include <BoxShrinkGrow.h>
+#include <GameOfLife.h>
 #include "simulator.h"
 
 Cube cube = Cube();
 
 void *effect_runner(void *arg) {
-  Blink::BlinkSettings blinkSettings = {750};
-  Blink blink = Blink(&cube, &blinkSettings);
-  
-  Rain::RainSettings rainSettings = {1, 8, 200};
-  Rain rain = Rain(&cube, &rainSettings);
-  
+  Blink blink = Blink(&cube, 10, 750);
+  Rain rain = Rain(&cube, 10, 750, 8, 16);
+  BoxShrinkGrow boxShrinkGrow = BoxShrinkGrow(&cube, 10, 750, BoxShrinkGrow::WIREFRAME);
+  GameOfLife gol = GameOfLife(&cube, 10, 750, 5);
+
   while (1) {
-    rain.run(1);
-    //blink.run(1);
+    gol.run();
   }
   return NULL;
 }

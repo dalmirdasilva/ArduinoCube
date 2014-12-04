@@ -8,13 +8,14 @@
 #include <Cube.h>
 #include <Arduino.h>
 
-Effect::Effect(Cube *cube) : cube(cube) {
+Effect::Effect(Cube *cube, unsigned int iterations, unsigned int iterationDelay) :
+    cube(cube), iterations(iterations), iterationDelay(iterationDelay) {
 }
 
-void Effect::run(unsigned int iterations) {
+void Effect::run() {
 }
 
-void Effect::sendVoxel(Point *p, Direction dir, unsigned int wait) {
+void Effect::sendVoxel(Point *p, Direction dir, unsigned int stepDelay) {
   Voxel origin, current;
   char *dim, inc = 1;
   cube->readVoxel(p, &origin);
@@ -38,7 +39,7 @@ void Effect::sendVoxel(Point *p, Direction dir, unsigned int wait) {
   for (; (inc > 0) ? *dim < Cube::SIZE : *dim >= 0; *dim += inc) {
     cube->readVoxel(p, &current);
     cube->writeVoxel(p, origin);
-    delay(wait);
+    delay(stepDelay);
     cube->writeVoxel(p, current);
   }
 }

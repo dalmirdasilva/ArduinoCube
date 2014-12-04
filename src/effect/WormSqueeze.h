@@ -8,18 +8,11 @@
 #include <Cube.h>
 
 class WormSqueeze : public Effect {
-
 public:
 
-  typedef struct {
+  WormSqueeze(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  } WormSqueezeSettings;
-
-  WormSqueezeSettings *settings;
-
-  WormSqueeze(Cube *cube, WormSqueezeSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_WORM_SQUEEZE_H__ */

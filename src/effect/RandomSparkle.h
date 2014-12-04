@@ -8,18 +8,11 @@
 #include <Cube.h>
 
 class RandomSparkle : public Effect {
-
 public:
 
-  typedef struct {
+  RandomSparkle(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  } RandomSparkleSettings;
-
-  RandomSparkleSettings *settings;
-
-  RandomSparkle(Cube *cube, RandomSparkleSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_RANDOM_SPARKLE_H__ */

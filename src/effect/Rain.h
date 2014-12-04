@@ -9,19 +9,14 @@
 
 class Rain : public Effect {
 
+  unsigned char minDrops;
+  unsigned char maxDrops;
+
 public:
-  
-  typedef struct {
-    unsigned char minDrops;
-    unsigned char maxDrops;
-    unsigned char delay;
-  } RainSettings;
 
-  RainSettings *settings;
-
-  Rain(Cube *cube, RainSettings *settings);
+  Rain(Cube *cube, unsigned int iterations, unsigned int iterationDelay, unsigned char minDrops, unsigned char maxDrops);
   
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
   
 #endif /* __ARDUINO_CUBE_EFFECTS_RAIN_H__ */

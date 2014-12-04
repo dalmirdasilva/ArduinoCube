@@ -7,10 +7,11 @@
 #include <BoxShrinkGrow.h>
 #include <Arduino.h>
 
-BoxShrinkGrow::BoxShrinkGrow(Cube *cube, BoxShrinkGrowSettings *settings) : Effect(cube), settings(settings) {
+BoxShrinkGrow::BoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType) :
+    Effect(cube, iterations, iterationDelay), boxType(boxType) {
 }
 
-void BoxShrinkGrow::run(unsigned int iterations) {
+void BoxShrinkGrow::run() {
   unsigned int iteration;
   cube->useBackBuffer();
   for (iteration = 0; iteration < iterations; iteration++) {
@@ -37,14 +38,14 @@ void BoxShrinkGrow::grow() {
 void BoxShrinkGrow::drawFrame(char size) {
     draw(size);
     cube->swapBuffers();
-    delay(settings->delay);
+    delay(iterationDelay);
 }
 
 void BoxShrinkGrow::draw(char size) {
   Point from = Point();
   Point to = Point(size, size, size);
   cube->clear();
-  switch(settings->boxType) {
+  switch(boxType) {
     case WIREFRAME:
       cube->wireframeBox(&from, &to);
       break;

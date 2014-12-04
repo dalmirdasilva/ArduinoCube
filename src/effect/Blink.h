@@ -8,18 +8,11 @@
 #include <Cube.h>
 
 class Blink : public Effect {
-
 public:
 
-  typedef struct {
-    int delay;
-  } BlinkSettings;
+  Blink(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  BlinkSettings *settings;
-
-  Blink(Cube *cube, BlinkSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BLINK_H__ */

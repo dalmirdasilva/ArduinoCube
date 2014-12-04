@@ -6,13 +6,13 @@
 
 #include <BoingBoing.h>
 
-BoingBoing::BoingBoing(Cube *cube, BoingBoingSettings *settings) : Effect(cube), settings(settings) {
+BoingBoing::BoingBoing(Cube *cube, unsigned int iterations, unsigned int iterationDelay) :
+    Effect(cube, iterations, iterationDelay) {
 }
 
-void BoingBoing::run(unsigned int iterations) {
+void BoingBoing::run() {
   unsigned int iteration;
   for (iteration = 0; iteration < iterations; iteration++) {
-
   }
 }
 

@@ -9,6 +9,8 @@
 
 class GameOfLife : public Effect {
 
+  unsigned char firstGenerationSize;
+
 public:
 
   static const unsigned char LONELY_DEATH = 1;
@@ -16,16 +18,9 @@ public:
   static const unsigned char CREATE_MIN = 3;
   static const unsigned char CREATE_MAX = 3;
 
-  typedef struct {
-    unsigned int delay;
-    unsigned char firstGenerationSize;
-  } GameOfLifeSettings;
+  GameOfLife(Cube *cube, unsigned int iterations, unsigned int iterationDelay, unsigned char firstGenerationSize);
 
-  GameOfLifeSettings *settings;
-
-  GameOfLife(Cube *cube, GameOfLifeSettings *settings);
-
-  virtual void run(unsigned int iterations);
+  virtual void run();
 
   void genesis();
 
