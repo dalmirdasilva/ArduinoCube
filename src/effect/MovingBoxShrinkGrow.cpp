@@ -17,8 +17,8 @@ void MovingBoxShrinkGrow::run() {
   cube->useBackBuffer();
   for (iteration = 0; iteration < iterations; iteration++) {
     grow();
-    shrink();
     state++;
+    shrink();
   }
   cube->useFrontBuffer();
 }

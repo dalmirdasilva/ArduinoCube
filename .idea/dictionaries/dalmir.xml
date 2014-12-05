@@ -13,6 +13,7 @@
       <w>lflags</w>
       <w>makedepend</w>
       <w>modelview</w>
+      <w>ortho</w>
       <w>pthread</w>
       <w>rotatef</w>
       <w>sqrtf</w>

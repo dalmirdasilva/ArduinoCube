@@ -26,7 +26,7 @@ void render() {
   glLoadIdentity();
   glRotatef(rotateOnX, 1.0, 0.0, 0.0);
   glRotatef(rotateOnY, 0.0, 1.0, 0.0);
-  glMatrixMode(GL_MODELVIEW);
+  glMatrixMode(GL_PROJECTION);
   for(p.x = 0; p.x < 8; p.x++) {
     for(p.y = 0; p.y < 8; p.y++) {
       for(p.z = 0; p.z < 8; p.z++) {
@@ -34,7 +34,7 @@ void render() {
         glPushMatrix();
         glTranslatef(SPACE * (p.x - Cube::SIZE / 2), SPACE * (p.y - Cube::SIZE / 2), -SPACE * (p.z - Cube::SIZE / 2));
         if (v.state == ON) {
-          glColor4f(0.0, 0.0, 1.0, 1.0f);
+          glColor4f(1.0, 0.0, 0.0, 1.0f);
           glutSolidSphere(0.018, 25, 5);
         } else {
           glColor4f(1.0, 1.0, 1.0, 0.1f);
@@ -44,6 +44,7 @@ void render() {
       }
     }
   }
+
   glFlush();
   glutSwapBuffers();
 }
@@ -51,19 +52,27 @@ void render() {
 void special(int key, int x, int y) {
   switch(key) {
     case GLUT_KEY_RIGHT:
+      rotateOnY +=  ROTATE_STEP;
+      break;
+    case 'd':
       cube.shiftOnX(RIGHT);
-      //rotateOnY +=  ROTATE_STEP;
       break;
     case GLUT_KEY_LEFT:
       cube.shiftOnX(LEFT);
+      break;
+    case 'd':
       //rotateOnY -=  ROTATE_STEP;
       break;
     case GLUT_KEY_UP:
       cube.shiftOnY(FRONT);
+      break;
+    case 'd':
       //rotateOnX +=  ROTATE_STEP;
       break;
     case GLUT_KEY_DOWN:
       cube.shiftOnY(BACK);
+      break;
+    case 'd':
       //rotateOnX -=  ROTATE_STEP;
       break;
   }
@@ -87,8 +96,8 @@ void mouseMotion(int x, int y) {
     if (previousX || previousY) {
       deltaX = previousX - x;
       deltaY = previousY - y;
-      rotateOnX +=  deltaY;
-      rotateOnY +=  deltaX;
+      rotateOnX += deltaY;
+      rotateOnY += deltaX;
       previousX = x;
       previousY = y;
     } else{
