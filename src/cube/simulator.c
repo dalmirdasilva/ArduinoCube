@@ -52,28 +52,28 @@ void render() {
 void special(int key, int x, int y) {
   switch(key) {
     case GLUT_KEY_RIGHT:
-      rotateOnY +=  ROTATE_STEP;
+      rotateOnY += ROTATE_STEP;
+      break;
+    case GLUT_KEY_LEFT:
+      rotateOnY += ROTATE_STEP;
+      break;
+    case GLUT_KEY_UP:
+      rotateOnX += ROTATE_STEP;
+      break;
+    case GLUT_KEY_DOWN:
+      rotateOnX -= ROTATE_STEP;
+      break;
+    case 'w':
+      cube.shiftOnY(UP);
+      break;
+    case 's':
+      cube.shiftOnY(DOWN);
       break;
     case 'd':
       cube.shiftOnX(RIGHT);
       break;
-    case GLUT_KEY_LEFT:
+    case 'a':
       cube.shiftOnX(LEFT);
-      break;
-    case 'd':
-      //rotateOnY -=  ROTATE_STEP;
-      break;
-    case GLUT_KEY_UP:
-      cube.shiftOnY(FRONT);
-      break;
-    case 'd':
-      //rotateOnX +=  ROTATE_STEP;
-      break;
-    case GLUT_KEY_DOWN:
-      cube.shiftOnY(BACK);
-      break;
-    case 'd':
-      //rotateOnX -=  ROTATE_STEP;
       break;
   }
   glutPostRedisplay();
