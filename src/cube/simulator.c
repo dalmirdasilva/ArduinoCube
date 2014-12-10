@@ -6,13 +6,11 @@
 #include <Cube.h>
 #include <Voxel.h>
 #include <Point.h>
+
 #include "simulator.h"
 
 #define ROTATE_STEP 5
 #define SPACE 0.14
-
-void render();
-void special();
 
 double rotateOnY, rotateOnX;
 int isClicked, previousX, previousY, deltaX, deltaY;
@@ -55,7 +53,7 @@ void special(int key, int x, int y) {
       rotateOnY += ROTATE_STEP;
       break;
     case GLUT_KEY_LEFT:
-      rotateOnY += ROTATE_STEP;
+      rotateOnY -= ROTATE_STEP;
       break;
     case GLUT_KEY_UP:
       rotateOnX += ROTATE_STEP;
