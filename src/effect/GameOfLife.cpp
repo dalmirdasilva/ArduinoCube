@@ -9,8 +9,6 @@
 
 GameOfLife::GameOfLife(Cube *cube, unsigned int iterations, unsigned int iterationDelay, unsigned char firstGenerationSize) :
     Effect(cube, iterations, iterationDelay), firstGenerationSize(firstGenerationSize) {
-
-  genesis();
 }
 
 void GameOfLife::run() {
@@ -29,7 +27,7 @@ void GameOfLife::genesis() {
   unsigned char i;
   Point p;
   cube->clear();
-  for (i = 0; i < 1; i++) {
+  for (i = 0; i < firstGenerationSize; i++) {
     p.randomize(Cube::SIZE);
     cube->turnVoxelOn(&p);
   }
@@ -39,7 +37,6 @@ void GameOfLife::nextGeneration() {
 	unsigned char neighbors;
 	Point p;
 	Voxel v;
-	//cube->useBackBuffer();
 	for (p.z = 0; p.z < Cube::SIZE; p.z++) {
     for (p.y = 0; p.y < Cube::SIZE; p.y++) {
       for (p.x = 0; p.x < Cube::SIZE; p.x++) {
@@ -57,8 +54,6 @@ void GameOfLife::nextGeneration() {
 			}
 		}
 	}
-	//cube->swapBuffers();
-	//cube->useFrontBuffer();
 }
 
 unsigned char GameOfLife::getNeighbors(Point *at) {

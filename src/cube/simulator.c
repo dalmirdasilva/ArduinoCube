@@ -63,16 +63,16 @@ void special(int key, int x, int y) {
     case GLUT_KEY_DOWN:
       rotateOnX -= ROTATE_STEP;
       break;
-    case 'w':
+    case '8':
       cube.shiftOnY(UP);
       break;
-    case 's':
+    case '2':
       cube.shiftOnY(DOWN);
       break;
-    case 'd':
+    case '6':
       cube.shiftOnX(RIGHT);
       break;
-    case 'a':
+    case '4':
       cube.shiftOnX(LEFT);
       break;
   }
