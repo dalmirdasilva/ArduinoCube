@@ -15,7 +15,7 @@ void *effect_runner(void *arg) {
   Blink blink = Blink(&cube, 10, 750);
   Rain rain = Rain(&cube, 10, 300, 4, 8);
   BoxShrinkGrow boxShrinkGrow = BoxShrinkGrow(&cube, 10, 750, BoxShrinkGrow::WIREFRAME);
-  MovingBoxShrinkGrow movingBoxShrinkGrow = MovingBoxShrinkGrow(&cube, 100, 300, BoxShrinkGrow::WIREFRAME);
+  MovingBoxShrinkGrow movingBoxShrinkGrow = MovingBoxShrinkGrow(&cube, 100, 70, BoxShrinkGrow::WIREFRAME);
   GameOfLife gol = GameOfLife(&cube, 10, 750, 5);
 
 
