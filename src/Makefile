@@ -41,6 +41,7 @@ SOURCES = \
   spec/PointSpec.cpp \
   spec/CubeSpec.cpp \
   spec/EffectSpec.cpp \
+  spec/BitmapFontSpec.cpp \
   util/Dumper.cpp \
   util/Util.cpp \
   lib/InputStream/InputStream.cpp \

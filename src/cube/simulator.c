@@ -42,7 +42,6 @@ void render() {
       }
     }
   }
-
   glFlush();
   glutSwapBuffers();
 }
@@ -105,7 +104,7 @@ void mouseMotion(int x, int y) {
   }
 }
 
-void *cube_init(void *arg) {
+void *cubeInit(void *arg) {
   glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
   glutInitWindowSize(800, 800);
   glutCreateWindow("ArduinoCube");

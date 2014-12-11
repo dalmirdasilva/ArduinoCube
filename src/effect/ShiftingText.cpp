@@ -26,9 +26,8 @@ void ShiftingText::run() {
 }
 
 void ShiftingText::displayCharacter(const char c) {
-  Point p = Point(0, 0, 0);
   cube->clear();
-  settings->render->printChar(&p, (TextRender::TextOrientation) settings->orientation, settings->charDepth, c);
+  settings->render->printChar(settings->point, (TextRender::TextOrientation) settings->orientation, settings->charDepth, c);
 }
 
 void ShiftingText::shiftCharacter() {

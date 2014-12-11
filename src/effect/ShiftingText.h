@@ -17,6 +17,7 @@ public:
     const char *text;
     unsigned char charDepth;
     unsigned char orientation;
+    Point *point;
   } ShiftingTextSettings;
 
   ShiftingTextSettings *settings;

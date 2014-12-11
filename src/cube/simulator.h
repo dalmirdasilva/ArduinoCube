@@ -20,6 +20,6 @@ void render();
 void special(int key, int x, int y);
 void mouse(int button, int pressed, int x, int y);
 void mouseMotion(int x, int y);
-void *cube_init(void *arg);
+void *cubeInit(void *arg);
 
 #endif /* __ARDUINO_CUBE_SIMULATOR_H__ */
