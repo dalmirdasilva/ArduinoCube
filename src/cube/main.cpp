@@ -40,7 +40,7 @@ void *effect_runner(void *arg) {
   return NULL;
 }
 
-int main (int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
   int arg = 0;
   void *exit_status;
 
