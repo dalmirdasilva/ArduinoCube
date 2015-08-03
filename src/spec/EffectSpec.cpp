@@ -68,13 +68,14 @@ void EffectSpec::rainSpec() {
   cube->clear();
   effect.run();
   for (i = 0; i < Cube::SIZE; i++) {
+    aux += AT(cube->frontBuffer, i, Cube::SIZE - 2);
+  }
+  Asserter::assertNotEqual(aux, 0, "rainSpec: It should have turned on some LEDs.");
+  aux = 0;
+  for (i = 0; i < Cube::SIZE; i++) {
     aux += AT(cube->frontBuffer, i, Cube::SIZE - 1);
   }
   Asserter::assertEqual(aux, 0, "rainSpec: It should clear the top plane.");
-  for (i = 0; i < Cube::SIZE; i++) {
-    aux += AT(cube->frontBuffer, i, 0);
-  }
-  Asserter::assertNotEqual(aux, 0, "rainSpec: It should have turned on some LEDs.");
 }
 
 void EffectSpec::boingBoingSpec() {
@@ -163,7 +164,8 @@ void EffectSpec::shiftingTextSpec() {
   ByteArraySeekableInputStream is = ByteArraySeekableInputStream(&fontStream[0], (unsigned int) sizeof(fontStream));
   BitmapFont font = BitmapFont(&is);
   TextRender render = TextRender(cube, &font);
-  ShiftingText::ShiftingTextSettings settings = {&render, (const char *) "HP", 2, TextRender::XYZ};
+  Point p = Point(0, 0, 0);
+  ShiftingText::ShiftingTextSettings settings = {&render, (const char *) "HP", 2, TextRender::XYZ, &p};
   ShiftingText effect = ShiftingText(cube, 1, 0, &settings);
   effect.run();
   Asserter::assertEqual(0, 0, "shiftingTextSpec: It should not break, we cannot test it.");
