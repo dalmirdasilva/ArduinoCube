@@ -1,6 +1,3 @@
-ArduinoCube
-===========
+# Arduino Cube
 
-A Cube made with LED. 
-
-
+[Documentation.pdf](Documentation.pdf)

@@ -1,6 +1,25 @@
+# Compiled Object files
+*.slo
+*.lo
 *.o
-src/main
-.idea
-ArduinoCube.iml
-.idea/workspace.xml
-.idea/*
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+Release/*
+Debug/*
+
