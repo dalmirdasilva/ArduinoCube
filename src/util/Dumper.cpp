@@ -4,7 +4,7 @@
 #ifndef __ARDUINO_CUBE_DUMPER_CPP__
 #define __ARDUINO_CUBE_DUMPER_CPP__ 1
 
-#include <Dumper.h>
+#include "Dumper.h"
 
 void Dumper::dumpPoint(Point *point) {
   printf("Point {\n  x: %d,\n  y: %d,\n  z: %d\n}\n", point->x, point->y, point->z);

@@ -1,5 +1,6 @@
 #include <CubeSpec.h>
 #include <Asserter.h>
+#include <Voxel.h>
 #include <Util.h>
 #include <stdio.h>
 #include <string.h>
@@ -200,10 +201,10 @@ void CubeSpec::shiftOnXSpec() {
   cube->clear();
   cube->turnVoxelOn(&p);
   aux = AT(cube->frontBuffer, y, z);
-  cube->shiftOnX(Direction::RIGHT);
+  cube->shiftOnX(RIGHT);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::rotatingShift(aux, false), "shiftOnXSpec: should shiftOnXSpec RIGHT.");
   aux = AT(cube->frontBuffer, y, z);
-  cube->shiftOnX(Direction::LEFT);
+  cube->shiftOnX(LEFT);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), Util::rotatingShift(aux, true), "shiftOnXSpec: should shiftOnXSpec LEFT.");
 }
 
@@ -211,10 +212,10 @@ void CubeSpec::shiftOnYSpec() {
   cube->useFrontBuffer();
   cube->clear();
   AT(cube->frontBuffer, 7, 0) = 0xff;
-  cube->shiftOnY(Direction::BACK);
+  cube->shiftOnY(BACK);
   Asserter::assertEqual(AT(cube->frontBuffer, 7, 0), 0x00, "shiftOnYSpec: should shiftOnYSpec case 1.");
   Asserter::assertEqual(AT(cube->frontBuffer, 6, 0), 0xff, "shiftOnYSpec: should shiftOnYSpec case 2.");
-  cube->shiftOnY(Direction::FRONT);
+  cube->shiftOnY(FRONT);
   Asserter::assertEqual(AT(cube->frontBuffer, 7, 0), 0xff, "shiftOnYSpec: should shiftOnYSpec case 3.");
   Asserter::assertEqual(AT(cube->frontBuffer, 6, 0), 0x00, "shiftOnYSpec: should shiftOnYSpec case 4.");
 }
@@ -225,8 +226,8 @@ void CubeSpec::shiftOnZSpec() {
   cube->useFrontBuffer();
   cube->clear();
   cube->turnVoxelOn(&p);
-  cube->shiftOnZ(Direction::UP);
+  cube->shiftOnZ(UP);
   Asserter::assertEqual(AT(cube->frontBuffer, y, (z + 1) % Cube::SIZE), 0x01 << x, "shiftOnZSpec: should shiftOnZSpec UP.");
-  cube->shiftOnZ(Direction::DOWN);
+  cube->shiftOnZ(DOWN);
   Asserter::assertEqual(AT(cube->frontBuffer, y, z), 0x01 << x, "shiftOnZSpec: should shiftOnZSpec UP.");
 }

@@ -19,7 +19,7 @@
 #include <ShiftingText.h>
 #include <stdio.h>
 #include <string.h>
-#include <ByteArraySeekableInputStream.h>
+#include <ByteArrayInputStream.h>
 #include <BitmapFont.h>
 #include <TextRender.h>
 
@@ -139,7 +139,7 @@ void EffectSpec::suspendSpec() {
 }
 
 void EffectSpec::upDownSpec() {
-  UpDown effect = UpDown(cube, 1, 0, Axis::AXIS_X, 0);
+  UpDown effect = UpDown(cube, 1, 0, AXIS_X, 0);
   effect.run();
   Asserter::assertEqual(0, 0, "upDownSpec: It should not break, we cannot test it.");
 }
@@ -161,7 +161,7 @@ void EffectSpec::shiftingTextSpec() {
     0x0, 0x5, 0x8, 0x2, 0x48, 0x48, 0x0, 0xc, 0x50, 0x50, 0x0, 0x11,
     0x7f, 0x8, 0x8, 0x8, 0x7f, 0x7f, 0x9, 0x9, 0x9, 0x6
   };
-  ByteArraySeekableInputStream is = ByteArraySeekableInputStream(&fontStream[0], (unsigned int) sizeof(fontStream));
+  ByteArrayInputStream is = ByteArrayInputStream(&fontStream[0], (unsigned int) sizeof(fontStream));
   BitmapFont font = BitmapFont(&is);
   TextRender render = TextRender(cube, &font);
   Point p = Point(0, 0, 0);
