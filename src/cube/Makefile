@@ -3,7 +3,6 @@ CFLAGS = -Wall  -g -std=c++0x
 INCLUDES = -I./ \
   -I./.. \
   -I./../effect \
-  -I./../spec \
   -I./../core \
   -I./../util \
   -I./../lib/InputStream \
@@ -20,34 +19,8 @@ SOURCES = \
   ../Arduino.cpp \
   ../core/Cube.cpp \
   ../core/Point.cpp \
-  ../core/BitmapFont.cpp \
-  ../core/TextRender.cpp \
-  ../effect/Effect.cpp \
-  ../effect/Blink.cpp \
-  ../effect/BoingBoing.cpp \
-  ../effect/BoxShrinkGrow.cpp \
-  ../effect/BoxWoopWoop.cpp \
-  ../effect/FlowingBox.cpp \
-  ../effect/GameOfLife.cpp \
-  ../effect/MovingBoxShrinkGrow.cpp \
-  ../effect/Rain.cpp \
-  ../effect/RandomSparkle.cpp \
-  ../effect/Ripples.cpp \
-  ../effect/Stairs.cpp \
-  ../effect/Suspend.cpp \
-  ../effect/TurnOnRandomly.cpp \
-  ../effect/UpDown.cpp \
-  ../effect/WormSqueeze.cpp \
-  ../effect/ShiftingText.cpp \
-  ../spec/Asserter.cpp \
-  ../spec/PointSpec.cpp \
-  ../spec/CubeSpec.cpp \
-  ../spec/EffectSpec.cpp \
   ../util/Dumper.cpp \
-  ../util/Util.cpp \
-  ../lib/InputStream/InputStream.cpp \
-  ../lib/ByteArrayInputStream/ByteArrayInputStream.cpp \
-  ../lib/ByteArraySeekableInputStream/ByteArraySeekableInputStream.cpp
+  ../util/Util.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 MAIN = simulator

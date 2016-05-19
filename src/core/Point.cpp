@@ -13,38 +13,38 @@ Point::Point() {
   init(0, 0, 0);
 }
 
-Point::Point(unsigned char x, unsigned char y, unsigned char z) {
+Point::Point(unsigned int x, unsigned int y, unsigned int z) {
   init(x, y, z);
 }
 
-void Point::randomize(unsigned char maxRange) {
+void Point::randomize(unsigned int maxRange) {
   x = random(maxRange);
   y = random(maxRange);
   z = random(maxRange);
 }
 
-unsigned char Point::distanceOnXTo(Point *p) {
-  return (unsigned char) abs(x - p->x);
+unsigned int Point::distanceOnXTo(Point *p) {
+  return (unsigned int) abs(x - p->x);
 }
 
-unsigned char Point::distanceOnYTo(Point *p) {
-  return (unsigned char) abs(y - p->y);
+unsigned int Point::distanceOnYTo(Point *p) {
+  return (unsigned int) abs(y - p->y);
 }
 
-unsigned char Point::distanceOnZTo(Point *p) {
-  return (unsigned char) abs(z - p->z);
+unsigned int Point::distanceOnZTo(Point *p) {
+  return (unsigned int) abs(z - p->z);
 }
 
 float Point::distance2DTo(Point *p) {
-  unsigned char dx = distanceOnXTo(p);
-  unsigned char dy = distanceOnYTo(p);
+  unsigned int dx = distanceOnXTo(p);
+  unsigned int dy = distanceOnYTo(p);
   return sqrt(dx * dx + dy * dy);
 }
 
 float Point::distance3DTo(Point *p) {
-  unsigned char dx = distanceOnXTo(p);
-  unsigned char dy = distanceOnYTo(p);
-  unsigned char dz = distanceOnZTo(p);
+  unsigned int dx = distanceOnXTo(p);
+  unsigned int dy = distanceOnYTo(p);
+  unsigned int dz = distanceOnZTo(p);
   return sqrt(dx * dx + dy * dy + dz * dz);
 }
 

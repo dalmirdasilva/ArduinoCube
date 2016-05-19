@@ -36,12 +36,6 @@ SOURCES = \
   effect/UpDown.cpp \
   effect/WormSqueeze.cpp \
   effect/ShiftingText.cpp \
-  spec.cpp \
-  spec/Asserter.cpp \
-  spec/PointSpec.cpp \
-  spec/CubeSpec.cpp \
-  spec/EffectSpec.cpp \
-  spec/BitmapFontSpec.cpp \
   util/Dumper.cpp \
   util/Util.cpp \
   lib/InputStream/InputStream.cpp \

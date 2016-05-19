@@ -11,8 +11,8 @@
 
 #define AT(y, z) *(*bufferToWrite + ((z * CUBE_SIZE + y) & CUBE_BYTE_SIZE_MASK))
 
-unsigned char Cube::buffer0[CUBE_SIZE][CUBE_SIZE] = {};
-unsigned char Cube::buffer1[CUBE_SIZE][CUBE_SIZE] = {};
+unsigned int Cube::buffer0[CUBE_SIZE][CUBE_SIZE] = {};
+unsigned int Cube::buffer1[CUBE_SIZE][CUBE_SIZE] = {};
 
 void Cube::selectBuffer(Buffer buffer) {
   noInterrupts();
@@ -25,7 +25,7 @@ void Cube::selectBuffer(Buffer buffer) {
 }
 
 void Cube::swapBuffers() {
-  unsigned char *buf;
+  unsigned int *buf;
   noInterrupts();
   buf = backBuffer;
   backBuffer = frontBuffer;
@@ -34,10 +34,7 @@ void Cube::swapBuffers() {
 }
 
 bool Cube::isInRange(Point *p) const {
-  if (p->x < 0 || p->y < 0 || p->z < 0 || p->y >= Cube::SIZE || p->x >= Cube::SIZE || p->z >= Cube::SIZE) {
-    return false;
-  }
-  return true;
+  return !(p->x < 0 || p->y < 0 || p->z < 0 || p->y >= Cube::SIZE || p->x >= Cube::SIZE || p->z >= Cube::SIZE);
 }
 
 void Cube::fitInRange(Point *p) {
@@ -46,11 +43,11 @@ void Cube::fitInRange(Point *p) {
   p->z &= CUBE_SIZE_MASK;
 }
 
-void Cube::fill(unsigned char pattern) {
+void Cube::fill(unsigned int pattern) {
   memset(*bufferToWrite, pattern, Cube::BYTE_SIZE);
 }
 
-void Cube::writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state) {
+void Cube::writeVoxel(unsigned int x, unsigned int y, unsigned int z, unsigned int state) {
   unsigned char mask;
   mask = 1 << x;
   state == ON ? Util::set(&AT(y, z), mask) : Util::clr(&AT(y, z), mask);
@@ -77,52 +74,52 @@ void Cube::invertVoxel(Point *p) {
   (AT(p->y, p->z) & mask) ? Util::clr(&AT(p->y, p->z), mask) : Util::set(&AT(p->y, p->z), mask);
 }
 
-void Cube::turnPlaneZOff(unsigned char z) {
+void Cube::turnPlaneZOff(unsigned int z) {
   Voxel v = {OFF};
   writePlaneZ(z, v);
 }
 
-void Cube::turnPlaneZOn(unsigned char z) {
+void Cube::turnPlaneZOn(unsigned int z) {
   Voxel v = {ON};
   writePlaneZ(z, v);
 }
 
-void Cube::writePlaneZ(unsigned char z, Voxel v) {
-  unsigned char pattern;
+void Cube::writePlaneZ(unsigned int z, Voxel v) {
+  unsigned int pattern;
   z %= Cube::SIZE;
   pattern = (v.state == ON) ? 0xff : 0x00;
   memset(&AT(0, z), pattern, Cube::SIZE);
 }
 
-void Cube::turnPlaneYOff(unsigned char y) {
+void Cube::turnPlaneYOff(unsigned int y) {
   Voxel v = {OFF};
   writePlaneY(y, v);
 }
 
-void Cube::turnPlaneYOn(unsigned char y) {
+void Cube::turnPlaneYOn(unsigned int y) {
   Voxel v = {ON};
   writePlaneY(y, v);
 }
 
-void Cube::writePlaneY(unsigned char y, Voxel v) {
-  unsigned char z;
+void Cube::writePlaneY(unsigned int y, Voxel v) {
+  unsigned int z;
   y %= Cube::SIZE;
   for (z = 0; z < Cube::SIZE; z++)
     AT(y, z) = (v.state == ON) ? 0xff : 0x00;
 }
 
-void Cube::turnPlaneXOff(unsigned char x) {
+void Cube::turnPlaneXOff(unsigned int x) {
   Voxel v = {OFF};
   writePlaneX(x, v);
 }
 
-void Cube::turnPlaneXOn(unsigned char x) {
+void Cube::turnPlaneXOn(unsigned int x) {
   Voxel v = {ON};
   writePlaneX(x, v);
 }
 
-void Cube::writePlaneX(unsigned char x, Voxel v) {
-  unsigned char z, y, mask;
+void Cube::writePlaneX(unsigned int x, Voxel v) {
+  unsigned int z, y, mask;
   mask = 1 << x;
   x %= Cube::SIZE;
   for (z = 0; z < Cube::SIZE; z++) {
@@ -132,7 +129,7 @@ void Cube::writePlaneX(unsigned char x, Voxel v) {
   }
 }
 
-void Cube::writePlane(Axis axis, unsigned char pos, Voxel v) {
+void Cube::writePlane(Axis axis, unsigned int pos, Voxel v) {
   switch(axis) {
     case AXIS_X:
       writePlaneX(pos, v);
@@ -172,7 +169,7 @@ void Cube::line(Point *from, Point *to) {
 }
 
 void Cube::mirrorX() {
-  unsigned char y, z, buf[Cube::SIZE][Cube::SIZE];
+  unsigned int y, z, buf[Cube::SIZE][Cube::SIZE];
   memcpy(buf, *bufferToWrite, Cube::BYTE_SIZE);
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
@@ -183,7 +180,7 @@ void Cube::mirrorX() {
 }
 
 void Cube::mirrorY() {
-  unsigned char i, j, z, buf[Cube::SIZE][Cube::SIZE];
+  unsigned int i, j, z, buf[Cube::SIZE][Cube::SIZE];
   memcpy(buf, *bufferToWrite, Cube::BYTE_SIZE);
   clear();
   for (z = 0; z < Cube::SIZE; z++) {
@@ -194,7 +191,7 @@ void Cube::mirrorY() {
 }
 
 void Cube::mirrorZ() {
-  unsigned char i, j, y, buf[Cube::SIZE][Cube::SIZE];
+  unsigned int i, j, y, buf[Cube::SIZE][Cube::SIZE];
   memcpy(buf, *bufferToWrite, Cube::BYTE_SIZE);
   clear();
   for (i = 0, j = Cube::SIZE - 1; i < Cube::SIZE; i++, j--) {
@@ -205,7 +202,7 @@ void Cube::mirrorZ() {
 }
 
 void Cube::filledBox(Point *from, Point *to) {
-  unsigned char z, y;
+  unsigned int z, y;
   Util::orderArgs(&from->x, &to->x);
   Util::orderArgs(&from->y, &to->y);
   Util::orderArgs(&from->z, &to->z);
@@ -216,8 +213,8 @@ void Cube::filledBox(Point *from, Point *to) {
   }
 }
 
-void Cube::writeSubCube(Point *p, Voxel v, unsigned char size) {
-  unsigned char x, y, z;
+void Cube::writeSubCube(Point *p, Voxel v, unsigned int size) {
+  unsigned int x, y, z;
   x = p->x + size;
   for (z = p->z; z < p->z + size; z++) {
     for (y = p->y; y < p->y + size; y++) {
@@ -227,7 +224,7 @@ void Cube::writeSubCube(Point *p, Voxel v, unsigned char size) {
 }
 
 void Cube::wallBox(Point *from, Point *to) {
-  unsigned char z, y, aux;
+  unsigned int z, y, aux;
   Util::orderArgs(&(from->x), &(to->x));
   Util::orderArgs(&(from->y), &(to->y));
   Util::orderArgs(&(from->z), &(to->z));
@@ -244,7 +241,7 @@ void Cube::wallBox(Point *from, Point *to) {
 }
 
 void Cube::wireframeBox(Point *from, Point *to) {
-  unsigned char z, y;
+  unsigned int z, y;
   Util::orderArgs(&(from->x), &(to->x));
   Util::orderArgs(&(from->y), &(to->y));
   Util::orderArgs(&(from->z), &(to->z));
@@ -267,7 +264,7 @@ void Cube::wireframeBox(Point *from, Point *to) {
 }
 
 void Cube::shiftOnX(Direction direction) {
-  unsigned char y, z, aux;
+  unsigned int y, z, aux;
   for (z = 0; z < Cube::SIZE; z++) {
     for (y = 0; y < Cube::SIZE; y++) {
       aux = AT(z, y);
@@ -283,7 +280,7 @@ void Cube::shiftOnX(Direction direction) {
 }
 
 void Cube::shiftOnY(Direction direction) {
-  unsigned char z, *b, buf[Cube::SIZE][Cube::SIZE];
+  unsigned int z, *b, buf[Cube::SIZE][Cube::SIZE];
   bool isFront;
   isFront = (direction == FRONT);
   b = &(buf[0][0]);
@@ -299,7 +296,7 @@ void Cube::shiftOnY(Direction direction) {
 }
 
 void Cube::shiftOnZ(Direction direction) {
-  unsigned char z, k, *p, *first, *last, *src, *dst, aux[Cube::SIZE];
+  unsigned int z, k, *p, *first, *last, *src, *dst, aux[Cube::SIZE];
   first = *bufferToWrite;
   last = *bufferToWrite + (Cube::BYTE_SIZE - Cube::SIZE);
   p = (direction == UP) ? last : first;

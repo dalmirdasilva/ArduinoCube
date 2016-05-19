@@ -8,21 +8,21 @@ class Point {
 
 public:
 
-  unsigned char x;
-  unsigned char y;
-  unsigned char z;
+  unsigned int x;
+  unsigned int y;
+  unsigned int z;
 
   Point();
 
-  Point(unsigned char x, unsigned char y, unsigned char z);
+  Point(unsigned int x, unsigned int y, unsigned int z);
 
-  void randomize(unsigned char maxRange);
+  void randomize(unsigned int maxRange);
 
-  unsigned char distanceOnXTo(Point *p);
+  unsigned int distanceOnXTo(Point *p);
 
-  unsigned char distanceOnYTo(Point *p);
+  unsigned int distanceOnYTo(Point *p);
 
-  unsigned char distanceOnZTo(Point *p);
+  unsigned int distanceOnZTo(Point *p);
 
   float distance2DTo(Point *p);
 
@@ -30,7 +30,7 @@ public:
 
 private:
 
-  void init(unsigned char x, unsigned char y, unsigned char z) {
+  void init(unsigned int x, unsigned int y, unsigned int z) {
     this->x = x;
     this->y = y;
     this->z = z;

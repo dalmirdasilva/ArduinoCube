@@ -10,7 +10,7 @@
 #include "simulator.h"
 
 #define ROTATE_STEP 5
-#define SPACE 0.14
+#define SPACE 0.07
 
 double rotateOnY, rotateOnX;
 int isClicked, previousX, previousY, deltaX, deltaY;
@@ -25,9 +25,9 @@ void render() {
   glRotatef(rotateOnX, 1.0, 0.0, 0.0);
   glRotatef(rotateOnY, 0.0, 1.0, 0.0);
   glMatrixMode(GL_PROJECTION);
-  for(p.x = 0; p.x < 8; p.x++) {
-    for(p.y = 0; p.y < 8; p.y++) {
-      for(p.z = 0; p.z < 8; p.z++) {
+  for(p.x = 0; p.x < Cube::SIZE; p.x++) {
+    for(p.y = 0; p.y < Cube::SIZE; p.y++) {
+      for(p.z = 0; p.z < Cube::SIZE; p.z++) {
         cube.readVoxel(&p, &v);
         glPushMatrix();
         glTranslatef(SPACE * (p.x - Cube::SIZE / 2), SPACE * (p.y - Cube::SIZE / 2), -SPACE * (p.z - Cube::SIZE / 2));
@@ -106,7 +106,7 @@ void mouseMotion(int x, int y) {
 
 void *cubeInit(void *arg) {
   glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-  glutInitWindowSize(800, 800);
+  glutInitWindowSize(1200, 1200);
   glutCreateWindow("ArduinoCube");
   glEnable(GL_DEPTH_TEST);
   glutDisplayFunc(render);

@@ -5,26 +5,26 @@
 #ifndef __ARDUINO_CUBE_CUBE_H__
 #define __ARDUINO_CUBE_CUBE_H__ 1
 
-#define CUBE_SIZE             0x08
-#define CUBE_BYTE_SIZE        CUBE_SIZE * CUBE_SIZE
-#define CUBE_SIZE_MASK        0x07
-#define CUBE_BYTE_SIZE_MASK   0x3f
+#define CUBE_SIZE             0x10
+#define CUBE_BYTE_SIZE        CUBE_SIZE * CUBE_SIZE * sizeof(int)
+#define CUBE_SIZE_MASK        0x0f
+#define CUBE_BYTE_SIZE_MASK   0x3fff
 
 #include <Point.h>
 #include <Voxel.h>
 
 class Cube {
 
-  static unsigned char buffer0[CUBE_SIZE][CUBE_SIZE];
-  static unsigned char buffer1[CUBE_SIZE][CUBE_SIZE];
-  unsigned char **bufferToWrite;
+  static unsigned int buffer0[CUBE_SIZE][CUBE_SIZE];
+  static unsigned int buffer1[CUBE_SIZE][CUBE_SIZE];
+  unsigned int **bufferToWrite;
 
 public:
 
-  const static unsigned char SIZE = CUBE_SIZE;
-  const static unsigned char BYTE_SIZE = CUBE_BYTE_SIZE;
-  unsigned char *frontBuffer;
-  unsigned char *backBuffer;
+  const static unsigned int SIZE = CUBE_SIZE;
+  const static unsigned int BYTE_SIZE = CUBE_BYTE_SIZE;
+  unsigned int *frontBuffer;
+  unsigned int *backBuffer;
 
   typedef enum {
     FRONT_BUFFER = 0x00,
@@ -86,7 +86,7 @@ public:
    * Mostly used for clearing. fill(0x00) 
    * or setting all on. fill(0xff)
    */
-  void fill(unsigned char pattern);
+  void fill(unsigned int pattern);
   
   /**
    * Writes the v Voxel to the cube at p Point. If b == true
@@ -103,7 +103,7 @@ public:
   /**
    * 
    */
-  void writeVoxel(unsigned char x, unsigned char y, unsigned char z, unsigned char state);
+  void writeVoxel(unsigned int x, unsigned int y, unsigned int z, unsigned int state);
 
   /**
    * Set voxel to ON
@@ -134,52 +134,52 @@ public:
   /**
    * Turn off plane z.
    */
-  void turnPlaneZOff(unsigned char z);
+  void turnPlaneZOff(unsigned int z);
   
   /**
    * Turn on plane z.
    */
-  void turnPlaneZOn(unsigned char z);
+  void turnPlaneZOn(unsigned int z);
 
   /**
    * Write plane z.
    */
-  void writePlaneZ(unsigned char z, Voxel v);
+  void writePlaneZ(unsigned int z, Voxel v);
   
   /**
    * Turn off plane y.
    */
-  void turnPlaneYOff(unsigned char y);
+  void turnPlaneYOff(unsigned int y);
   
   /**
    * Turn on plane y.
    */
-  void turnPlaneYOn(unsigned char y);
+  void turnPlaneYOn(unsigned int y);
   
   /**
    * Write plane y.
    */
-  void writePlaneY(unsigned char y, Voxel v);
+  void writePlaneY(unsigned int y, Voxel v);
   
   /**
    * Turn off plane x.
    */
-  void turnPlaneXOff(unsigned char x);
+  void turnPlaneXOff(unsigned int x);
   
   /**
    * Turn on plane x.
    */
-  void turnPlaneXOn(unsigned char x);
+  void turnPlaneXOn(unsigned int x);
   
   /**
    * Write plane x.
    */
-  void writePlaneX(unsigned char x, Voxel v);
+  void writePlaneX(unsigned int x, Voxel v);
   
   /**
    * Turn the p plane.
    */
-  void writePlane(Axis axis, unsigned char pos, Voxel v);
+  void writePlane(Axis axis, unsigned int pos, Voxel v);
   
   /**
    * Flip the cube 180 degrees along the x axis.
@@ -239,7 +239,7 @@ public:
   /**
    * 
    */
-  void writeSubCube(Point *p, Voxel v, unsigned char size);
+  void writeSubCube(Point *p, Voxel v, unsigned int size);
 
   /**
    * Swap the buffers. Current buffer becomes backed buffer and vice-versa.
