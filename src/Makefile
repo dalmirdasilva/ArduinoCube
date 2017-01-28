@@ -1,6 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g -std=c++0x
 INCLUDES = -I./ \
+  -I./emulate \
   -I./effect \
   -I./spec \
   -I./core \
@@ -14,7 +15,7 @@ INCLUDES = -I./ \
 LFLAGS =
 LIBRARIES = 
 SOURCES = \
-  Arduino.cpp \
+  emulate/Arduino.cpp \
   core/Cube.cpp \
   core/Point.cpp \
   core/BitmapFont.cpp \
@@ -36,7 +37,7 @@ SOURCES = \
   effect/UpDown.cpp \
   effect/WormSqueeze.cpp \
   effect/ShiftingText.cpp \
-  spec.cpp \
+  emulate/spec.cpp \
   spec/Asserter.cpp \
   spec/PointSpec.cpp \
   spec/CubeSpec.cpp \

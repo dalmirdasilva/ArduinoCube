@@ -108,7 +108,9 @@ void *cubeInit(void *arg) {
   glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
   glutInitWindowSize(800, 800);
   glutCreateWindow("ArduinoCube");
+  glMatrixMode(GL_PROJECTION);
   glEnable(GL_DEPTH_TEST);
+  //gluPerspective(45, 800.0/400.0, 1.0, 50.0);
   glutDisplayFunc(render);
   glutIdleFunc(render);
   glutSpecialFunc(special);

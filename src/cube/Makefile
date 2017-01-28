@@ -17,7 +17,7 @@ LIBRARIES = -lGL -lglut -lGLU -lpthread
 SOURCES = \
   ./main.cpp \
   ./simulator.c \
-  ../Arduino.cpp \
+  ../emulate/Arduino.cpp \
   ../core/Cube.cpp \
   ../core/Point.cpp \
   ../core/BitmapFont.cpp \

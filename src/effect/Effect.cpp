@@ -17,21 +17,24 @@ void Effect::run() {
 
 void Effect::sendVoxel(Point *p, Direction dir, unsigned int stepDelay) {
   Voxel origin, current;
-  char *dim, inc = 1;
+  char *dim = NULL, inc = 1;
   cube->readVoxel(p, &origin);
   switch (dir) {
     case UP:
       inc = -1;
+      /* no break */
     case DOWN:
       dim = (char*)&(p->z);
       break;
     case FRONT:
       inc = -1;
+      /* no break */
     case BACK:
       dim = (char*)&(p->y);
       break;
     case RIGHT:
       inc = -1;
+      /* no break */
     case LEFT:
       dim = (char*)&(p->x);
       break;

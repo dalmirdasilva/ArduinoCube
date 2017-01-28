@@ -34,7 +34,7 @@ void *effect_runner(void *arg) {
   MovingBoxShrinkGrow movingBoxShrinkGrow = MovingBoxShrinkGrow(&cube, 100, 70, BoxShrinkGrow::WIREFRAME);
   GameOfLife gol = GameOfLife(&cube, 10, 750, 5);
   while (1) {
-    shiftingText.run();
+    rain.run();
   }
   return NULL;
 }

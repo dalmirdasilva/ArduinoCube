@@ -12,9 +12,9 @@ class Effect {
 
 public:
 
+  Cube *cube;
   unsigned int iterations;
   unsigned int iterationDelay;
-  Cube *cube;
 
   Effect(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
   

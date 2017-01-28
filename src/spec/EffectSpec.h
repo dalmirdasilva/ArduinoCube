@@ -7,48 +7,48 @@
 #include <Cube.h>
 
 class EffectSpec {
-  
+
 public:
 
-  Cube *cube;
-  
-  EffectSpec(Cube *cube);
+    Cube *cube;
 
-  void run();
+    EffectSpec(Cube *cube);
 
-  void selfSpec();
+    void run();
 
-  void rainSpec();
+    void selfSpec();
 
-  void blinkSpec();
+    void rainSpec();
 
-  void boingBoingSpec();
+    void blinkSpec();
 
-  void boxShrinkGrowSpec();
+    void boingBoingSpec();
 
-  void boxWoopWoopSpec();
+    void boxShrinkGrowSpec();
 
-  void flowingBoxSpec();
+    void boxWoopWoopSpec();
 
-  void gameOfLifeSpec();
+    void flowingBoxSpec();
 
-  void movingBoxShrinkGrowSpec();
+    void gameOfLifeSpec();
 
-  void randomSparkleSpec();
+    void movingBoxShrinkGrowSpec();
 
-  void ripplesSpec();
+    void randomSparkleSpec();
 
-  void stairsSpec();
+    void ripplesSpec();
 
-  void suspendSpec();
+    void stairsSpec();
 
-  void upDownSpec();
+    void suspendSpec();
 
-  void wormSqueezeSpec();
+    void upDownSpec();
 
-  void turnOnRandomlySpec();
+    void wormSqueezeSpec();
 
-  void shiftingTextSpec();
+    void turnOnRandomlySpec();
+
+    void shiftingTextSpec();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECT_TEST_H__ */

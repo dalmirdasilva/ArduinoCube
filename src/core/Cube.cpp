@@ -227,7 +227,7 @@ void Cube::writeSubCube(Point *p, Voxel v, unsigned char size) {
 }
 
 void Cube::wallBox(Point *from, Point *to) {
-  unsigned char z, y, aux;
+  unsigned char z, y, aux = 0;
   Util::orderArgs(&(from->x), &(to->x));
   Util::orderArgs(&(from->y), &(to->y));
   Util::orderArgs(&(from->z), &(to->z));
