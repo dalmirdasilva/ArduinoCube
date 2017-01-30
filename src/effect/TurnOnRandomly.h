@@ -7,15 +7,15 @@
 #include <Effect.h>
 #include <Cube.h>
 
-class TurnOnRandomly : public Effect {
+class TurnOnRandomly: public Effect {
 
-  unsigned char maxOnVoxels;
+    unsigned char maxOnVoxels;
 
 public:
 
-  TurnOnRandomly(Cube *cube, unsigned int iterations, unsigned int iterationDelay, unsigned char maxOnVoxels);
+    TurnOnRandomly(Cube *cube, unsigned int iterations, unsigned int iterationDelay, unsigned char maxOnVoxels);
 
-  virtual void run();
+    virtual bool iterate();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_TURN_ON_RANDOMLY_H__ */

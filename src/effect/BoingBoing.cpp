@@ -6,14 +6,12 @@
 
 #include <BoingBoing.h>
 
-BoingBoing::BoingBoing(Cube *cube, unsigned int iterations, unsigned int iterationDelay) :
-    Effect(cube, iterations, iterationDelay) {
+BoingBoing::BoingBoing(Cube *cube, unsigned int iterations, unsigned int iterationDelay)
+        : Effect(cube, iterations, iterationDelay) {
 }
 
-void BoingBoing::run() {
-  unsigned int iteration;
-  for (iteration = 0; iteration < iterations; iteration++) {
-  }
+bool BoingBoing::iterate() {
+    return false;
 }
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOING_BOING_CPP__ */

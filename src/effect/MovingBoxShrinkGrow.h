@@ -7,19 +7,14 @@
 #include <BoxShrinkGrow.h>
 #include <Cube.h>
 
-class MovingBoxShrinkGrow : public BoxShrinkGrow {
-
-  unsigned char state;
-
+class MovingBoxShrinkGrow: public BoxShrinkGrow {
 public:
 
-  const static unsigned char MAX_DIFF_MOVEMENTS;
+    const static unsigned char MAX_DIFF_MOVEMENTS;
 
-  MovingBoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType);
+    MovingBoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType);
 
-  virtual void run();
-
-  void draw(char size);
+    void draw(signed char size);
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_MOVING_BOX_SHRINK_GROW_H__ */

@@ -17,47 +17,46 @@
 
 class TextRender {
 
-  /**
-   * The cube.
-   */
-  Cube *cube;
+    /**
+     * The cube.
+     */
+    Cube *cube;
 
-  /**
-   * The used font.
-   */
-  BitmapFont *font;
+    /**
+     * The used font.
+     */
+    BitmapFont *font;
 
 public:
 
-  typedef enum {
-    XYZ,
-    XZY,
-    YXZ,
-    YZX,
-    ZXY,
-    ZYX
-  } TextOrientation;
+    typedef enum {
+        XYZ,
+        XZY,
+        YXZ,
+        YZX,
+        ZXY,
+        ZYX
+    } TextOrientation;
 
-  /**
-   * Public constructor.
-   *
-   * @param cube                  The cube instance
-   * @param font                  The font to be used.
-   */
-  TextRender(Cube *cube, BitmapFont *font);
+    /**
+     * Public constructor.
+     *
+     * @param cube                  The cube instance
+     * @param font                  The font to be used.
+     */
+    TextRender(Cube *cube, BitmapFont *font);
 
-  /**
-   * Write a char on the cube
-   *
-   * @param p                         3D point
-   * @param axis                      Axis to print
-   * @param c                         The char.
-   * @param size                      The size.
-   */
-  void printChar(Point *p, TextOrientation orientation, unsigned char depth, const char c);
-  
-  
-  void adjustCoordinates(Point *p, TextOrientation orientation, unsigned char **x, unsigned char **y, unsigned char **z);
+    /**
+     * Write a char on the cube
+     *
+     * @param p                         3D point
+     * @param axis                      Axis to print
+     * @param c                         The char.
+     * @param size                      The size.
+     */
+    void printChar(Point *p, TextOrientation orientation, unsigned char depth, const char c);
+
+    void adjustCoordinates(Point *p, TextOrientation orientation, unsigned char **x, unsigned char **y, unsigned char **z);
 };
 
 #endif /* __SDCC_CUBE_TEXT_RENDER_H__ */

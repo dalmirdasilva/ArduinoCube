@@ -6,14 +6,12 @@
 
 #include <FlowingBox.h>
 
-FlowingBox::FlowingBox(Cube *cube, unsigned int iterations, unsigned int iterationDelay) :
-    Effect(cube, iterations, iterationDelay) {
+FlowingBox::FlowingBox(Cube *cube, unsigned int iterations, unsigned int iterationDelay)
+        : Effect(cube, iterations, iterationDelay) {
 }
 
-void FlowingBox::run() {
-  unsigned int iteration;
-  for (iteration = 0; iteration < iterations; iteration++) {
-  }
+bool FlowingBox::iterate() {
+    return false;
 }
 
 #endif /* __ARDUINO_CUBE_EFFECTS_FLOWING_BOX_CPP__ */

@@ -141,7 +141,7 @@
 class BitmapFont {
 
 protected:
-    
+
     /**
      * Font header.
      */
@@ -152,17 +152,17 @@ protected:
         unsigned char sequenceCount;
     };
     Header header;
-    
+
     /**
      * Glyph length.
      */
     unsigned char glyphLength;
-    
+
     /**
      * Input stream which font data comes from.
      */
     SeekableInputStream* inputStream;
-    
+
     /**
      * Data offset. It is the point when the header ends.
      */
@@ -197,7 +197,7 @@ public:
      * @return                  The height of a char.
      */
     unsigned char getCharacterHeight();
-    
+
     /**
      * Gets the sequence count.
      * 
@@ -222,7 +222,7 @@ public:
     virtual unsigned char readGlyphData(unsigned char *buf, char c);
 
 protected:
-    
+
     /**
      * Gets the offset to the given character.
      * 

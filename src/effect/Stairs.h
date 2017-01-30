@@ -12,7 +12,7 @@ public:
 
   Stairs(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  virtual void run();
+  virtual bool iterate();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_STAIRS_H__ */

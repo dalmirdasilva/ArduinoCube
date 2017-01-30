@@ -7,12 +7,12 @@
 #include <Effect.h>
 #include <Cube.h>
 
-class Blink : public Effect {
+class Blink: public Effect {
 public:
 
-  Blink(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
+    Blink(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  virtual void run();
+    virtual bool iterate();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BLINK_H__ */

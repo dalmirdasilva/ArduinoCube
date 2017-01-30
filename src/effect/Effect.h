@@ -1,7 +1,7 @@
 /**
  * 
  */
- 
+
 #ifndef __ARDUINO_CUBE_EFFECTS_EFFECT_H__
 #define __ARDUINO_CUBE_EFFECTS_EFFECT_H__ 1
 
@@ -12,15 +12,20 @@ class Effect {
 
 public:
 
-  Cube *cube;
-  unsigned int iterations;
-  unsigned int iterationDelay;
+    Cube *cube;
+    unsigned int iterations;
+    unsigned int iterationDelay;
+    unsigned int iteration;
 
-  Effect(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
-  
-  virtual void run();
+    Effect(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  void sendVoxel(Point *origin, Direction direction, unsigned int stepDelay);
+    virtual ~Effect();
+
+    virtual void run();
+
+    virtual bool iterate() = 0;
+
+    void sendVoxel(Point *origin, Direction direction, unsigned int stepDelay);
 };
-  
+
 #endif /* __ARDUINO_CUBE_EFFECTS_EFFECT_H__ */

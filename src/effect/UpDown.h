@@ -24,6 +24,8 @@ public:
 
   virtual void run();
 
+  virtual bool iterate();
+
   /**
    * Draws current position to the cube.
    */

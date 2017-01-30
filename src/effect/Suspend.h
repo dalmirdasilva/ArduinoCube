@@ -7,12 +7,12 @@
 #include <Effect.h>
 #include <Cube.h>
 
-class Suspend : public Effect {
+class Suspend: public Effect {
 public:
 
-  Suspend(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
+    Suspend(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  virtual void run();
+    virtual bool iterate();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_SUSPEND_H__ */

@@ -7,31 +7,31 @@
 #include <Effect.h>
 #include <Cube.h>
 
-class BoxShrinkGrow : public Effect {
+class BoxShrinkGrow: public Effect {
 
 public:
 
-  typedef enum {
-    WIREFRAME = 0x00,
-    FILLED = 0x01,
-    WALL = 0x02
-  } BoxType;
+    typedef enum {
+        WIREFRAME = 0x00,
+        FILLED = 0x01,
+        WALL = 0x02
+    } BoxType;
 
-  BoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType);
+    BoxShrinkGrow(Cube *cube, unsigned int iterations, unsigned int iterationDelay, BoxType boxType);
 
-  virtual void run();
+    virtual bool iterate();
 
-  void shrink();
+    void shrink();
 
-  void grow();
+    void grow();
 
-  void drawFrame(char size);
+    void drawFrame(signed char size);
 
-  virtual void draw(char size);
+    virtual void draw(signed char size);
 
 protected:
 
-  BoxType boxType;
+    BoxType boxType;
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOX_SHRINK_GROW_H__ */

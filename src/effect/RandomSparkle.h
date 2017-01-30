@@ -12,7 +12,7 @@ public:
 
   RandomSparkle(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  virtual void run();
+  virtual bool interate();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_RANDOM_SPARKLE_H__ */

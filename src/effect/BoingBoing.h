@@ -7,12 +7,12 @@
 #include <Effect.h>
 #include <Cube.h>
 
-class BoingBoing : public Effect {
+class BoingBoing: public Effect {
 public:
 
-  BoingBoing(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
+    BoingBoing(Cube *cube, unsigned int iterations, unsigned int iterationDelay);
 
-  virtual void run();
+    virtual bool iterate();
 };
 
 #endif /* __ARDUINO_CUBE_EFFECTS_BOING_BOING_H__ */
